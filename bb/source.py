@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import sqlite3
+import threading
 from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
@@ -38,7 +39,8 @@ class Corpus:
     def __init__(self, documents: Path, index_path: Path) -> None:
         self.documents = documents.resolve(strict=True)
         self.sources: dict[str, Source] = {}
-        self.db = sqlite3.connect(index_path)
+        self.db = sqlite3.connect(index_path, check_same_thread=False)
+        self._search_lock = threading.Lock()
         self.db.row_factory = sqlite3.Row
         self.db.execute(
             "CREATE TABLE source (source_id TEXT PRIMARY KEY, filename TEXT NOT NULL, "
@@ -116,11 +118,12 @@ class Corpus:
         fts_query = " OR ".join(f'"{token}"' for token in tokens)
         permitted = set(source_ids) if source_ids is not None else None
         # Fetch extra rows before the Python-side optional source filter.
-        rows = self.db.execute(
-            "SELECT source_id, line_number, content, bm25(source_fts) AS score "
-            "FROM source_fts WHERE source_fts MATCH ? ORDER BY score LIMIT ?",
-            (fts_query, min(max(limit * 8, limit), 500)),
-        ).fetchall()
+        with self._search_lock:
+            rows = self.db.execute(
+                "SELECT source_id, line_number, content, bm25(source_fts) AS score "
+                "FROM source_fts WHERE source_fts MATCH ? ORDER BY score LIMIT ?",
+                (fts_query, min(max(limit * 8, limit), 500)),
+            ).fetchall()
         results = []
         for row in rows:
             if permitted is not None and row["source_id"] not in permitted:

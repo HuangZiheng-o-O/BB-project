@@ -9,8 +9,12 @@ dependencies = [
   "pydantic>=2.8",
 ]
 
+[project.optional-dependencies]
+web = ["gradio>=6.0,<7"]
+
 [project.scripts]
 bb-review = "bb.cli:main"
+bb-review-web = "bb.web:main"
 
 [build-system]
 requires = ["hatchling>=1.25"]

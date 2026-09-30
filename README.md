@@ -40,6 +40,21 @@ For follow-up questions over **unchanged** documents, use `--snapshot /path/to/p
 
 Validated extraction and reconciliation batches are also cached by model, prompt and input content under ignored `runs/_stage_cache/`. A restarted run can reuse completed batches without replacing prior artifacts. Progress messages identify the active batch or question.
 
+## Local question page
+
+Install the optional Gradio interface and launch it from the project directory:
+
+```bash
+uv sync --extra web
+uv run --extra web bb-review-web \
+  --model glm-4.7 \
+  --base-url https://api.z.ai/api/paas/v4/
+```
+
+Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The answer appears in the page with its source references. **Download Markdown** provides the same answer as a `.md` file. The page uses `documents/`, `artifacts/development/abstraction.json`, and `artifacts/development/calculation.json` by default, so it does not repeat the extraction for each question. Each answer and its model trace are saved under ignored `runs/web/`.
+
+The page listens on the local computer only and does not create a public Gradio share link. For another document set, first create a new abstraction and calculation with `bb-review`, then pass their paths with `--documents`, `--snapshot`, and `--calculation`. To try a replacement model on the same records, change `--model` and, if needed, `--provider` and `--base-url`.
+
 ## Method and checks
 
 The source adapter assigns stable document IDs and line numbers and builds a SQLite FTS5 index. A model extracts source-specific event, plan, measurement and observation claims in batches. A source-coverage check retries explicitly identified encounters omitted by a large batch. A selective time-scope audit distinguishes group/session time from patient-specific contact time. A reconciliation pass combines claims about the same encounter, retaining explicit corrections and unresolved conflicting intervals. The deterministic calculator unions actual patient-contact intervals, subtracts breaks, aggregates by day and Monday–Sunday week, and compares documented goals. The answer agent can search, open sources, inspect all claims for an event, page through complete inventories and request calculated views. It can investigate a new question even if that concept was absent from the initial abstraction.
