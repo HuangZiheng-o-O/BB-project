@@ -30,6 +30,14 @@ def _valid_date(value: str | None) -> str | None:
     return value
 
 
+def _empty_string(value: str | None) -> str:
+    return "" if value is None else value
+
+
+def _empty_list(value: list | None) -> list:
+    return [] if value is None else value
+
+
 class Anchor(BaseModel):
     source_id: str
     lines: list[int] = Field(min_length=1, max_length=12)
@@ -66,6 +74,16 @@ class EventMention(BaseModel):
     note: str = ""
     mention_id: str = ""
 
+    @field_validator("note", mode="before")
+    @classmethod
+    def optional_note(cls, value: str | None) -> str:
+        return _empty_string(value)
+
+    @field_validator("actual_intervals", "scheduled_intervals", "nontherapy_intervals", mode="before")
+    @classmethod
+    def optional_intervals(cls, value: list | None) -> list:
+        return _empty_list(value)
+
     @field_validator("service_date")
     @classmethod
     def valid_service_date(cls, value: str | None) -> str | None:
@@ -84,12 +102,34 @@ class PlanGoal(BaseModel):
     lines: list[int] = Field(min_length=1, max_length=12)
     effective_from: str | None = None
     effective_to: str | None = None
-    period: str = "week_monday_sunday"
+    period: str | None = None
     minimum_days: int | None = None
     minimum_minutes: int | None = None
     included_services: list[str] = Field(default_factory=list)
     excluded_services: list[str] = Field(default_factory=list)
     description: str = ""
+
+    @field_validator("period", mode="before")
+    @classmethod
+    def normalize_period(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        lowered = value.lower().strip()
+        if lowered == "week_monday_sunday" or ("monday" in lowered and "sunday" in lowered):
+            return "week_monday_sunday"
+        if lowered in {"weekly", "week", "each week"}:
+            return "weekly_unspecified_boundary"
+        return value
+
+    @field_validator("included_services", "excluded_services", mode="before")
+    @classmethod
+    def optional_services(cls, value: list | None) -> list:
+        return _empty_list(value)
+
+    @field_validator("description", mode="before")
+    @classmethod
+    def optional_description(cls, value: str | None) -> str:
+        return _empty_string(value)
 
     @field_validator("effective_from", "effective_to")
     @classmethod
@@ -109,6 +149,11 @@ class MeasureMention(BaseModel):
     score: float | None = None
     copied_from_form: str | None = None
     note: str = ""
+
+    @field_validator("note", mode="before")
+    @classmethod
+    def optional_note(cls, value: str | None) -> str:
+        return _empty_string(value)
 
     @field_validator("completed_date")
     @classmethod

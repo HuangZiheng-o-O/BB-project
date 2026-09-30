@@ -1,0 +1,894 @@
+{
+  "period": {
+    "start": "2026-01-05",
+    "end": "2026-01-30"
+  },
+  "events": [
+    {
+      "event_id": "HG-M042:HG-E110",
+      "service_date": "2026-01-19",
+      "service_type": "group",
+      "service_category": "group",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-19": 60
+        }
+      ],
+      "minutes": {
+        "minimum": 60,
+        "maximum": 60
+      },
+      "source_refs": [
+        "BH-D101:L3,L4,L5,L6",
+        "BH-D102:L4,L5,L8,L9",
+        "BH-D103:L5,L7",
+        "BH-D104:L5,L11,L14"
+      ],
+      "supporting_mentions": [
+        "9bfab289be998512",
+        "2d94b09b67e7b511",
+        "a4ba377f728a6eb1",
+        "dee91df1b391b7b0"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "The explicit correction (BH-D103) supersedes the departure time in the original roster, changing it from 11:30 to 11:15. BH-D104 is a retransmission of the original roster and does not undo the correction. The non-therapeutic break of 10:45-11:00 is retained in excluded_intervals as it overlaps the broad interval."
+    },
+    {
+      "event_id": "HG-M042:HG-E111",
+      "service_date": "2026-01-19",
+      "service_type": "individual",
+      "service_category": "individual",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-19": 30
+        }
+      ],
+      "minutes": {
+        "minimum": 30,
+        "maximum": 30
+      },
+      "source_refs": [
+        "BH-D105:L3,L4,L5,L6"
+      ],
+      "supporting_mentions": [
+        "26f05d127d8180b3"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Unambiguous individual psychotherapy encounter supported by a single clinical record."
+    },
+    {
+      "event_id": "HG-M042:HG-E112",
+      "service_date": "2026-01-21",
+      "service_type": "individual",
+      "service_category": "individual",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-21": 45
+        }
+      ],
+      "minutes": {
+        "minimum": 45,
+        "maximum": 45
+      },
+      "source_refs": [
+        "BH-D106:L3,L4,L5,L7"
+      ],
+      "supporting_mentions": [
+        "3a3077242e6b11c8"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Patient contact occurred in two segments separated by a network disconnect. The disconnect interval is placed in excluded_intervals to denote the gap without patient therapy."
+    },
+    {
+      "event_id": "HG-M042:HG-E113",
+      "service_date": "2026-01-22",
+      "service_type": "group",
+      "service_category": "group",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-22": 45
+        }
+      ],
+      "minutes": {
+        "minimum": 45,
+        "maximum": 45
+      },
+      "source_refs": [
+        "BH-D107:L4,L7,L8",
+        "BH-D108:L9"
+      ],
+      "supporting_mentions": [
+        "c22be0218f3cd675",
+        "e61eb73672fb102d"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Attendance roster notes late arrival at 10:30, which is used for the start of the patient-present interval. The group's nontherapeutic break overlaps the patient's interval and is placed in excluded_intervals."
+    },
+    {
+      "event_id": "HG-M042:HG-E118",
+      "service_date": "2026-01-29",
+      "service_type": "group",
+      "service_category": "group",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-29": 75
+        }
+      ],
+      "minutes": {
+        "minimum": 75,
+        "maximum": 75
+      },
+      "source_refs": [
+        "BH-D107:L4,L12,L13",
+        "BH-D108:L12"
+      ],
+      "supporting_mentions": [
+        "2dfd97b4edacae22",
+        "b140ab1d1a764386"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Clinical record and attendance roster both agree patient attended full scheduled duration 10:00-11:30. Group break 10:45-11:00 is excluded."
+    },
+    {
+      "event_id": "HG-M042:HG-E116",
+      "service_date": "2026-01-27",
+      "service_type": "group",
+      "service_category": "group",
+      "disposition": "not_delivered",
+      "patient_therapy": "no",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D108:L10",
+        "BH-D112:L19,L20,L23",
+        "BH-D112:L5,L9,L10"
+      ],
+      "supporting_mentions": [
+        "52d56395ea577201"
+      ],
+      "opposing_mentions": [
+        "d985b540345b3780",
+        "01f28d8fb957b417"
+      ],
+      "decision_notes": "Attendance roster confirms no-show. The draft template and posted charge are administrative and do not establish patient presence or therapy delivery."
+    },
+    {
+      "event_id": "HG-M042:HG-E117",
+      "service_date": "2026-01-28",
+      "service_type": "individual",
+      "service_category": "individual",
+      "disposition": "not_delivered",
+      "patient_therapy": "no",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D108:L11"
+      ],
+      "supporting_mentions": [
+        "d710b78ce59306c5"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Appointment was cancelled by the patient before it occurred; no therapy delivered."
+    },
+    {
+      "event_id": "HG-M042:HG-E114",
+      "service_date": "2026-01-23",
+      "service_type": "care_coordination",
+      "service_category": null,
+      "disposition": "delivered",
+      "patient_therapy": "no",
+      "eligible_service": false,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D109:L3,L5,L7"
+      ],
+      "supporting_mentions": [
+        "11815c343f597715"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Care coordination encounter occurred but the patient did not participate, so patient_therapy is no and interval_options is empty."
+    },
+    {
+      "event_id": "HG-M042:HG-E115",
+      "service_date": "2026-01-26",
+      "service_type": "individual",
+      "service_category": "individual",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-26": 50
+        },
+        {
+          "2026-01-26": 40
+        }
+      ],
+      "minutes": {
+        "minimum": 40,
+        "maximum": 50
+      },
+      "source_refs": [
+        "BH-D110:L3,L7",
+        "BH-D111:L4,L6,L7,L10,L14"
+      ],
+      "supporting_mentions": [
+        "c1b5b6230e7a867b",
+        "9b4ac002e99e66ce"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Two credible signed clinical records conflict on the start time of patient contact (09:00 vs 09:10) without an explicit amendment. Both plausible options are preserved in interval_options rather than choosing one or summing them."
+    },
+    {
+      "event_id": "HG-M042:HG-E119",
+      "service_date": "2026-01-30",
+      "service_type": "family",
+      "service_category": "family",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-30": 30
+        }
+      ],
+      "minutes": {
+        "minimum": 30,
+        "maximum": 30
+      },
+      "source_refs": [
+        "BH-D113:L3,L7"
+      ],
+      "supporting_mentions": [
+        "06f4644440017134"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Family psychotherapy encounter. Patient was only present with partner from 13:15-13:45; the 13:00-13:15 interval was partner-only and excluded from patient therapy interval."
+    },
+    {
+      "event_id": "HG-M042:HG-E120",
+      "service_date": "2026-01-30",
+      "service_type": "medication",
+      "service_category": null,
+      "disposition": "delivered",
+      "patient_therapy": "no",
+      "eligible_service": false,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D114:L3,L5"
+      ],
+      "supporting_mentions": [
+        "144858a93b5bb006"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Medication management is not classified as patient psychotherapy. Patient was present, but interval_options is empty as per rules for non-psychotherapy encounters."
+    },
+    {
+      "event_id": "HG-M042:HG-E101",
+      "service_date": "2026-01-05",
+      "service_type": "individual",
+      "service_category": "individual",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-05": 50
+        }
+      ],
+      "minutes": {
+        "minimum": 50,
+        "maximum": 50
+      },
+      "source_refs": [
+        "BH-D002:L5,L6,L8",
+        "BH-D006:L10"
+      ],
+      "supporting_mentions": [
+        "e97176373388131c",
+        "1f4ec29cd06dde21"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Attendance and clinical records perfectly align on individual therapy delivered from 09:00 to 09:50."
+    },
+    {
+      "event_id": "HG-M042:HG-E102",
+      "service_date": "2026-01-06",
+      "service_type": "group",
+      "service_category": "group",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-06": 45
+        }
+      ],
+      "minutes": {
+        "minimum": 45,
+        "maximum": 45
+      },
+      "source_refs": [
+        "BH-D004:L5,L6,L12",
+        "BH-D005:L10"
+      ],
+      "supporting_mentions": [
+        "84d0318227d344bd",
+        "d259dee97e455694"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Attendance record establishes patient present interval 10:15-11:15 due to late arrival and early departure. Group break 10:45-11:00 overlaps this interval and is placed in excluded_intervals."
+    },
+    {
+      "event_id": "HG-M042:HG-E103",
+      "service_date": "2026-01-08",
+      "service_type": "individual",
+      "service_category": "individual",
+      "disposition": "not_delivered",
+      "patient_therapy": "no",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D006:L12",
+        "BH-D015:L5,L6,L11"
+      ],
+      "supporting_mentions": [
+        "9151d949e20e64cd",
+        "4c3ea775492cc0f5"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Both attendance and administrative records confirm the patient was a no-show. No therapy was delivered."
+    },
+    {
+      "event_id": "HG-M042:HG-E104",
+      "service_date": "2026-01-09",
+      "service_type": "family",
+      "service_category": "family",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-09": 45
+        }
+      ],
+      "minutes": {
+        "minimum": 45,
+        "maximum": 45
+      },
+      "source_refs": [
+        "BH-D007:L6,L9",
+        "BH-D008:L6,L8"
+      ],
+      "supporting_mentions": [
+        "afe049ccb5ca61ba",
+        "9636fff62a6b1874"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Both clinical records agree that the family session was delivered with the patient present for the full 45 minutes from 14:00 to 14:45."
+    },
+    {
+      "event_id": "HG-M042:HG-E105",
+      "service_date": "2026-01-12",
+      "service_type": "group",
+      "service_category": "group",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-12": 75
+        }
+      ],
+      "minutes": {
+        "minimum": 75,
+        "maximum": 75
+      },
+      "source_refs": [
+        "BH-D005:L11",
+        "BH-D009:L5,L6,L12"
+      ],
+      "supporting_mentions": [
+        "23dfce9eda1a26eb",
+        "b42fa9ffa71e5225"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Attendance record confirms presence for the full scheduled block. Clinical note specifies a non-therapy group break from 10:40 to 10:55, which is excluded from the patient therapy interval. Patient therapy intervals are the segments before and after the break."
+    },
+    {
+      "event_id": "HG-M042:HG-E106",
+      "service_date": "2026-01-13",
+      "service_type": "medication",
+      "service_category": null,
+      "disposition": "delivered",
+      "patient_therapy": "no",
+      "eligible_service": false,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D006:L15",
+        "BH-D010:L5,L6,L7"
+      ],
+      "supporting_mentions": [
+        "8816369a69e49f49",
+        "00cc3e0715d2b03a"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Medication management encounters do not count as patient psychotherapy. Both records confirm delivery and patient presence from 09:00 to 09:25, so interval_options is empty."
+    },
+    {
+      "event_id": "HG-M042:HG-E107",
+      "service_date": "2026-01-14",
+      "service_type": "individual",
+      "service_category": "individual",
+      "disposition": "delivered",
+      "patient_therapy": "yes",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {
+          "2026-01-14": 45
+        }
+      ],
+      "minutes": {
+        "minimum": 45,
+        "maximum": 45
+      },
+      "source_refs": [
+        "BH-D006:L16",
+        "BH-D011:L5,L6,L7"
+      ],
+      "supporting_mentions": [
+        "50dbf0542281a013",
+        "28e99cdf1f496ae6"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Attendance and clinical records consistently confirm a delivered individual therapy session with the patient present from 11:00 to 11:45."
+    },
+    {
+      "event_id": "HG-M042:HG-E108",
+      "service_date": "2026-01-15",
+      "service_type": "group",
+      "service_category": "group",
+      "disposition": "not_delivered",
+      "patient_therapy": "no",
+      "eligible_service": true,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D016:L6,L9,L15"
+      ],
+      "supporting_mentions": [
+        "79edac37e784777e"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Administrative record confirms the group was cancelled by the clinic due to staff illness; no group was held and the patient was not present."
+    },
+    {
+      "event_id": "HG-M042:HG-E109",
+      "service_date": "2026-01-16",
+      "service_type": "collateral",
+      "service_category": null,
+      "disposition": "delivered",
+      "patient_therapy": "no",
+      "eligible_service": false,
+      "within_period": true,
+      "unquantified": false,
+      "minute_options": [
+        {}
+      ],
+      "minutes": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "source_refs": [
+        "BH-D006:L18",
+        "BH-D012:L5,L6,L8"
+      ],
+      "supporting_mentions": [
+        "fe8adce0a7ca171c",
+        "88033890ed7feb9c"
+      ],
+      "opposing_mentions": [],
+      "decision_notes": "Collateral session was delivered, but the patient was absent the entire time. Therefore, no patient therapy occurred, and interval_options is empty."
+    }
+  ],
+  "sessions_by_type": {
+    "family": {
+      "minimum": 2,
+      "maximum": 2
+    },
+    "group": {
+      "minimum": 5,
+      "maximum": 5
+    },
+    "individual": {
+      "minimum": 5,
+      "maximum": 5
+    }
+  },
+  "therapy_sessions": {
+    "minimum": 12,
+    "maximum": 12
+  },
+  "therapy_days": {
+    "minimum": 11,
+    "maximum": 11
+  },
+  "therapy_minutes": {
+    "minimum": 585,
+    "maximum": 595
+  },
+  "unquantified_event_ids": [],
+  "unresolved_mention_ids": [],
+  "coverage_gaps": [],
+  "totals_complete": true,
+  "weeks": [
+    {
+      "week_start": "2026-01-05",
+      "week_end": "2026-01-11",
+      "days": {
+        "2026-01-05": {
+          "minimum": 50,
+          "maximum": 50
+        },
+        "2026-01-06": {
+          "minimum": 45,
+          "maximum": 45
+        },
+        "2026-01-09": {
+          "minimum": 45,
+          "maximum": 45
+        }
+      },
+      "therapy_days": {
+        "minimum": 3,
+        "maximum": 3
+      },
+      "minutes": {
+        "minimum": 140,
+        "maximum": 140
+      },
+      "goals": [
+        {
+          "source_ref": "BH-D003:L12",
+          "minimum_days": 3,
+          "minimum_minutes": 150,
+          "status": "unmet"
+        }
+      ]
+    },
+    {
+      "week_start": "2026-01-12",
+      "week_end": "2026-01-18",
+      "days": {
+        "2026-01-12": {
+          "minimum": 75,
+          "maximum": 75
+        },
+        "2026-01-14": {
+          "minimum": 45,
+          "maximum": 45
+        }
+      },
+      "therapy_days": {
+        "minimum": 2,
+        "maximum": 2
+      },
+      "minutes": {
+        "minimum": 120,
+        "maximum": 120
+      },
+      "goals": [
+        {
+          "source_ref": "BH-D003:L12",
+          "minimum_days": 3,
+          "minimum_minutes": 150,
+          "status": "unmet"
+        }
+      ]
+    },
+    {
+      "week_start": "2026-01-19",
+      "week_end": "2026-01-25",
+      "days": {
+        "2026-01-19": {
+          "minimum": 90,
+          "maximum": 90
+        },
+        "2026-01-21": {
+          "minimum": 45,
+          "maximum": 45
+        },
+        "2026-01-22": {
+          "minimum": 45,
+          "maximum": 45
+        }
+      },
+      "therapy_days": {
+        "minimum": 3,
+        "maximum": 3
+      },
+      "minutes": {
+        "minimum": 180,
+        "maximum": 180
+      },
+      "goals": [
+        {
+          "source_ref": "BH-D003:L12",
+          "minimum_days": 3,
+          "minimum_minutes": 150,
+          "status": "met"
+        }
+      ]
+    },
+    {
+      "week_start": "2026-01-26",
+      "week_end": "2026-02-01",
+      "days": {
+        "2026-01-26": {
+          "minimum": 40,
+          "maximum": 50
+        },
+        "2026-01-29": {
+          "minimum": 75,
+          "maximum": 75
+        },
+        "2026-01-30": {
+          "minimum": 30,
+          "maximum": 30
+        }
+      },
+      "therapy_days": {
+        "minimum": 3,
+        "maximum": 3
+      },
+      "minutes": {
+        "minimum": 145,
+        "maximum": 155
+      },
+      "goals": [
+        {
+          "source_ref": "BH-D003:L12",
+          "minimum_days": 3,
+          "minimum_minutes": 150,
+          "status": "indeterminate"
+        }
+      ]
+    }
+  ],
+  "goals": [
+    {
+      "source_id": "BH-D101",
+      "lines": [
+        12
+      ],
+      "effective_from": "2026-01-19",
+      "effective_to": null,
+      "period": null,
+      "minimum_days": null,
+      "minimum_minutes": null,
+      "included_services": [],
+      "excluded_services": [],
+      "description": "Continue practicing brief coping skills before an approach task."
+    },
+    {
+      "source_id": "BH-D101",
+      "lines": [
+        12
+      ],
+      "effective_from": "2026-01-19",
+      "effective_to": null,
+      "period": null,
+      "minimum_days": null,
+      "minimum_minutes": null,
+      "included_services": [],
+      "excluded_services": [],
+      "description": "Coordinate with the individual clinician regarding the group experience so that future attendance can be supported without assuming that participation in a group exercise reflects completion of the patient's own work task."
+    },
+    {
+      "source_id": "BH-D003",
+      "lines": [
+        12
+      ],
+      "effective_from": "2026-01-05",
+      "effective_to": "2026-01-30",
+      "period": "week_monday_sunday",
+      "minimum_days": 3,
+      "minimum_minutes": 150,
+      "included_services": [
+        "individual",
+        "group",
+        "family"
+      ],
+      "excluded_services": [
+        "medication",
+        "collateral",
+        "care_coordination"
+      ],
+      "description": "At least 3 therapy days and at least 150 minutes of patient-present therapy in each Monday–Sunday week."
+    },
+    {
+      "source_id": "BH-D003",
+      "lines": [
+        14
+      ],
+      "effective_from": "2026-01-05",
+      "effective_to": "2026-01-30",
+      "period": null,
+      "minimum_days": null,
+      "minimum_minutes": null,
+      "included_services": [],
+      "excluded_services": [],
+      "description": "Improve daily activity and task initiation. Select manageable activities, track attempts, and review barriers."
+    },
+    {
+      "source_id": "BH-D003",
+      "lines": [
+        16
+      ],
+      "effective_from": "2026-01-05",
+      "effective_to": "2026-01-30",
+      "period": null,
+      "minimum_days": null,
+      "minimum_minutes": null,
+      "included_services": [],
+      "excluded_services": [],
+      "description": "Improve coping with anxiety and disrupted sleep. Practice grounding or paced-breathing and establish consistent morning routine."
+    },
+    {
+      "source_id": "BH-D003",
+      "lines": [
+        18
+      ],
+      "effective_from": "2026-01-05",
+      "effective_to": "2026-01-30",
+      "period": null,
+      "minimum_days": null,
+      "minimum_minutes": null,
+      "included_services": [],
+      "excluded_services": [],
+      "description": "Support a workable return to employment. Address avoided communication and gradual preparation."
+    }
+  ],
+  "measure_instances": [
+    {
+      "instrument": "phq-9",
+      "identity": "BH-D002:L15",
+      "completed_dates": [
+        "2026-01-05"
+      ],
+      "scores": [
+        18.0
+      ],
+      "conflicting_values": false,
+      "source_refs": [
+        "BH-D002:L15"
+      ],
+      "copy_refs": []
+    },
+    {
+      "instrument": "phq-9",
+      "identity": "BH-D115:L5,L6",
+      "completed_dates": [
+        "2026-01-30"
+      ],
+      "scores": [
+        10.0
+      ],
+      "conflicting_values": false,
+      "source_refs": [
+        "BH-D115:L5,L6"
+      ],
+      "copy_refs": []
+    },
+    {
+      "instrument": "phq-9",
+      "identity": "HG-Q116",
+      "completed_dates": [
+        "2026-01-16"
+      ],
+      "scores": [
+        14.0
+      ],
+      "conflicting_values": false,
+      "source_refs": [
+        "BH-D014:L13",
+        "BH-D013:L6,L7,L8"
+      ],
+      "copy_refs": []
+    }
+  ]
+}

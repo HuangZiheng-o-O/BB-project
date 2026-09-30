@@ -24,7 +24,7 @@ class FakeModel:
     def __init__(self) -> None:
         self.calls = 0
 
-    def generate(self, system, history, tools=None, max_tokens=5000):
+    def generate(self, system, history, tools=None, max_tokens=5000, json_mode=False):
         self.calls += 1
         if self.calls == 1:
             return ModelTurn(text="", tool_calls=[ToolCall("call-1", "search", {"query": "observation"})])
@@ -41,7 +41,7 @@ class AgentTests(unittest.TestCase):
             "period": {}, "therapy_sessions": {}, "sessions_by_type": {},
             "therapy_days": {}, "therapy_minutes": {}, "weeks": [], "events": [],
             "measure_instances": [], "totals_complete": True,
-            "unquantified_event_ids": [], "unresolved_mention_ids": [],
+            "unquantified_event_ids": [], "unresolved_mention_ids": [], "coverage_gaps": [],
         }
         model = FakeModel()
         result = answer_question("What is documented?", model, EvidenceTools(FakeCorpus(), snapshot, calculation))

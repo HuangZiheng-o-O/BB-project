@@ -7,7 +7,7 @@ from datetime import date, datetime, time, timedelta
 import re
 from typing import Any
 
-from bb.models import BatchExtraction, Reconciliation, ResolvedEvent, TimeSpan
+from bb.models import AuditFinding, BatchExtraction, Reconciliation, ResolvedEvent, TimeSpan
 
 
 def _instant(day: date, clock: str) -> datetime:
@@ -127,6 +127,7 @@ def calculate_review(
     extraction: BatchExtraction,
     period_start: str | None = None,
     period_end: str | None = None,
+    findings: list[AuditFinding] | None = None,
 ) -> dict[str, Any]:
     """Build a complete event ledger and bounded totals without asking the model to add."""
     first = date.fromisoformat(period_start) if period_start else None
@@ -139,6 +140,10 @@ def calculate_review(
     day_possible: set[str] = set()
     type_counts: dict[str, list[int]] = defaultdict(lambda: [0, 0])
     unquantified_event_ids: list[str] = []
+    coverage_gaps = [
+        finding.detail for finding in (findings or [])
+        if finding.code in {"possible_event_omission", "time_scope_uncertain"}
+    ]
 
     for event in reconciliation.events:
         source_refs = sorted(
@@ -218,7 +223,8 @@ def calculate_review(
     for week in weeks:
         applicable = [
             goal for goal in extraction.goals
-            if (not goal.effective_from or goal.effective_from <= week["week_end"])
+            if goal.period == "week_monday_sunday"
+            and (not goal.effective_from or goal.effective_from <= week["week_end"])
             and (not goal.effective_to or goal.effective_to >= week["week_start"])
             and goal.minimum_days is not None and goal.minimum_minutes is not None
         ]
@@ -251,7 +257,8 @@ def calculate_review(
         "therapy_minutes": {"minimum": sum(day_min.values()), "maximum": sum(day_max.values())},
         "unquantified_event_ids": unquantified_event_ids,
         "unresolved_mention_ids": reconciliation.unresolved_mention_ids,
-        "totals_complete": not unquantified_event_ids and not reconciliation.unresolved_mention_ids,
+        "coverage_gaps": coverage_gaps,
+        "totals_complete": not unquantified_event_ids and not reconciliation.unresolved_mention_ids and not coverage_gaps,
         "weeks": weeks,
         "goals": goals,
         "measure_instances": _measure_instances(extraction),

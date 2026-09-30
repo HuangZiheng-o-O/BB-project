@@ -1,0 +1,22 @@
+[
+  {
+    "id": "UNSEEN-01",
+    "question": "Which January appointments were scheduled but did not result in patient therapy? Distinguish a no-show, a clinic cancellation, and a patient cancellation, and explain why an unsigned draft or charge is insufficient evidence of delivery."
+  },
+  {
+    "id": "UNSEEN-02",
+    "question": "Trace the documented work-message task from January 14 through January 30. On which dates was an action merely proposed or drafted, and when does the record first establish that Rowan sent a message?"
+  },
+  {
+    "id": "UNSEEN-03",
+    "question": "Did the January 16 portal questionnaire review or the January 26 imported measurement summary document an additional treatment visit or a new questionnaire completion? Identify the distinct questionnaire completions and explain the source identities."
+  },
+  {
+    "id": "UNSEEN-04",
+    "question": "What do the records establish about suicidal thoughts at specific assessments, and can they establish that suicidal thoughts were absent throughout every day of the episode? State the evidence limits."
+  },
+  {
+    "id": "UNSEEN-05",
+    "question": "Which completed contacts in the review period were not patient psychotherapy even though a professional provided a service? Distinguish medication management, partner-only collateral contact, and professional care coordination."
+  }
+]

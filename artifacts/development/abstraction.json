@@ -1,0 +1,2417 @@
+{
+  "source_hashes": {
+    "BH-D101": "05a234a8adc98e72a51ba9e82c13e5975ee5026f03bb03e66575015b22562fb6",
+    "BH-D102": "514ca20809f682607e91b924c6cef0bb22f43a3d12cedbd23ea5fa362910cce5",
+    "BH-D103": "674440968b5d6d38d68b8b513cc7ac3b3516ddd97285bde1e4af69cb9f128bd9",
+    "BH-D104": "f3f25065559f4e82b110b5c284df5c2c4f81c55c950721e7bd6a9c23a91241d5",
+    "BH-D105": "91fd8e8b1b3182207971dbecd77e3d2bd13e5f49608f4083e4a9245b8a2d8935",
+    "BH-D106": "09c946a2248a5a81b2c1dc85b7620babe57b72f1bd4bed3d49eba574be5ccd46",
+    "BH-D107": "c5953bcb242ef0143301019cf06964a4b759d432e26dc0e34f0ad1c2b819df70",
+    "BH-D108": "805b2c69c7fa18ab31b618b4a313c39dcdbde570cc0890de2dfd52d77ca547e1",
+    "BH-D109": "069ea4112779b68e7ba7bc9d06a73a6ad6dbb8110d7a1e7dfd3307769c6305be",
+    "BH-D110": "4b64c46a13b80c09ec46d1cbb7b577dbfe8027cb62366631c15efa8ec1a1f58b",
+    "BH-D111": "d03451942797c3fb189a5083c80950887657a79d0d1da9bb7f74bda8731d9380",
+    "BH-D112": "b4390ed6b672381f671aae23dbfa937d9c5585ca4b6db83cd811797e2a34505f",
+    "BH-D113": "36764827bcb39caf2e9304c881f55e4acba9744a9792228bf36981f19a0feaf9",
+    "BH-D114": "9942bd886fcd2158bbd56914551519397d70eef7103b6d33ba2fa90cc424093c",
+    "BH-D115": "4a3859fd81fc5afc5533e9add8718ce4b89492121bf68f812f73db92d319755e",
+    "BH-D006": "0bf056f3769e7daf39941514e6f3e1c40c99cbc00dbb4228ee0fac07d9f75f96",
+    "BH-D005": "6f205f89f8d3dbd05094e647925bb3c5955f11e9fb44f255f8cdedc3edb49616",
+    "BH-D008": "ad416fbda80683308baa15c433c7d1df7fe9221b9e8baf1f2189964bc0421aed",
+    "BH-D007": "924dee06b05c0a841c3f86d0c394c7af39447db6c9ea7b643cc6eb3a3c40df6b",
+    "BH-D001": "d2240979a2de7d7782a34a6ca26e289ee829d01eea9932e4d61b3588c724ceb1",
+    "BH-D016": "5f3375f11c857ad3e9917ad2eefffffd5ee0412e6ab56885901c1b5d5b2115f9",
+    "BH-D004": "5edddc6b20937ecdadf834b331c399375d0889d12a8595eb4084f1da2d4f4a11",
+    "BH-D009": "d30d18d0335d5d428acea2e5ee0334fbbafc10665133a462061a01c94baa09b7",
+    "BH-D014": "85e2c780abded9efe663fd61ac6e6a7a56e5b30c9597b24f35f90076b6f7358b",
+    "BH-D011": "8c2fbaf5bb4545cc4590b288d768ab893a4d727f6946bcc88339669d0629eb8a",
+    "BH-D002": "7f5f7d4bbfc9b47a632fb33cca1b261999078d058cbd7601c63f6c6e5be3c747",
+    "BH-D010": "95debafd3a72e32fd806d7aa4b420b1984f9c565d2af3c0d807269ee71aa8482",
+    "BH-D015": "4521a120a4d7a8f896d5fe9137a44f72719adc5cadbd839ef1b9d9646316b7c4",
+    "BH-D012": "432c973d1a4d505b49ba85c3c92dead5c2a70faca6b6dd66e87db92b95329fea",
+    "BH-D003": "3b3f50db40b348bdd9e3baeb64b67a11d5edaf12699954762bec9633ad79ad12",
+    "BH-D013": "300a30dbe42be8dcfdf7ad644f23c583259611467ae32e944e8d7154c78b968e"
+  },
+  "extraction_model": "glm-4.7",
+  "extraction": {
+    "events": [
+      {
+        "source_id": "BH-D101",
+        "lines": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E110",
+        "appointment_id": null,
+        "service_date": "2026-01-19",
+        "service_type": "group",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Group clinical record. Actual patient intervals maintained on attendance roster.",
+        "mention_id": "9bfab289be998512"
+      },
+      {
+        "source_id": "BH-D102",
+        "lines": [
+          4,
+          5,
+          8,
+          9
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E110",
+        "appointment_id": null,
+        "service_date": "2026-01-19",
+        "service_type": "group",
+        "document_role": "attendance",
+        "status": "attended",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Original signed attendance roster.",
+        "mention_id": "2d94b09b67e7b511"
+      },
+      {
+        "source_id": "BH-D103",
+        "lines": [
+          5,
+          7
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E110",
+        "appointment_id": null,
+        "service_date": "2026-01-19",
+        "service_type": "group",
+        "document_role": "correction",
+        "status": "attended",
+        "patient_present": true,
+        "actual_intervals": [],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": "actual_intervals.end",
+        "correction_value": "11:15",
+        "duplicate_of": null,
+        "note": "Corrects patient departure from 11:30 to 11:15.",
+        "mention_id": "a4ba377f728a6eb1"
+      },
+      {
+        "source_id": "BH-D104",
+        "lines": [
+          5,
+          11,
+          14
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E110",
+        "appointment_id": null,
+        "service_date": "2026-01-19",
+        "service_type": "group",
+        "document_role": "attendance",
+        "status": "attended",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": "BH-D102",
+        "note": "Resent copy of original roster; no new clinical service or signature.",
+        "mention_id": "dee91df1b391b7b0"
+      },
+      {
+        "source_id": "BH-D105",
+        "lines": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E111",
+        "appointment_id": null,
+        "service_date": "2026-01-19",
+        "service_type": "individual",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "11:15",
+            "end": "11:45"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "26f05d127d8180b3"
+      },
+      {
+        "source_id": "BH-D106",
+        "lines": [
+          3,
+          4,
+          5,
+          7
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E112",
+        "appointment_id": "HG-A112",
+        "service_date": "2026-01-21",
+        "service_type": "individual",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "13:00",
+            "end": "13:20"
+          },
+          {
+            "start": "13:30",
+            "end": "13:55"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [
+          {
+            "start": "13:20",
+            "end": "13:30"
+          }
+        ],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Connection lost from 13:20-13:30; reconnection continued same encounter.",
+        "mention_id": "3a3077242e6b11c8"
+      },
+      {
+        "source_id": "BH-D107",
+        "lines": [
+          4,
+          7,
+          8
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E113",
+        "appointment_id": null,
+        "service_date": "2026-01-22",
+        "service_type": "group",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Group clinical record. Patient arrived after discussion began; arrival time in attendance register.",
+        "mention_id": "c22be0218f3cd675"
+      },
+      {
+        "source_id": "BH-D107",
+        "lines": [
+          4,
+          12,
+          13
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E118",
+        "appointment_id": null,
+        "service_date": "2026-01-29",
+        "service_type": "group",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Group clinical record. Patient intervals maintained on attendance register.",
+        "mention_id": "2dfd97b4edacae22"
+      },
+      {
+        "source_id": "BH-D108",
+        "lines": [
+          9
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E113",
+        "appointment_id": null,
+        "service_date": "2026-01-22",
+        "service_type": "group",
+        "document_role": "attendance",
+        "status": "attended",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "10:30",
+            "end": "11:30"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Late arrival",
+        "mention_id": "e61eb73672fb102d"
+      },
+      {
+        "source_id": "BH-D108",
+        "lines": [
+          10
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E116",
+        "appointment_id": null,
+        "service_date": "2026-01-27",
+        "service_type": "group",
+        "document_role": "attendance",
+        "status": "no_show",
+        "patient_present": false,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "52d56395ea577201"
+      },
+      {
+        "source_id": "BH-D108",
+        "lines": [
+          11
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E117",
+        "appointment_id": null,
+        "service_date": "2026-01-28",
+        "service_type": "individual",
+        "document_role": "attendance",
+        "status": "cancelled",
+        "patient_present": false,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:45"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Patient cancelled before appointment",
+        "mention_id": "d710b78ce59306c5"
+      },
+      {
+        "source_id": "BH-D108",
+        "lines": [
+          12
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E118",
+        "appointment_id": null,
+        "service_date": "2026-01-29",
+        "service_type": "group",
+        "document_role": "attendance",
+        "status": "attended",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "b140ab1d1a764386"
+      },
+      {
+        "source_id": "BH-D109",
+        "lines": [
+          3,
+          5,
+          7
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E114",
+        "appointment_id": null,
+        "service_date": "2026-01-23",
+        "service_type": "care_coordination",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": false,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:20"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Patient did not participate; professionals only",
+        "mention_id": "11815c343f597715"
+      },
+      {
+        "source_id": "BH-D110",
+        "lines": [
+          3,
+          7
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E115",
+        "appointment_id": "HG-A115",
+        "service_date": "2026-01-26",
+        "service_type": "individual",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:50"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "c1b5b6230e7a867b"
+      },
+      {
+        "source_id": "BH-D112",
+        "lines": [
+          5,
+          9,
+          10
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E116",
+        "appointment_id": null,
+        "service_date": "2026-01-27",
+        "service_type": "group",
+        "document_role": "draft",
+        "status": "draft",
+        "patient_present": null,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Autogenerated draft from template, unsigned",
+        "mention_id": "d985b540345b3780"
+      },
+      {
+        "source_id": "BH-D112",
+        "lines": [
+          19,
+          20,
+          23
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E116",
+        "appointment_id": null,
+        "service_date": "2026-01-27",
+        "service_type": "group",
+        "document_role": "charge",
+        "status": "posted",
+        "patient_present": null,
+        "actual_intervals": [],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Administrative charge extract",
+        "mention_id": "01f28d8fb957b417"
+      },
+      {
+        "source_id": "BH-D113",
+        "lines": [
+          3,
+          7
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E119",
+        "appointment_id": null,
+        "service_date": "2026-01-30",
+        "service_type": "family",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "13:15",
+            "end": "13:45"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "13:00",
+            "end": "13:45"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Patient present only for portion with partner",
+        "mention_id": "06f4644440017134"
+      },
+      {
+        "source_id": "BH-D114",
+        "lines": [
+          3,
+          5
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E120",
+        "appointment_id": null,
+        "service_date": "2026-01-30",
+        "service_type": "medication",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "15:00",
+            "end": "15:20"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "144858a93b5bb006"
+      },
+      {
+        "source_id": "BH-D006",
+        "lines": [
+          10
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E101",
+        "appointment_id": null,
+        "service_date": "2026-01-05",
+        "service_type": "individual",
+        "document_role": "attendance",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:50"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:50"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "e97176373388131c"
+      },
+      {
+        "source_id": "BH-D005",
+        "lines": [
+          10
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E102",
+        "appointment_id": null,
+        "service_date": "2026-01-06",
+        "service_type": "group",
+        "document_role": "attendance",
+        "status": "attended",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "10:15",
+            "end": "11:15"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Patient arrived late and left early.",
+        "mention_id": "84d0318227d344bd"
+      },
+      {
+        "source_id": "BH-D004",
+        "lines": [
+          5,
+          6,
+          12
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E102",
+        "appointment_id": null,
+        "service_date": "2026-01-06",
+        "service_type": "group",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Group break from 10:45-11:00.",
+        "mention_id": "d259dee97e455694"
+      },
+      {
+        "source_id": "BH-D006",
+        "lines": [
+          12
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E103",
+        "appointment_id": null,
+        "service_date": "2026-01-08",
+        "service_type": "individual",
+        "document_role": "attendance",
+        "status": "no_show",
+        "patient_present": false,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "11:00",
+            "end": "11:45"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "9151d949e20e64cd"
+      },
+      {
+        "source_id": "BH-D007",
+        "lines": [
+          6,
+          9
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E104",
+        "appointment_id": null,
+        "service_date": "2026-01-09",
+        "service_type": "family",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:45"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:45"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Patient-present family therapy duration: 45 minutes.",
+        "mention_id": "afe049ccb5ca61ba"
+      },
+      {
+        "source_id": "BH-D008",
+        "lines": [
+          6,
+          8
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E104",
+        "appointment_id": null,
+        "service_date": "2026-01-09",
+        "service_type": "family",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:45"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:45"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Cofacilitator entry for family session.",
+        "mention_id": "9636fff62a6b1874"
+      },
+      {
+        "source_id": "BH-D005",
+        "lines": [
+          11
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E105",
+        "appointment_id": null,
+        "service_date": "2026-01-12",
+        "service_type": "group",
+        "document_role": "attendance",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Patient attended full group.",
+        "mention_id": "23dfce9eda1a26eb"
+      },
+      {
+        "source_id": "BH-D006",
+        "lines": [
+          15
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E106",
+        "appointment_id": null,
+        "service_date": "2026-01-13",
+        "service_type": "medication",
+        "document_role": "attendance",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:25"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:25"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "8816369a69e49f49"
+      },
+      {
+        "source_id": "BH-D006",
+        "lines": [
+          16
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E107",
+        "appointment_id": null,
+        "service_date": "2026-01-14",
+        "service_type": "individual",
+        "document_role": "attendance",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "11:00",
+            "end": "11:45"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "11:00",
+            "end": "11:45"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "50dbf0542281a013"
+      },
+      {
+        "source_id": "BH-D016",
+        "lines": [
+          6,
+          9,
+          15
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E108",
+        "appointment_id": null,
+        "service_date": "2026-01-15",
+        "service_type": "group",
+        "document_role": "administrative",
+        "status": "cancelled",
+        "patient_present": false,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Clinic cancelled due to staff illness; no group held.",
+        "mention_id": "79edac37e784777e"
+      },
+      {
+        "source_id": "BH-D006",
+        "lines": [
+          18
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E109",
+        "appointment_id": null,
+        "service_date": "2026-01-16",
+        "service_type": "collateral",
+        "document_role": "attendance",
+        "status": "delivered",
+        "patient_present": false,
+        "actual_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:40"
+          }
+        ],
+        "scheduled_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:40"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Partner collateral contact; patient could not attend.",
+        "mention_id": "fe8adce0a7ca171c"
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          5,
+          6,
+          8
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E101",
+        "appointment_id": null,
+        "service_date": "2026-01-05",
+        "service_type": "individual",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:50"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "1f4ec29cd06dde21"
+      },
+      {
+        "source_id": "BH-D015",
+        "lines": [
+          5,
+          6,
+          11
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E103",
+        "appointment_id": null,
+        "service_date": "2026-01-08",
+        "service_type": "individual",
+        "document_role": "administrative",
+        "status": "no_show",
+        "patient_present": false,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "11:00",
+            "end": "11:45"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "4c3ea775492cc0f5"
+      },
+      {
+        "source_id": "BH-D010",
+        "lines": [
+          5,
+          6,
+          7
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E106",
+        "appointment_id": null,
+        "service_date": "2026-01-13",
+        "service_type": "medication",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "09:00",
+            "end": "09:25"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "00cc3e0715d2b03a"
+      },
+      {
+        "source_id": "BH-D009",
+        "lines": [
+          5,
+          6,
+          12
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E105",
+        "appointment_id": null,
+        "service_date": "2026-01-12",
+        "service_type": "group",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "10:00",
+            "end": "11:30"
+          }
+        ],
+        "nontherapy_intervals": [
+          {
+            "start": "10:40",
+            "end": "10:55"
+          }
+        ],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "b42fa9ffa71e5225"
+      },
+      {
+        "source_id": "BH-D011",
+        "lines": [
+          5,
+          6,
+          7
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E107",
+        "appointment_id": null,
+        "service_date": "2026-01-14",
+        "service_type": "individual",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "11:00",
+            "end": "11:45"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "",
+        "mention_id": "28e99cdf1f496ae6"
+      },
+      {
+        "source_id": "BH-D012",
+        "lines": [
+          5,
+          6,
+          8
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E109",
+        "appointment_id": null,
+        "service_date": "2026-01-16",
+        "service_type": "collateral",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": false,
+        "actual_intervals": [],
+        "scheduled_intervals": [
+          {
+            "start": "14:00",
+            "end": "14:40"
+          }
+        ],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Partner collateral session; patient absent entire time.",
+        "mention_id": "88033890ed7feb9c"
+      },
+      {
+        "source_id": "BH-D111",
+        "lines": [
+          4,
+          6,
+          7,
+          10,
+          14
+        ],
+        "patient_id": "HG-M042",
+        "encounter_id": "HG-E115",
+        "appointment_id": "HG-A115",
+        "service_date": "2026-01-26",
+        "service_type": "individual",
+        "document_role": "clinical",
+        "status": "delivered",
+        "patient_present": true,
+        "actual_intervals": [
+          {
+            "start": "09:10",
+            "end": "09:50"
+          }
+        ],
+        "scheduled_intervals": [],
+        "nontherapy_intervals": [],
+        "correction_field": null,
+        "correction_value": null,
+        "duplicate_of": null,
+        "note": "Participating clinician record for individual psychotherapy.",
+        "mention_id": "9b4ac002e99e66ce"
+      }
+    ],
+    "goals": [
+      {
+        "source_id": "BH-D101",
+        "lines": [
+          12
+        ],
+        "effective_from": "2026-01-19",
+        "effective_to": null,
+        "period": null,
+        "minimum_days": null,
+        "minimum_minutes": null,
+        "included_services": [],
+        "excluded_services": [],
+        "description": "Continue practicing brief coping skills before an approach task."
+      },
+      {
+        "source_id": "BH-D101",
+        "lines": [
+          12
+        ],
+        "effective_from": "2026-01-19",
+        "effective_to": null,
+        "period": null,
+        "minimum_days": null,
+        "minimum_minutes": null,
+        "included_services": [],
+        "excluded_services": [],
+        "description": "Coordinate with the individual clinician regarding the group experience so that future attendance can be supported without assuming that participation in a group exercise reflects completion of the patient's own work task."
+      },
+      {
+        "source_id": "BH-D003",
+        "lines": [
+          12
+        ],
+        "effective_from": "2026-01-05",
+        "effective_to": "2026-01-30",
+        "period": "week_monday_sunday",
+        "minimum_days": 3,
+        "minimum_minutes": 150,
+        "included_services": [
+          "individual",
+          "group",
+          "family"
+        ],
+        "excluded_services": [
+          "medication",
+          "collateral",
+          "care_coordination"
+        ],
+        "description": "At least 3 therapy days and at least 150 minutes of patient-present therapy in each Monday–Sunday week."
+      },
+      {
+        "source_id": "BH-D003",
+        "lines": [
+          14
+        ],
+        "effective_from": "2026-01-05",
+        "effective_to": "2026-01-30",
+        "period": null,
+        "minimum_days": null,
+        "minimum_minutes": null,
+        "included_services": [],
+        "excluded_services": [],
+        "description": "Improve daily activity and task initiation. Select manageable activities, track attempts, and review barriers."
+      },
+      {
+        "source_id": "BH-D003",
+        "lines": [
+          16
+        ],
+        "effective_from": "2026-01-05",
+        "effective_to": "2026-01-30",
+        "period": null,
+        "minimum_days": null,
+        "minimum_minutes": null,
+        "included_services": [],
+        "excluded_services": [],
+        "description": "Improve coping with anxiety and disrupted sleep. Practice grounding or paced-breathing and establish consistent morning routine."
+      },
+      {
+        "source_id": "BH-D003",
+        "lines": [
+          18
+        ],
+        "effective_from": "2026-01-05",
+        "effective_to": "2026-01-30",
+        "period": null,
+        "minimum_days": null,
+        "minimum_minutes": null,
+        "included_services": [],
+        "excluded_services": [],
+        "description": "Support a workable return to employment. Address avoided communication and gradual preparation."
+      }
+    ],
+    "measures": [
+      {
+        "source_id": "BH-D115",
+        "lines": [
+          5,
+          6
+        ],
+        "instrument": "PHQ-9",
+        "form_id": null,
+        "completed_date": "2026-01-30",
+        "score": 10.0,
+        "copied_from_form": null,
+        "note": "Item 9 score: 0."
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          15
+        ],
+        "instrument": "PHQ-9",
+        "form_id": null,
+        "completed_date": "2026-01-05",
+        "score": 18.0,
+        "copied_from_form": null,
+        "note": ""
+      },
+      {
+        "source_id": "BH-D014",
+        "lines": [
+          13
+        ],
+        "instrument": "PHQ-9",
+        "form_id": "HG-Q116",
+        "completed_date": "2026-01-16",
+        "score": 14.0,
+        "copied_from_form": null,
+        "note": "Imported administrative receipt; original completion date retained."
+      },
+      {
+        "source_id": "BH-D013",
+        "lines": [
+          6,
+          7,
+          8
+        ],
+        "instrument": "PHQ-9",
+        "form_id": "HG-Q116",
+        "completed_date": "2026-01-16",
+        "score": 14.0,
+        "copied_from_form": null,
+        "note": ""
+      }
+    ],
+    "observations": [
+      {
+        "source_id": "BH-D101",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan became visibly tense and said the amount of discussion felt difficult to manage when discussion turned to returning to the workplace.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D101",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Rowan identified postponing a message to a supervisor as a familiar pattern.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D102",
+        "lines": [
+          14
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan identified anxiety about reconnecting with work.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D105",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan described feeling overwhelmed when other members discussed workplace demands and worried that returning to work would expose difficulties keeping up.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D105",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan identified muscle tension, rapid breathing, and an urge to leave as early signs of activation.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D105",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Rowan reported that the immediate intensity of anxiety eased enough to discuss a next step.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D105",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "safety",
+        "statement": "Rowan denied current suicidal thoughts and remained future oriented.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D105",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-19",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Persistent avoidance and disrupted sleep continue to interfere with resuming a usual work routine.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D106",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-21",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Rowan reported drafting a short message about a possible gradual return to work but stopping before sending it.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D106",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-21",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan identified checking the draft repeatedly as another way the task was being delayed.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D106",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-21",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan described one night of improved sleep followed by a night of prolonged wakefulness.",
+        "polarity": "uncertain"
+      },
+      {
+        "source_id": "BH-D107",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-22",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan described concern that seeing outstanding items would become overwhelming when opening a work calendar.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D107",
+        "lines": [
+          14
+        ],
+        "date": "2026-01-29",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Rowan reported opening the work calendar but delaying a follow-up conversation.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D108",
+        "lines": [
+          18
+        ],
+        "date": "2026-01-28",
+        "subject": "Rowan Mercer",
+        "theme": "scheduling",
+        "statement": "Rowan reported a personal scheduling conflict causing cancellation",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D109",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-23",
+        "subject": "Daniel Shaw",
+        "theme": "functional",
+        "statement": "Outside social worker reported that Rowan asked for help understanding whom to contact about a gradual return schedule",
+        "polarity": "planned"
+      },
+      {
+        "source_id": "BH-D110",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-26",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan described worry about being asked for commitments the patient might not be able to meet",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D110",
+        "lines": [
+          9
+        ],
+        "date": "2026-01-26",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Sleep remained uneven, with difficulty settling on nights when work-related thoughts became repetitive",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D110",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-26",
+        "subject": "Rowan Mercer",
+        "theme": "safety",
+        "statement": "No current suicidal ideation reported",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D111",
+        "lines": [
+          12
+        ],
+        "date": "2026-01-26",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Repetitive planning at night affected settling for sleep",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D111",
+        "lines": [
+          14
+        ],
+        "date": "2026-01-26",
+        "subject": "Rowan Mercer",
+        "theme": "functional",
+        "statement": "Rowan described a wish to resume a steadier routine",
+        "polarity": "planned"
+      },
+      {
+        "source_id": "BH-D113",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "functional",
+        "statement": "Rowan and partner identified a recurring pattern where a reminder about contacting work led to a lengthy discussion, followed by Rowan withdrawing from the task",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D113",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan remained anxious about the work conversation",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D114",
+        "lines": [
+          8
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Mood felt less persistently low than earlier in the month, although anxiety remained noticeable when anticipating contact with work",
+        "polarity": "uncertain"
+      },
+      {
+        "source_id": "BH-D114",
+        "lines": [
+          8
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Sleep was still variable",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D114",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "safety",
+        "statement": "The patient denied current suicidal thoughts",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D114",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "treatment-change",
+        "statement": "No medication change was made today",
+        "polarity": "planned"
+      },
+      {
+        "source_id": "BH-D115",
+        "lines": [
+          8
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Patient continued to endorse sleep difficulty and trouble sustaining usual activities, with fewer days of pervasive low mood than reported at intake.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D115",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Rowan shows partial improvement, with persistent avoidance and meaningful functional impact around returning to work.",
+        "polarity": "uncertain"
+      },
+      {
+        "source_id": "BH-D115",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Patient has taken some initial steps, including drafting and sending a message, but continues to delay follow-up and becomes anxious when a task expands beyond a narrowly defined action.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D115",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Sleep disruption remains an intermittent barrier to establishing a steadier daytime routine.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D115",
+        "lines": [
+          12
+        ],
+        "date": "2026-01-30",
+        "subject": "Rowan Mercer",
+        "theme": "treatment_change",
+        "statement": "Continued treatment is appropriate given the remaining difficulties with follow-through and work-related functioning. Recommend continuity of the established individual and group schedule and continued use of small, observable approach tasks.",
+        "polarity": "planned"
+      },
+      {
+        "source_id": "BH-D004",
+        "lines": [
+          14
+        ],
+        "date": "2026-01-06",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan described delaying a reply to a work message because they feared being asked for a firm return date.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D007",
+        "lines": [
+          12
+        ],
+        "date": "2026-01-09",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan described feeling watched when asked repeatedly whether they had contacted work.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D008",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-09",
+        "subject": "Rowan Mercer",
+        "theme": "symptom",
+        "statement": "Rowan initially described partner reminders as evidence that they were falling behind.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D007",
+        "lines": [
+          16
+        ],
+        "date": "2026-01-09",
+        "subject": "Rowan Mercer",
+        "theme": "functional_course",
+        "statement": "Rowan identified a shared evening walk as support that did not feel like pressure.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan",
+        "theme": "symptom",
+        "statement": "Rowan describes several weeks of low mood, reduced interest in usual activities, fragmented sleep, and difficulty beginning ordinary tasks.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan",
+        "theme": "symptom",
+        "statement": "Worry increases when thinking about returning to work after a recent leave.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan",
+        "theme": "functional_course",
+        "statement": "Rowan has been postponing email replies, avoiding conversations about the return date, and spending more time alone at home.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan",
+        "theme": "symptom",
+        "statement": "Rowan described waking in the night and then checking the time repeatedly.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          15
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan",
+        "theme": "treatment_change",
+        "statement": "Clinical impressions are depressive symptoms with anxiety and behavioral avoidance.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D002",
+        "lines": [
+          19
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan",
+        "theme": "treatment_change",
+        "statement": "Plan: participate in scheduled individual, group, and selected family appointments.",
+        "polarity": "planned"
+      },
+      {
+        "source_id": "BH-D015",
+        "lines": [
+          15
+        ],
+        "date": "2026-01-08",
+        "subject": "Rowan",
+        "theme": "symptom",
+        "statement": "Rowan said the morning had gotten away from them after a poor night of sleep.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D009",
+        "lines": [
+          14
+        ],
+        "date": "2026-01-12",
+        "subject": "Rowan",
+        "theme": "functional_course",
+        "statement": "Rowan described taking a walk with Casey over the weekend and noted that it helped the evening feel less dominated by worry.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D009",
+        "lines": [
+          14
+        ],
+        "date": "2026-01-12",
+        "subject": "Rowan",
+        "theme": "functional_course",
+        "statement": "Rowan contributed an example about leaving work messages unopened. They identified looking at one message as a lower step than replying to every outstanding message.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D010",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-13",
+        "subject": "Rowan",
+        "theme": "symptom",
+        "statement": "Rowan reported continuing sleep interruption and daytime tiredness.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D010",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-13",
+        "subject": "Rowan",
+        "theme": "symptom",
+        "statement": "Rowan described mood as somewhat less heavy on days with a planned activity but remained concerned about work communication.",
+        "polarity": "uncertain"
+      },
+      {
+        "source_id": "BH-D011",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-14",
+        "subject": "Rowan",
+        "theme": "functional_course",
+        "statement": "Rowan reported completing several small activities since the prior individual appointment, including opening a work message and taking two short walks.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D011",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-14",
+        "subject": "Rowan",
+        "theme": "functional_course",
+        "statement": "Rowan has not yet replied to the message and continue to imagine being asked questions they cannot answer.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D011",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-14",
+        "subject": "Rowan",
+        "theme": "symptom",
+        "statement": "Sleep remains interrupted, and getting started in the morning continues to require effort.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D011",
+        "lines": [
+          17
+        ],
+        "date": "2026-01-14",
+        "subject": "Rowan",
+        "theme": "treatment_change",
+        "statement": "Plan: attempt the drafted acknowledgment, continue morning activity tracking, and practice the breathing skill before an avoided task.",
+        "polarity": "planned"
+      },
+      {
+        "source_id": "BH-D012",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-16",
+        "subject": "Casey",
+        "theme": "functional_course",
+        "statement": "Casey reported that Rowan had been getting out for short walks and seemed more willing to discuss the coming week.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D012",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-16",
+        "subject": "Casey",
+        "theme": "symptom",
+        "statement": "Casey reported that Mornings remain difficult, and Rowan becoming quiet when the conversation turns to work.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D014",
+        "lines": [
+          15
+        ],
+        "date": "2026-01-16",
+        "subject": "Mara Voss",
+        "theme": "functional_course",
+        "statement": "Clinician review notes some improvement in depressive symptoms; ongoing avoidance of work communication and inconsistent sleep.",
+        "polarity": "uncertain"
+      },
+      {
+        "source_id": "BH-D003",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan Mercer",
+        "theme": "presenting_needs",
+        "statement": "Rowan reports depressed mood, sleep disruption, anxiety about resuming work, and avoidance of tasks and communication.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D003",
+        "lines": [
+          10
+        ],
+        "date": "2026-01-05",
+        "subject": "Rowan Mercer",
+        "theme": "treatment_motivation",
+        "statement": "Rowan wishes to improve follow-through without waiting for anxiety to disappear.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D013",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-16",
+        "subject": "Rowan Mercer",
+        "theme": "functional_status",
+        "statement": "Patient reports getting out of the apartment had become a little easier.",
+        "polarity": "positive"
+      },
+      {
+        "source_id": "BH-D013",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-16",
+        "subject": "Rowan Mercer",
+        "theme": "avoidance",
+        "statement": "Patient reports thinking about work continued to make them want to put things off.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D013",
+        "lines": [
+          11
+        ],
+        "date": "2026-01-16",
+        "subject": "Rowan Mercer",
+        "theme": "sleep",
+        "statement": "Patient describes sleep as inconsistent.",
+        "polarity": "negative"
+      },
+      {
+        "source_id": "BH-D013",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-16",
+        "subject": "Mara Voss",
+        "theme": "clinical_assessment",
+        "statement": "Clinician notes some improvement in depressive symptoms, but persistent avoidance, difficulty initiating work communication, and sleep disruption remain clinically relevant.",
+        "polarity": "uncertain"
+      },
+      {
+        "source_id": "BH-D013",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-16",
+        "subject": "Mara Voss",
+        "theme": "functional_status",
+        "statement": "Rowan has attempted small activities and communication practice but has not yet established a reliable routine.",
+        "polarity": "uncertain"
+      },
+      {
+        "source_id": "BH-D013",
+        "lines": [
+          13
+        ],
+        "date": "2026-01-16",
+        "subject": "Mara Voss",
+        "theme": "treatment_plan",
+        "statement": "Continue the current therapeutic focus and review functioning alongside symptom change during the next direct appointment.",
+        "polarity": "planned"
+      }
+    ]
+  },
+  "reconciliation": {
+    "events": [
+      {
+        "event_id": "HG-M042:HG-E110",
+        "service_date": "2026-01-19",
+        "service_type": "group",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "10:00",
+              "end": "11:15"
+            }
+          ]
+        ],
+        "excluded_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "supporting_mentions": [
+          "9bfab289be998512",
+          "2d94b09b67e7b511",
+          "a4ba377f728a6eb1",
+          "dee91df1b391b7b0"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "The explicit correction (BH-D103) supersedes the departure time in the original roster, changing it from 11:30 to 11:15. BH-D104 is a retransmission of the original roster and does not undo the correction. The non-therapeutic break of 10:45-11:00 is retained in excluded_intervals as it overlaps the broad interval."
+      },
+      {
+        "event_id": "HG-M042:HG-E111",
+        "service_date": "2026-01-19",
+        "service_type": "individual",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "11:15",
+              "end": "11:45"
+            }
+          ]
+        ],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "26f05d127d8180b3"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Unambiguous individual psychotherapy encounter supported by a single clinical record."
+      },
+      {
+        "event_id": "HG-M042:HG-E112",
+        "service_date": "2026-01-21",
+        "service_type": "individual",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "13:00",
+              "end": "13:20"
+            },
+            {
+              "start": "13:30",
+              "end": "13:55"
+            }
+          ]
+        ],
+        "excluded_intervals": [
+          {
+            "start": "13:20",
+            "end": "13:30"
+          }
+        ],
+        "supporting_mentions": [
+          "3a3077242e6b11c8"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Patient contact occurred in two segments separated by a network disconnect. The disconnect interval is placed in excluded_intervals to denote the gap without patient therapy."
+      },
+      {
+        "event_id": "HG-M042:HG-E113",
+        "service_date": "2026-01-22",
+        "service_type": "group",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "10:30",
+              "end": "11:30"
+            }
+          ]
+        ],
+        "excluded_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "supporting_mentions": [
+          "c22be0218f3cd675",
+          "e61eb73672fb102d"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Attendance roster notes late arrival at 10:30, which is used for the start of the patient-present interval. The group's nontherapeutic break overlaps the patient's interval and is placed in excluded_intervals."
+      },
+      {
+        "event_id": "HG-M042:HG-E118",
+        "service_date": "2026-01-29",
+        "service_type": "group",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "10:00",
+              "end": "11:30"
+            }
+          ]
+        ],
+        "excluded_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "supporting_mentions": [
+          "2dfd97b4edacae22",
+          "b140ab1d1a764386"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Clinical record and attendance roster both agree patient attended full scheduled duration 10:00-11:30. Group break 10:45-11:00 is excluded."
+      },
+      {
+        "event_id": "HG-M042:HG-E116",
+        "service_date": "2026-01-27",
+        "service_type": "group",
+        "disposition": "not_delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "52d56395ea577201"
+        ],
+        "opposing_mentions": [
+          "d985b540345b3780",
+          "01f28d8fb957b417"
+        ],
+        "decision_notes": "Attendance roster confirms no-show. The draft template and posted charge are administrative and do not establish patient presence or therapy delivery."
+      },
+      {
+        "event_id": "HG-M042:HG-E117",
+        "service_date": "2026-01-28",
+        "service_type": "individual",
+        "disposition": "not_delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "d710b78ce59306c5"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Appointment was cancelled by the patient before it occurred; no therapy delivered."
+      },
+      {
+        "event_id": "HG-M042:HG-E114",
+        "service_date": "2026-01-23",
+        "service_type": "care_coordination",
+        "disposition": "delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "11815c343f597715"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Care coordination encounter occurred but the patient did not participate, so patient_therapy is no and interval_options is empty."
+      },
+      {
+        "event_id": "HG-M042:HG-E115",
+        "service_date": "2026-01-26",
+        "service_type": "individual",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "09:00",
+              "end": "09:50"
+            }
+          ],
+          [
+            {
+              "start": "09:10",
+              "end": "09:50"
+            }
+          ]
+        ],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "c1b5b6230e7a867b",
+          "9b4ac002e99e66ce"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Two credible signed clinical records conflict on the start time of patient contact (09:00 vs 09:10) without an explicit amendment. Both plausible options are preserved in interval_options rather than choosing one or summing them."
+      },
+      {
+        "event_id": "HG-M042:HG-E119",
+        "service_date": "2026-01-30",
+        "service_type": "family",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "13:15",
+              "end": "13:45"
+            }
+          ]
+        ],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "06f4644440017134"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Family psychotherapy encounter. Patient was only present with partner from 13:15-13:45; the 13:00-13:15 interval was partner-only and excluded from patient therapy interval."
+      },
+      {
+        "event_id": "HG-M042:HG-E120",
+        "service_date": "2026-01-30",
+        "service_type": "medication",
+        "disposition": "delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "144858a93b5bb006"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Medication management is not classified as patient psychotherapy. Patient was present, but interval_options is empty as per rules for non-psychotherapy encounters."
+      },
+      {
+        "event_id": "HG-M042:HG-E101",
+        "service_date": "2026-01-05",
+        "service_type": "individual",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "09:00",
+              "end": "09:50"
+            }
+          ]
+        ],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "e97176373388131c",
+          "1f4ec29cd06dde21"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Attendance and clinical records perfectly align on individual therapy delivered from 09:00 to 09:50."
+      },
+      {
+        "event_id": "HG-M042:HG-E102",
+        "service_date": "2026-01-06",
+        "service_type": "group",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "10:15",
+              "end": "11:15"
+            }
+          ]
+        ],
+        "excluded_intervals": [
+          {
+            "start": "10:45",
+            "end": "11:00"
+          }
+        ],
+        "supporting_mentions": [
+          "84d0318227d344bd",
+          "d259dee97e455694"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Attendance record establishes patient present interval 10:15-11:15 due to late arrival and early departure. Group break 10:45-11:00 overlaps this interval and is placed in excluded_intervals."
+      },
+      {
+        "event_id": "HG-M042:HG-E103",
+        "service_date": "2026-01-08",
+        "service_type": "individual",
+        "disposition": "not_delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "9151d949e20e64cd",
+          "4c3ea775492cc0f5"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Both attendance and administrative records confirm the patient was a no-show. No therapy was delivered."
+      },
+      {
+        "event_id": "HG-M042:HG-E104",
+        "service_date": "2026-01-09",
+        "service_type": "family",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "14:00",
+              "end": "14:45"
+            }
+          ]
+        ],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "afe049ccb5ca61ba",
+          "9636fff62a6b1874"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Both clinical records agree that the family session was delivered with the patient present for the full 45 minutes from 14:00 to 14:45."
+      },
+      {
+        "event_id": "HG-M042:HG-E105",
+        "service_date": "2026-01-12",
+        "service_type": "group",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "10:00",
+              "end": "10:40"
+            },
+            {
+              "start": "10:55",
+              "end": "11:30"
+            }
+          ]
+        ],
+        "excluded_intervals": [
+          {
+            "start": "10:40",
+            "end": "10:55"
+          }
+        ],
+        "supporting_mentions": [
+          "23dfce9eda1a26eb",
+          "b42fa9ffa71e5225"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Attendance record confirms presence for the full scheduled block. Clinical note specifies a non-therapy group break from 10:40 to 10:55, which is excluded from the patient therapy interval. Patient therapy intervals are the segments before and after the break."
+      },
+      {
+        "event_id": "HG-M042:HG-E106",
+        "service_date": "2026-01-13",
+        "service_type": "medication",
+        "disposition": "delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "8816369a69e49f49",
+          "00cc3e0715d2b03a"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Medication management encounters do not count as patient psychotherapy. Both records confirm delivery and patient presence from 09:00 to 09:25, so interval_options is empty."
+      },
+      {
+        "event_id": "HG-M042:HG-E107",
+        "service_date": "2026-01-14",
+        "service_type": "individual",
+        "disposition": "delivered",
+        "patient_therapy": "yes",
+        "interval_options": [
+          [
+            {
+              "start": "11:00",
+              "end": "11:45"
+            }
+          ]
+        ],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "50dbf0542281a013",
+          "28e99cdf1f496ae6"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Attendance and clinical records consistently confirm a delivered individual therapy session with the patient present from 11:00 to 11:45."
+      },
+      {
+        "event_id": "HG-M042:HG-E108",
+        "service_date": "2026-01-15",
+        "service_type": "group",
+        "disposition": "not_delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "79edac37e784777e"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Administrative record confirms the group was cancelled by the clinic due to staff illness; no group was held and the patient was not present."
+      },
+      {
+        "event_id": "HG-M042:HG-E109",
+        "service_date": "2026-01-16",
+        "service_type": "collateral",
+        "disposition": "delivered",
+        "patient_therapy": "no",
+        "interval_options": [],
+        "excluded_intervals": [],
+        "supporting_mentions": [
+          "fe8adce0a7ca171c",
+          "88033890ed7feb9c"
+        ],
+        "opposing_mentions": [],
+        "decision_notes": "Collateral session was delivered, but the patient was absent the entire time. Therefore, no patient therapy occurred, and interval_options is empty."
+      }
+    ],
+    "unresolved_mention_ids": []
+  },
+  "findings": [
+    {
+      "code": "time_scope_reclassified",
+      "detail": "d259dee97e455694: candidate patient intervals [{'start': '10:00', 'end': '10:45'}, {'start': '11:00', 'end': '11:30'}] were service-level time; The extracted intervals are derived from the group's scheduled time minus the stated group break (10:45-11:00). The source only establishes the group's and facilitator's activity window and explicitly notes attendance is maintained on a separate roster. It does not provide explicit patient-specific clock times for arrival/departure or direct contact to confirm the patient was present for the full 10:00-10:45 and 11:00-11:30 durations.",
+      "source_refs": [
+        "BH-D004:L5,L6,L12"
+      ]
+    },
+    {
+      "code": "time_scope_reclassified",
+      "detail": "b42fa9ffa71e5225: candidate patient intervals [{'start': '10:00', 'end': '10:40'}, {'start': '10:55', 'end': '11:30'}] were service-level time; The extracted intervals mirror the group's scheduled time minus the group break (10:40-10:55). The source provides a participation narrative but no explicit patient-specific clock times for arrival, departure, or direct therapeutic contact. Attendance is noted to be recorded on a separate desk roster, so these intervals describe the service's window rather than the patient's verifiable actual time.",
+      "source_refs": [
+        "BH-D009:L5,L6,L12"
+      ]
+    }
+  ]
+}

@@ -32,6 +32,7 @@ class ModelPort(Protocol):
         history: list[dict[str, Any]],
         tools: list[dict[str, Any]] | None = None,
         max_tokens: int = 5000,
+        json_mode: bool = False,
     ) -> ModelTurn: ...
 
 
@@ -90,6 +91,7 @@ class AnthropicCompatibleModel:
         history: list[dict[str, Any]],
         tools: list[dict[str, Any]] | None = None,
         max_tokens: int = 5000,
+        json_mode: bool = False,
     ) -> ModelTurn:
         args: dict[str, Any] = {
             "model": self.model_name,
@@ -141,6 +143,7 @@ class OpenAICompatibleModel:
         history: list[dict[str, Any]],
         tools: list[dict[str, Any]] | None = None,
         max_tokens: int = 5000,
+        json_mode: bool = False,
     ) -> ModelTurn:
         messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
         for turn in history:
@@ -184,6 +187,15 @@ class OpenAICompatibleModel:
                 }
                 for tool in tools
             ]
+        if json_mode:
+            args["response_format"] = {"type": "json_object"}
+        thinking_mode = os.getenv("BB_GLM_THINKING")
+        if not thinking_mode and self.model_name.lower().startswith("glm-4.7"):
+            thinking_mode = "disabled"
+        if thinking_mode:
+            if thinking_mode not in {"enabled", "disabled"}:
+                raise ValueError("BB_GLM_THINKING must be enabled or disabled")
+            args["extra_body"] = {"thinking": {"type": thinking_mode}}
         response = self.client.chat.completions.create(**args)
         message = response.choices[0].message
         calls = [
@@ -241,7 +253,7 @@ def generate_json(
     history: list[dict[str, Any]] = [{"role": "user", "content": user}]
     trace: list[dict[str, Any]] = []
     for attempt in range(attempts):
-        turn = model.generate(system, history, max_tokens=max_tokens)
+        turn = model.generate(system, history, max_tokens=max_tokens, json_mode=True)
         trace.append({"stage": "json", "attempt": attempt + 1, "usage": turn.usage, "stop_reason": turn.stop_reason})
         try:
             return parse_json_object(turn.text), trace

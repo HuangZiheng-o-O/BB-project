@@ -160,8 +160,19 @@ class EvidenceTools:
 def _citations(answer: str, corpus: Corpus) -> tuple[list[str], list[str]]:
     citations: list[str] = []
     errors: list[str] = []
-    for source_id, line_text in re.findall(r"\[([A-Za-z0-9_.-]+):((?:L\d+,?)+)\]", answer):
-        numbers = [int(value) for value in re.findall(r"L(\d+)", line_text)]
+    pattern = re.compile(r"(?<![A-Za-z0-9_.-])([A-Za-z0-9_.-]+):(L\d+(?:,L\d+|[-–]L\d+)*)")
+    for match in pattern.finditer(answer):
+        source_id, line_text = match.groups()
+        numbers: list[int] = []
+        for part in line_text.split(","):
+            endpoints = [int(value) for value in re.findall(r"L(\d+)", part)]
+            if len(endpoints) == 2:
+                if endpoints[1] < endpoints[0] or endpoints[1] - endpoints[0] > 100:
+                    errors.append(f"Invalid citation range: {source_id}:{part}")
+                    continue
+                numbers.extend(range(endpoints[0], endpoints[1] + 1))
+            else:
+                numbers.extend(endpoints)
         try:
             anchor = Anchor(source_id=source_id, lines=numbers)
             corpus.validate_anchor(anchor)
@@ -190,6 +201,7 @@ def answer_question(
         "totals_complete": tools.calculation["totals_complete"],
         "unquantified_event_ids": tools.calculation["unquantified_event_ids"],
         "unresolved_mention_ids": tools.calculation["unresolved_mention_ids"],
+        "coverage_gaps": tools.calculation["coverage_gaps"],
         "weeks": [
             {key: value for key, value in item.items() if key != "days"}
             for item in tools.calculation["weeks"]

@@ -43,7 +43,7 @@ class CalculationTests(unittest.TestCase):
             patient_therapy="uncertain",
             interval_options=[[span("09:00", "10:00")]],
         )
-        goal = PlanGoal(source_id="PLAN", lines=[1], minimum_days=2, minimum_minutes=100)
+        goal = PlanGoal(source_id="PLAN", lines=[1], period="Monday-Sunday week", minimum_days=2, minimum_minutes=100)
         result = calculate_review(
             Reconciliation(events=[first, second]),
             BatchExtraction(goals=[goal]),

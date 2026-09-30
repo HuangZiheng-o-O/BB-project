@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import json
 from collections import defaultdict
-from typing import Any
+from pathlib import Path
+from typing import Any, Callable
 
 from pydantic import ValidationError
 
+from bb.cache import StageCache
 from bb.model_provider import ModelPort, generate_json
 from bb.models import AuditFinding, BatchExtraction, EventMention, Reconciliation, ResolvedEvent
 from bb.source import Corpus
@@ -25,6 +27,8 @@ Group breaks, network disconnects, and partner-only segments cannot count as pat
 An explicit correction supersedes ONLY the named field for that earlier event. A later retransmission of the original record does not undo the correction and does not create a new event. A schedule, charge, authorization, unsigned template, or administrative contact alone does not establish that patient therapy was delivered. Signed but conflicting clinical records may leave duration unresolved.
 
 Do not calculate minutes or weekly totals. If evidence cannot establish delivery or patient presence, set uncertain and state why. Preserve concrete, source-grounded distinctions; do not silently resolve a conflict with a universal document priority rule. Return JSON only."""
+
+RECONCILIATION_CACHE_VERSION = "clinical-interval-conflict-v2"
 
 
 def group_mentions(extraction: BatchExtraction) -> dict[str, list[EventMention]]:
@@ -83,19 +87,31 @@ def reconcile_events(
     extraction: BatchExtraction,
     corpus: Corpus,
     model: ModelPort,
+    cache_dir: Path | None = None,
+    progress: Callable[[str], None] | None = None,
 ) -> tuple[Reconciliation, list[AuditFinding], list[dict[str, Any]]]:
     groups = group_mentions(extraction)
     findings: list[AuditFinding] = []
     trace: list[dict[str, Any]] = []
     resolved: dict[str, ResolvedEvent] = {}
     batches = _batches(groups, corpus)
+    cache = StageCache(cache_dir) if cache_dir else None
     for number, batch in enumerate(batches, 1):
+        if progress:
+            progress(f"Reconciling batch {number}/{len(batches)}")
         expected = {item["group_id"] for item in batch}
         prompt = f"Reconcile group batch {number}/{len(batches)}:\n{json.dumps(batch, ensure_ascii=False)}"
+        cache_path = cache.path(
+            "reconcile", model.model_name, RECONCILIATION_SYSTEM + RECONCILIATION_CACHE_VERSION, prompt,
+        ) if cache else None
+        cached = cache.read(cache_path) if cache_path else None
         accepted: dict[str, ResolvedEvent] = {}
         errors: list[str] = []
         for attempt in range(2):
-            data, calls = generate_json(model, RECONCILIATION_SYSTEM, prompt, max_tokens=10000)
+            if cached is not None and attempt == 0:
+                data, calls = cached, [{"cache_hit": True}]
+            else:
+                data, calls = generate_json(model, RECONCILIATION_SYSTEM, prompt, max_tokens=10000)
             trace.extend({**call, "stage": "reconcile", "batch": number, "validation_attempt": attempt + 1} for call in calls)
             accepted, errors = {}, []
             for index, raw in enumerate(data.get("events", [])):
@@ -109,6 +125,24 @@ def reconcile_events(
                         raise ValueError("Decision must classify every mention exactly once")
                     if event.disposition == "not_delivered" and event.patient_therapy == "yes":
                         raise ValueError("Non-delivered event cannot be confirmed patient therapy")
+                    members = groups[event.event_id]
+                    clinical_intervals = {
+                        tuple((span.start, span.end) for span in mention.actual_intervals)
+                        for mention in members
+                        if mention.document_role == "clinical"
+                        and mention.patient_present is True
+                        and mention.actual_intervals
+                    }
+                    explicit_correction = any(mention.correction_field for mention in members)
+                    if len(clinical_intervals) > 1 and not explicit_correction:
+                        chosen_intervals = {
+                            tuple((span.start, span.end) for span in option)
+                            for option in event.interval_options
+                        }
+                        if not clinical_intervals.issubset(chosen_intervals):
+                            raise ValueError(
+                                "Conflicting clinical patient-contact intervals require separate interval_options"
+                            )
                     if event.event_id in accepted:
                         raise ValueError("Duplicate decision for one event group")
                     accepted[event.event_id] = event
@@ -118,6 +152,8 @@ def reconcile_events(
             if not errors and not missing:
                 break
             prompt += f"\n\nPrevious response failed validation: {errors}; missing group IDs: {sorted(missing)}. Return all groups again, complete and corrected."
+        if cache_path and not cache_path.exists() and not errors and not missing:
+            StageCache.write(cache_path, data)
         for event in accepted.values():
             if event.patient_therapy == "yes" and not event.interval_options:
                 findings.append(
@@ -137,6 +173,8 @@ def reconcile_events(
                     detail=f"Model omitted or invalidated groups: {', '.join(sorted(missing))}",
                 )
             )
+        if progress:
+            progress(f"Completed reconciliation batch {number}/{len(batches)}")
     unresolved = [
         mention.mention_id
         for group_id, mentions in groups.items()

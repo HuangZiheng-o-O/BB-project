@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import secrets
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,6 +18,7 @@ from bb.model_provider import make_model
 from bb.models import ReviewSnapshot
 from bb.reconcile import reconcile_events
 from bb.source import Corpus
+from bb.time_audit import audit_time_scope
 
 
 def _write_json(path: Path, value: Any) -> None:
@@ -51,17 +53,35 @@ def _run_directory(parent: Path) -> Path:
 def run(args: argparse.Namespace) -> Path:
     started = time.monotonic()
     output = _run_directory(args.output)
+
+    def progress(message: str) -> None:
+        timestamp = datetime.now(timezone.utc).strftime("%H:%M:%S UTC")
+        print(f"[{timestamp}] {message}", file=sys.stderr, flush=True)
+
+    progress("Indexing source documents")
     corpus = Corpus(args.documents, output / "index.sqlite3")
     model = make_model(args.provider, args.model, args.base_url)
     trace: list[dict[str, Any]] = []
     if args.snapshot:
+        progress("Validating reusable abstraction")
         snapshot = ReviewSnapshot.model_validate_json(args.snapshot.read_text(encoding="utf-8"))
         if snapshot.source_hashes != corpus.manifest():
             raise ValueError("Snapshot source hashes do not match the current document directory")
     else:
-        extraction, findings, extraction_trace = extract_corpus(corpus, model, max_chars=args.batch_chars)
+        cache_dir = args.output / "_stage_cache"
+        extraction, findings, extraction_trace = extract_corpus(
+            corpus, model, max_chars=args.batch_chars,
+            cache_dir=cache_dir, progress=progress,
+        )
         trace.extend(extraction_trace)
-        reconciliation, more_findings, reconciliation_trace = reconcile_events(extraction, corpus, model)
+        time_findings, time_trace = audit_time_scope(
+            extraction, corpus, model, cache_dir=cache_dir, progress=progress,
+        )
+        findings.extend(time_findings)
+        trace.extend(time_trace)
+        reconciliation, more_findings, reconciliation_trace = reconcile_events(
+            extraction, corpus, model, cache_dir=cache_dir, progress=progress,
+        )
         trace.extend(reconciliation_trace)
         snapshot = ReviewSnapshot(
             source_hashes=corpus.manifest(),
@@ -71,11 +91,15 @@ def run(args: argparse.Namespace) -> Path:
             findings=findings + more_findings,
         )
     _write_json(output / "abstraction.json", snapshot.model_dump())
-    calculation = calculate_review(snapshot.reconciliation, snapshot.extraction, args.start, args.end)
+    progress("Calculating event and weekly totals")
+    calculation = calculate_review(
+        snapshot.reconciliation, snapshot.extraction, args.start, args.end, findings=snapshot.findings,
+    )
     _write_json(output / "calculation.json", calculation)
     tools = EvidenceTools(corpus, snapshot, calculation)
     answers: list[dict[str, Any]] = []
     for item in _read_questions(args.questions):
+        progress(f"Investigating question {item['id']}")
         result = answer_question(
             item["question"], model, tools,
             max_tool_calls=args.max_tool_calls,
@@ -91,6 +115,7 @@ def run(args: argparse.Namespace) -> Path:
             }
         )
         trace.extend({**entry, "question_id": item["id"]} for entry in result.trace)
+        progress(f"Completed question {item['id']}")
     _write_json(output / "answers.json", answers)
     with (output / "trace.jsonl").open("x", encoding="utf-8") as stream:
         for entry in trace:
@@ -116,6 +141,7 @@ def run(args: argparse.Namespace) -> Path:
             "cost_note": "Provider billing rate was not supplied; token usage is recorded for independent costing.",
         },
     )
+    progress("Review run complete")
     return output
 
 
