@@ -1,0 +1,255 @@
+"""One model port with Anthropic- and OpenAI-compatible wire adapters."""
+
+from __future__ import annotations
+
+import json
+import os
+from dataclasses import dataclass, field
+from typing import Any, Protocol
+
+
+@dataclass(frozen=True)
+class ToolCall:
+    call_id: str
+    name: str
+    arguments: dict[str, Any]
+
+
+@dataclass(frozen=True)
+class ModelTurn:
+    text: str
+    tool_calls: list[ToolCall] = field(default_factory=list)
+    usage: dict[str, int] = field(default_factory=dict)
+    stop_reason: str = ""
+
+
+class ModelPort(Protocol):
+    model_name: str
+
+    def generate(
+        self,
+        system: str,
+        history: list[dict[str, Any]],
+        tools: list[dict[str, Any]] | None = None,
+        max_tokens: int = 5000,
+    ) -> ModelTurn: ...
+
+
+class AnthropicCompatibleModel:
+    def __init__(self, model_name: str, base_url: str | None = None) -> None:
+        from anthropic import Anthropic
+
+        token = os.getenv("ANTHROPIC_AUTH_TOKEN")
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not token and not api_key:
+            raise RuntimeError("Set ANTHROPIC_AUTH_TOKEN or ANTHROPIC_API_KEY")
+        self.model_name = model_name
+        self.client = Anthropic(
+            auth_token=token or None,
+            api_key=api_key or None,
+            base_url=base_url or os.getenv("ANTHROPIC_BASE_URL"),
+            timeout=float(os.getenv("BB_MODEL_TIMEOUT_SECONDS", "180")),
+            max_retries=2,
+        )
+
+    @staticmethod
+    def _messages(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        messages: list[dict[str, Any]] = []
+        for turn in history:
+            if turn["role"] == "user":
+                messages.append({"role": "user", "content": turn["content"]})
+            elif turn["role"] == "assistant":
+                blocks: list[dict[str, Any]] = []
+                if turn.get("content"):
+                    blocks.append({"type": "text", "text": turn["content"]})
+                for call in turn.get("tool_calls", []):
+                    blocks.append(
+                        {
+                            "type": "tool_use",
+                            "id": call["call_id"],
+                            "name": call["name"],
+                            "input": call["arguments"],
+                        }
+                    )
+                messages.append({"role": "assistant", "content": blocks})
+            elif turn["role"] == "tool":
+                block = {
+                    "type": "tool_result",
+                    "tool_use_id": turn["tool_call_id"],
+                    "content": turn["content"],
+                }
+                if messages and messages[-1]["role"] == "user" and isinstance(messages[-1]["content"], list):
+                    messages[-1]["content"].append(block)
+                else:
+                    messages.append({"role": "user", "content": [block]})
+        return messages
+
+    def generate(
+        self,
+        system: str,
+        history: list[dict[str, Any]],
+        tools: list[dict[str, Any]] | None = None,
+        max_tokens: int = 5000,
+    ) -> ModelTurn:
+        args: dict[str, Any] = {
+            "model": self.model_name,
+            "max_tokens": max_tokens,
+            "system": system,
+            "messages": self._messages(history),
+        }
+        if tools:
+            args["tools"] = [
+                {
+                    "name": tool["name"],
+                    "description": tool["description"],
+                    "input_schema": tool["parameters"],
+                }
+                for tool in tools
+            ]
+        response = self.client.messages.create(**args)
+        text = "\n".join(block.text for block in response.content if block.type == "text")
+        calls = [
+            ToolCall(call_id=block.id, name=block.name, arguments=block.input)
+            for block in response.content
+            if block.type == "tool_use"
+        ]
+        usage = {
+            "input_tokens": int(response.usage.input_tokens or 0),
+            "output_tokens": int(response.usage.output_tokens or 0),
+        }
+        return ModelTurn(text=text, tool_calls=calls, usage=usage, stop_reason=response.stop_reason or "")
+
+
+class OpenAICompatibleModel:
+    def __init__(self, model_name: str, base_url: str | None = None) -> None:
+        from openai import OpenAI
+
+        key = os.getenv("ZAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+        if not key:
+            raise RuntimeError("Set ZAI_API_KEY or OPENAI_API_KEY")
+        self.model_name = model_name
+        self.client = OpenAI(
+            api_key=key,
+            base_url=base_url or os.getenv("ZAI_BASE_URL") or os.getenv("OPENAI_BASE_URL"),
+            timeout=float(os.getenv("BB_MODEL_TIMEOUT_SECONDS", "180")),
+            max_retries=2,
+        )
+
+    def generate(
+        self,
+        system: str,
+        history: list[dict[str, Any]],
+        tools: list[dict[str, Any]] | None = None,
+        max_tokens: int = 5000,
+    ) -> ModelTurn:
+        messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
+        for turn in history:
+            if turn["role"] in ("user", "assistant"):
+                payload: dict[str, Any] = {"role": turn["role"], "content": turn.get("content") or ""}
+                if turn["role"] == "assistant" and turn.get("tool_calls"):
+                    payload["tool_calls"] = [
+                        {
+                            "id": call["call_id"],
+                            "type": "function",
+                            "function": {
+                                "name": call["name"],
+                                "arguments": json.dumps(call["arguments"]),
+                            },
+                        }
+                        for call in turn["tool_calls"]
+                    ]
+                messages.append(payload)
+            elif turn["role"] == "tool":
+                messages.append(
+                    {
+                        "role": "tool",
+                        "tool_call_id": turn["tool_call_id"],
+                        "content": turn["content"],
+                    }
+                )
+        args: dict[str, Any] = {
+            "model": self.model_name,
+            "messages": messages,
+            "max_tokens": max_tokens,
+        }
+        if tools:
+            args["tools"] = [
+                {
+                    "type": "function",
+                    "function": {
+                        "name": tool["name"],
+                        "description": tool["description"],
+                        "parameters": tool["parameters"],
+                    },
+                }
+                for tool in tools
+            ]
+        response = self.client.chat.completions.create(**args)
+        message = response.choices[0].message
+        calls = [
+            ToolCall(
+                call_id=call.id,
+                name=call.function.name,
+                arguments=json.loads(call.function.arguments),
+            )
+            for call in (message.tool_calls or [])
+        ]
+        usage = response.usage
+        return ModelTurn(
+            text=message.content or "",
+            tool_calls=calls,
+            usage={
+                "input_tokens": int(usage.prompt_tokens) if usage else 0,
+                "output_tokens": int(usage.completion_tokens) if usage else 0,
+            },
+            stop_reason=response.choices[0].finish_reason or "",
+        )
+
+
+def make_model(provider: str, model_name: str, base_url: str | None = None) -> ModelPort:
+    if provider == "anthropic":
+        return AnthropicCompatibleModel(model_name, base_url)
+    if provider == "openai":
+        return OpenAICompatibleModel(model_name, base_url)
+    raise ValueError(f"Unsupported provider: {provider}")
+
+
+def parse_json_object(text: str) -> dict[str, Any]:
+    """Extract one JSON object without accepting trailing model prose as data."""
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        stripped = stripped.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    if not stripped.startswith("{"):
+        first = stripped.find("{")
+        last = stripped.rfind("}")
+        if first < 0 or last <= first:
+            raise ValueError("Model did not return a JSON object")
+        stripped = stripped[first : last + 1]
+    value = json.loads(stripped)
+    if not isinstance(value, dict):
+        raise ValueError("Expected a JSON object")
+    return value
+
+
+def generate_json(
+    model: ModelPort,
+    system: str,
+    user: str,
+    max_tokens: int,
+    attempts: int = 2,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    history: list[dict[str, Any]] = [{"role": "user", "content": user}]
+    trace: list[dict[str, Any]] = []
+    for attempt in range(attempts):
+        turn = model.generate(system, history, max_tokens=max_tokens)
+        trace.append({"stage": "json", "attempt": attempt + 1, "usage": turn.usage, "stop_reason": turn.stop_reason})
+        try:
+            return parse_json_object(turn.text), trace
+        except (ValueError, json.JSONDecodeError) as error:
+            history.extend(
+                [
+                    {"role": "assistant", "content": turn.text},
+                    {"role": "user", "content": f"Your output was not valid JSON: {error}. Return one complete JSON object only."},
+                ]
+            )
+    raise ValueError("Model failed to return valid JSON after retry")
