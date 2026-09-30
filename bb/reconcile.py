@@ -10,8 +10,9 @@ from typing import Any, Callable
 from pydantic import ValidationError
 
 from bb.cache import StageCache
-from bb.model_provider import ModelPort, generate_json
+from bb.model_provider import ModelPort
 from bb.models import AuditFinding, BatchExtraction, EventMention, Reconciliation, ResolvedEvent
+from bb.repair import generate_checked_json
 from bb.source import Corpus
 
 
@@ -104,17 +105,13 @@ def reconcile_events(
         cache_path = cache.path(
             "reconcile", model.model_name, RECONCILIATION_SYSTEM + RECONCILIATION_CACHE_VERSION, prompt,
         ) if cache else None
-        cached = cache.read(cache_path) if cache_path else None
-        accepted: dict[str, ResolvedEvent] = {}
-        errors: list[str] = []
-        for attempt in range(2):
-            if cached is not None and attempt == 0:
-                data, calls = cached, [{"cache_hit": True}]
-            else:
-                data, calls = generate_json(model, RECONCILIATION_SYSTEM, prompt, max_tokens=10000)
-            trace.extend({**call, "stage": "reconcile", "batch": number, "validation_attempt": attempt + 1} for call in calls)
-            accepted, errors = {}, []
-            for index, raw in enumerate(data.get("events", [])):
+        def validated_events(data: dict[str, Any]) -> tuple[dict[str, ResolvedEvent], list[str]]:
+            accepted: dict[str, ResolvedEvent] = {}
+            errors: list[str] = []
+            rows = data.get("events")
+            if not isinstance(rows, list):
+                return {}, ["events must be an array"]
+            for index, raw in enumerate(rows):
                 try:
                     event = ResolvedEvent.model_validate(raw)
                     if event.event_id not in expected:
@@ -149,10 +146,23 @@ def reconcile_events(
                 except (ValidationError, ValueError, KeyError) as error:
                     errors.append(f"event {index}: {error}")
             missing = expected - set(accepted)
-            if not errors and not missing:
-                break
-            prompt += f"\n\nPrevious response failed validation: {errors}; missing group IDs: {sorted(missing)}. Return all groups again, complete and corrected."
-        if cache_path and not cache_path.exists() and not errors and not missing:
+            if missing:
+                errors.append(f"Missing group IDs: {sorted(missing)}")
+            return accepted, errors
+
+        cached = cache.read(cache_path) if cache_path else None
+        if cached is not None and validated_events(cached)[1]:
+            cached = None
+        if cached is None:
+            data, calls = generate_checked_json(
+                model, RECONCILIATION_SYSTEM, prompt,
+                lambda value: validated_events(value)[1], max_tokens=10000,
+            )
+        else:
+            data, calls = cached, [{"cache_hit": True}]
+        trace.extend({**call, "stage": "reconcile", "batch": number} for call in calls)
+        accepted, _ = validated_events(data)
+        if cache_path and not cache_path.exists():
             StageCache.write(cache_path, data)
         for event in accepted.values():
             if event.patient_therapy == "yes" and not event.interval_options:
@@ -164,15 +174,6 @@ def reconcile_events(
                     )
                 )
         resolved.update(accepted)
-        for error in errors:
-            findings.append(AuditFinding(code="invalid_event_decision", detail=f"batch {number}: {error}"))
-        if missing:
-            findings.append(
-                AuditFinding(
-                    code="unresolved_event_group",
-                    detail=f"Model omitted or invalidated groups: {', '.join(sorted(missing))}",
-                )
-            )
         if progress:
             progress(f"Completed reconciliation batch {number}/{len(batches)}")
     unresolved = [

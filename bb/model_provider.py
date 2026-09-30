@@ -22,6 +22,7 @@ class ModelTurn:
     tool_calls: list[ToolCall] = field(default_factory=list)
     usage: dict[str, int] = field(default_factory=dict)
     stop_reason: str = ""
+    response_items: list[Any] = field(default_factory=list)
 
 
 class ModelPort(Protocol):
@@ -150,6 +151,8 @@ class OpenAICompatibleModel:
         max_tokens: int = 5000,
         json_mode: bool = False,
     ) -> ModelTurn:
+        if self.model_name.startswith("gpt-6-") and urlparse(str(self.client.base_url)).hostname == "api.openai.com":
+            return self._generate_responses(system, history, tools, max_tokens, json_mode)
         messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
         for turn in history:
             if turn["role"] in ("user", "assistant"):
@@ -222,6 +225,73 @@ class OpenAICompatibleModel:
             stop_reason=response.choices[0].finish_reason or "",
         )
 
+    def _generate_responses(
+        self,
+        system: str,
+        history: list[dict[str, Any]],
+        tools: list[dict[str, Any]] | None,
+        max_tokens: int,
+        json_mode: bool,
+    ) -> ModelTurn:
+        inputs: list[Any] = []
+        for turn in history:
+            if turn["role"] == "assistant" and turn.get("response_items"):
+                inputs.extend(turn["response_items"])
+            elif turn["role"] in ("user", "assistant"):
+                if turn.get("content"):
+                    inputs.append({"role": turn["role"], "content": turn["content"]})
+                for call in turn.get("tool_calls", []):
+                    inputs.append({
+                        "type": "function_call",
+                        "call_id": call["call_id"],
+                        "name": call["name"],
+                        "arguments": json.dumps(call["arguments"]),
+                    })
+            elif turn["role"] == "tool":
+                inputs.append({
+                    "type": "function_call_output",
+                    "call_id": turn["tool_call_id"],
+                    "output": turn["content"],
+                })
+        args: dict[str, Any] = {
+            "model": self.model_name,
+            "instructions": system,
+            "input": inputs,
+            "max_output_tokens": max_tokens + 2000,
+            "reasoning": {"effort": os.getenv("BB_OPENAI_REASONING_EFFORT", "medium")},
+            "store": False,
+            "include": ["reasoning.encrypted_content"],
+        }
+        if tools:
+            args["tools"] = [
+                {
+                    "type": "function",
+                    "name": tool["name"],
+                    "description": tool["description"],
+                    "parameters": tool["parameters"],
+                    "strict": False,
+                }
+                for tool in tools
+            ]
+        if json_mode:
+            inputs.append({"role": "user", "content": "Return one valid JSON object."})
+            args["text"] = {"format": {"type": "json_object"}}
+        response = self.client.responses.create(**args)
+        calls = [
+            ToolCall(call_id=item.call_id, name=item.name, arguments=json.loads(item.arguments))
+            for item in response.output if item.type == "function_call"
+        ]
+        return ModelTurn(
+            text=response.output_text,
+            tool_calls=calls,
+            usage={
+                "input_tokens": int(response.usage.input_tokens) if response.usage else 0,
+                "output_tokens": int(response.usage.output_tokens) if response.usage else 0,
+            },
+            stop_reason=response.status or "",
+            response_items=list(response.output),
+        )
+
 
 def make_model(provider: str, model_name: str, base_url: str | None = None) -> ModelPort:
     if provider == "anthropic":
@@ -265,7 +335,7 @@ def generate_json(
         except (ValueError, json.JSONDecodeError) as error:
             history.extend(
                 [
-                    {"role": "assistant", "content": turn.text},
+                    {"role": "assistant", "content": turn.text, "response_items": turn.response_items},
                     {"role": "user", "content": f"Your output was not valid JSON: {error}. Return one complete JSON object only."},
                 ]
             )

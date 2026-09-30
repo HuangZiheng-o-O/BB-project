@@ -7,11 +7,11 @@ Deliver a working CLI for the supplied text documents, five development question
 ## End-to-end design
 
 1. **Source adapter:** load UTF-8 `.txt` files read-only, preserve source IDs, SHA-256 hashes and stable line addresses; index lines in SQLite FTS5. Search returns candidates, while paged source inventory permits complete coverage.
-2. **Candidate extraction:** batch records into model-sized inputs and produce source-linked event mentions, plan goals, instrument instances and observations. Validate source IDs and line ranges before admitting candidates.
-3. **Identity and reconciliation:** group mentions by patient plus encounter/appointment IDs; bridge a uniquely linked appointment ID to an encounter ID. Ask the model for one event decision per group, retaining support, opposition, corrections and multiple plausible interval sets. Unknown identity remains unlinked.
+2. **Candidate extraction:** batch records into model-sized inputs and produce source-linked event mentions, plan goals, instrument instances and observations. Normalize unambiguous line labels, validate source IDs and line ranges, and feed validation errors back to the model for bounded repair. A persistently invalid batch cannot become a reusable offline snapshot.
+3. **Identity and reconciliation:** group mentions by patient plus encounter/appointment IDs; bridge a uniquely linked appointment ID to an encounter ID. Ask the model for one event decision per group, retaining support, opposition, corrections and multiple plausible interval sets. Return invalid or incomplete decisions with specific errors for repair before accepting the batch. Unknown identity remains unlinked.
 4. **Deterministic calculations:** union patient-contact intervals, subtract nontherapy periods, keep conflicting durations as bounds, count one encounter once and one therapy day per date, aggregate Monday–Sunday weeks, and compare documented targets. Do not infer delivery from schedules, charges or unsigned notes.
 5. **Bounded answer agent:** seed it with a compact abstraction index and enable `search`, `open_source`, `related`, `scan` and `calculate`. Model-selected tools can investigate a new predicate directly in source records. Record calls and validate cited source-line addresses.
-6. **Reproducibility:** write each run to a unique directory; store abstraction, calculation, answers, source hashes, trace, model name and token usage. Reuse abstraction for new questions only when source hashes match.
+6. **Reproducibility:** write each run to a unique directory; store abstraction, calculation, answers, source hashes, trace, model name and token usage. Reuse abstraction for new questions only when source hashes and model match and no rejected or omitted source claims remain. Rebuild stale or invalid offline output before answering.
 
 ## Design patterns and choices
 

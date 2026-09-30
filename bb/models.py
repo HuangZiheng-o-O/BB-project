@@ -38,9 +38,37 @@ def _empty_list(value: list | None) -> list:
     return [] if value is None else value
 
 
+def _source_lines(value: object) -> object:
+    """Accept numbered source labels while storing one canonical integer anchor."""
+    if not isinstance(value, list):
+        return value
+    numbers: list[int] = []
+    for entry in value:
+        if isinstance(entry, int) and not isinstance(entry, bool):
+            numbers.append(entry)
+            continue
+        if not isinstance(entry, str):
+            raise ValueError("Source lines must be integers or L-prefixed line labels")
+        for part in entry.split(","):
+            match = re.fullmatch(r"L?(\d+)(?:[-–]L?(\d+))?", part.strip())
+            if not match:
+                raise ValueError(f"Invalid source line label: {entry}")
+            first = int(match.group(1))
+            last = int(match.group(2)) if match.group(2) else first
+            if last < first or last - first >= 12:
+                raise ValueError(f"Invalid or oversized source line range: {entry}")
+            numbers.extend(range(first, last + 1))
+    return numbers
+
+
 class Anchor(BaseModel):
     source_id: str
     lines: list[int] = Field(min_length=1, max_length=12)
+
+    @field_validator("lines", mode="before")
+    @classmethod
+    def parse_lines(cls, value: object) -> object:
+        return _source_lines(value)
 
     @field_validator("lines")
     @classmethod
@@ -73,6 +101,11 @@ class EventMention(BaseModel):
     duplicate_of: str | None = None
     note: str = ""
     mention_id: str = ""
+
+    @field_validator("lines", mode="before")
+    @classmethod
+    def parse_lines(cls, value: object) -> object:
+        return _source_lines(value)
 
     @field_validator("note", mode="before")
     @classmethod
@@ -108,6 +141,11 @@ class PlanGoal(BaseModel):
     included_services: list[str] = Field(default_factory=list)
     excluded_services: list[str] = Field(default_factory=list)
     description: str = ""
+
+    @field_validator("lines", mode="before")
+    @classmethod
+    def parse_lines(cls, value: object) -> object:
+        return _source_lines(value)
 
     @field_validator("period", mode="before")
     @classmethod
@@ -150,6 +188,11 @@ class MeasureMention(BaseModel):
     copied_from_form: str | None = None
     note: str = ""
 
+    @field_validator("lines", mode="before")
+    @classmethod
+    def parse_lines(cls, value: object) -> object:
+        return _source_lines(value)
+
     @field_validator("note", mode="before")
     @classmethod
     def optional_note(cls, value: str | None) -> str:
@@ -172,6 +215,11 @@ class Observation(BaseModel):
     theme: str
     statement: str
     polarity: Literal["positive", "negative", "uncertain", "planned"] = "positive"
+
+    @field_validator("lines", mode="before")
+    @classmethod
+    def parse_lines(cls, value: object) -> object:
+        return _source_lines(value)
 
     @field_validator("date")
     @classmethod
@@ -224,3 +272,25 @@ class ReviewSnapshot(BaseModel):
     extraction: BatchExtraction
     reconciliation: Reconciliation
     findings: list[AuditFinding] = Field(default_factory=list)
+
+
+INVALID_STAGE_FINDINGS = {
+    "invalid_extraction_array",
+    "invalid_source_candidate",
+    "possible_event_omission",
+    "invalid_event_decision",
+    "unresolved_event_group",
+}
+
+
+def validate_snapshot_reuse(
+    snapshot: ReviewSnapshot, model_name: str, source_hashes: dict[str, str],
+) -> None:
+    """Keep stale or rejected model-stage output out of new answer runs."""
+    if snapshot.extraction_model != model_name:
+        raise ValueError("The abstraction was produced by a different model")
+    if snapshot.source_hashes != source_hashes:
+        raise ValueError("Snapshot source hashes do not match the document directory")
+    rejected = sorted({item.code for item in snapshot.findings if item.code in INVALID_STAGE_FINDINGS})
+    if rejected:
+        raise ValueError(f"The abstraction contains rejected or omitted source claims: {', '.join(rejected)}")

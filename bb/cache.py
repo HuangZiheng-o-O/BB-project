@@ -22,10 +22,11 @@ class StageCache:
     def read(path: Path) -> dict[str, Any] | None:
         if not path.exists():
             return None
-        value = json.loads(path.read_text(encoding="utf-8"))
-        if not isinstance(value, dict):
-            raise ValueError(f"Invalid cached stage result: {path}")
-        return value
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            return None
+        return value if isinstance(value, dict) else None
 
     @staticmethod
     def write(path: Path, value: dict[str, Any]) -> None:

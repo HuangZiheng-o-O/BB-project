@@ -15,7 +15,7 @@ from bb.agent import EvidenceTools, answer_question
 from bb.compute import calculate_review
 from bb.extract import extract_corpus
 from bb.model_provider import make_model
-from bb.models import ReviewSnapshot
+from bb.models import ReviewSnapshot, validate_snapshot_reuse
 from bb.reconcile import reconcile_events
 from bb.source import Corpus
 from bb.time_audit import audit_time_scope
@@ -65,8 +65,7 @@ def run(args: argparse.Namespace) -> Path:
     if args.snapshot:
         progress("Validating reusable abstraction")
         snapshot = ReviewSnapshot.model_validate_json(args.snapshot.read_text(encoding="utf-8"))
-        if snapshot.source_hashes != corpus.manifest():
-            raise ValueError("Snapshot source hashes do not match the current document directory")
+        validate_snapshot_reuse(snapshot, args.model, corpus.manifest())
     else:
         cache_dir = args.output / "_stage_cache" if args.reuse_cache else None
         extraction, findings, extraction_trace = extract_corpus(

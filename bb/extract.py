@@ -9,15 +9,16 @@ from typing import Any, Callable, TypeVar
 from pydantic import BaseModel, ValidationError
 
 from bb.cache import StageCache
-from bb.model_provider import ModelPort, generate_json
+from bb.model_provider import ModelPort
 from bb.models import AuditFinding, BatchExtraction, EventMention, MeasureMention, Observation, PlanGoal
+from bb.repair import generate_checked_json
 from bb.source import Corpus
 
 
 EXTRACTION_SYSTEM = """You are a clinical records evidence extractor. Produce source claims, never a final patient answer.
 
 Return one JSON object with exactly four arrays: events, goals, measures, observations. No markdown.
-Every item MUST cite the provided DOCUMENT source_id and 1-based L-line numbers. Cite concise decisive lines (at most 12 per item). Do not invent a source or a line.
+Every item MUST cite the provided DOCUMENT source_id and 1-based line numbers. The lines field is an array of integers, for example [3,4,5], not strings such as ["L0003-L0005"]. Cite concise decisive lines (at most 12 per item). Do not invent a source or a line.
 
 events: one mention per specific patient encounter or appointment described by each source. A multi-row register yields one mention per row. Fields: source_id, lines, patient_id (stable chart/MRN identifier if stated), encounter_id, appointment_id, service_date (YYYY-MM-DD), service_type (individual/group/family/medication/collateral/care_coordination/other), document_role (clinical/attendance/schedule/correction/charge/draft/administrative), status (delivered/attended/no_show/cancelled/scheduled/posted/draft/correction/unknown), patient_present (true/false/null), actual_intervals, scheduled_intervals, nontherapy_intervals, correction_field, correction_value, duplicate_of, note. Each interval is {start:"HH:MM",end:"HH:MM"}. Empty arrays and nulls are allowed.
 actual_intervals represent documented patient-present clinical contact only. If a record reports only scheduled time, put it in scheduled_intervals. For a mixed family session, actual_intervals include only the patient's portion. A connection interruption or group break belongs in nontherapy_intervals; separate connection segments in one appointment remain one mention. A correction is a statement about an earlier field, not another service. A charge, unsigned template, authorization, or administrative call does not prove delivered patient therapy.
@@ -81,6 +82,25 @@ def _validated_items(
     return valid
 
 
+def _payload_errors(
+    data: dict[str, Any], corpus: Corpus, allowed_sources: set[str], required_ids: set[str] | None = None,
+) -> list[str]:
+    errors = [f"Missing required array: {key}" for key in ("events", "goals", "measures", "observations") if key not in data]
+    findings: list[AuditFinding] = []
+    events = _validated_items(data, "events", EventMention, corpus, allowed_sources, findings)
+    _validated_items(data, "goals", PlanGoal, corpus, allowed_sources, findings)
+    _validated_items(data, "measures", MeasureMention, corpus, allowed_sources, findings)
+    _validated_items(data, "observations", Observation, corpus, allowed_sources, findings)
+    errors.extend(item.detail for item in findings)
+    if required_ids:
+        represented = {
+            identity for item in events
+            for identity in (item.encounter_id, item.appointment_id) if identity
+        }
+        errors.extend(f"Missing labeled encounter or appointment: {identity}" for identity in sorted(required_ids - represented))
+    return errors
+
+
 def extract_corpus(
     corpus: Corpus,
     model: ModelPort,
@@ -102,11 +122,14 @@ def extract_corpus(
         allowed = set(re.findall(r"^DOCUMENT (\S+)", batch, re.MULTILINE))
         cache_path = cache.path("extract", model.model_name, EXTRACTION_SYSTEM, batch) if cache else None
         result = cache.read(cache_path) if cache_path else None
+        if result is not None and _payload_errors(result, corpus, allowed):
+            result = None
         if result is None:
-            result, calls = generate_json(
+            result, calls = generate_checked_json(
                 model,
                 EXTRACTION_SYSTEM,
                 f"Extract evidence from source batch {batch_number}/{len(batches)}:\n\n{batch}",
+                lambda data: _payload_errors(data, corpus, allowed),
                 max_tokens=10000,
             )
         else:
@@ -138,16 +161,18 @@ def extract_corpus(
         payload = source.formatted()
         cache_path = cache.path("extract_repair", model.model_name, REPAIR_SYSTEM, payload) if cache else None
         result = cache.read(cache_path) if cache_path else None
+        if result is not None and _payload_errors(result, corpus, {source.source_id}, missing_ids):
+            result = None
         if result is None:
-            result, calls = generate_json(
+            result, calls = generate_checked_json(
                 model, REPAIR_SYSTEM,
                 f"Audit this source for all concrete event mentions:\n\n{payload}",
+                lambda data: _payload_errors(data, corpus, {source.source_id}, missing_ids),
                 max_tokens=5000,
             )
         else:
             calls = [{"cache_hit": True}]
         trace.extend({**call, "stage": "extract_repair", "source_id": source.source_id} for call in calls)
-        prior_findings = len(findings)
         repaired = [
             item for item in _validated_items(result, "events", EventMention, corpus, {source.source_id}, findings)
             if {item.encounter_id, item.appointment_id} & missing_ids
@@ -159,14 +184,8 @@ def extract_corpus(
         }
         still_missing = missing_ids - recovered_ids
         if still_missing:
-            findings.append(
-                AuditFinding(
-                    code="possible_event_omission",
-                    detail=f"Source {source.source_id} has unrepresented labeled contact IDs after targeted review: {', '.join(sorted(still_missing))}",
-                    source_refs=[source.source_id],
-                )
-            )
-        elif cache_path and not cache_path.exists() and len(findings) == prior_findings:
+            raise ValueError(f"Validated source repair omitted labeled IDs: {sorted(still_missing)}")
+        if cache_path and not cache_path.exists():
             StageCache.write(cache_path, result)
     unique_events = {item.mention_id: item for item in all_events}
     extraction = BatchExtraction(

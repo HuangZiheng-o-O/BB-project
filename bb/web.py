@@ -13,7 +13,7 @@ from typing import Any
 from bb.agent import EvidenceTools, answer_question
 from bb.compute import calculate_review
 from bb.model_provider import ModelPort, make_model
-from bb.models import ReviewSnapshot
+from bb.models import ReviewSnapshot, validate_snapshot_reuse
 from bb.source import Corpus
 
 
@@ -38,10 +38,6 @@ class ReviewSession:
         max_model_turns: int = 6,
     ) -> None:
         run_metadata = json.loads((run_path / "run.json").read_text(encoding="utf-8"))
-        if run_metadata["snapshot_reused"]:
-            raise ValueError("The selected run reused an older abstraction; create a fresh model run first")
-        if run_metadata.get("cache_enabled", True):
-            raise ValueError("The selected run may contain cached model output; create a run without --reuse-cache")
         if run_metadata["model"] != model.model_name:
             raise ValueError("The selected run and answer model differ; use a run produced by this model")
         self.directory = _new_directory(output_root)
@@ -49,10 +45,7 @@ class ReviewSession:
         self.snapshot = ReviewSnapshot.model_validate_json(
             (run_path / "abstraction.json").read_text(encoding="utf-8")
         )
-        if self.snapshot.extraction_model != model.model_name:
-            raise ValueError("The abstraction was produced by a different model")
-        if self.snapshot.source_hashes != self.corpus.manifest():
-            raise ValueError("Snapshot source hashes do not match the document directory")
+        validate_snapshot_reuse(self.snapshot, model.model_name, self.corpus.manifest())
         recorded = json.loads((run_path / "calculation.json").read_text(encoding="utf-8"))
         period = recorded["period"]
         recalculated = calculate_review(

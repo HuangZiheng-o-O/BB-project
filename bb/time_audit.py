@@ -7,8 +7,9 @@ from pathlib import Path
 from typing import Any, Callable
 
 from bb.cache import StageCache
-from bb.model_provider import ModelPort, generate_json
+from bb.model_provider import ModelPort
 from bb.models import AuditFinding, BatchExtraction
+from bb.repair import generate_checked_json
 from bb.source import Corpus
 
 
@@ -50,10 +51,36 @@ def audit_time_scope(
     cache = StageCache(cache_dir) if cache_dir else None
     cache_path = cache.path("time_scope", model.model_name, TIME_SCOPE_SYSTEM, serialized) if cache else None
     result = cache.read(cache_path) if cache_path else None
+
+    expected = {mention.mention_id for mention in candidates}
+
+    def validation_errors(data: dict[str, Any]) -> list[str]:
+        decisions = data.get("decisions")
+        if not isinstance(decisions, list):
+            return ["decisions must be an array"]
+        errors: list[str] = []
+        identifiers: list[str] = []
+        for index, decision in enumerate(decisions):
+            if not isinstance(decision, dict):
+                errors.append(f"decisions[{index}] must be an object")
+                continue
+            identifiers.append(str(decision.get("mention_id")))
+            verdict = decision.get("patient_actual_supported")
+            if verdict is not True and verdict is not False and verdict is not None:
+                errors.append(f"decisions[{index}].patient_actual_supported must be true, false, or null")
+        if len(identifiers) != len(set(identifiers)):
+            errors.append("Duplicate mention IDs in time-scope decisions")
+        if set(identifiers) != expected:
+            errors.append(f"Missing IDs: {sorted(expected - set(identifiers))}; unknown IDs: {sorted(set(identifiers) - expected)}")
+        return errors
+
+    if result is not None and validation_errors(result):
+        result = None
     if result is None:
-        result, calls = generate_json(
+        result, calls = generate_checked_json(
             model, TIME_SCOPE_SYSTEM,
             f"Audit these extracted time claims:\n{serialized}",
+            validation_errors,
             max_tokens=2000,
         )
     else:
@@ -61,9 +88,6 @@ def audit_time_scope(
     trace = [{**call, "stage": "time_scope"} for call in calls]
     decisions = result.get("decisions", [])
     by_id = {item.get("mention_id"): item for item in decisions if isinstance(item, dict)}
-    expected = {mention.mention_id for mention in candidates}
-    if set(by_id) != expected or len(decisions) != len(expected):
-        raise ValueError("Time-scope audit did not return exactly one decision per candidate")
     findings: list[AuditFinding] = []
     for mention in candidates:
         decision = by_id[mention.mention_id]
@@ -86,8 +110,6 @@ def audit_time_scope(
                     source_refs=[mention.anchor().reference()],
                 )
             )
-        elif verdict is not True:
-            raise ValueError("Time-scope verdict must be true, false, or null")
     if cache_path and not cache_path.exists():
         StageCache.write(cache_path, result)
     trace.append({"stage": "time_scope_decisions", "decisions": decisions})

@@ -227,7 +227,7 @@ def answer_question(
             answer = turn.text
             break
         history.append(
-            {"role": "assistant", "content": turn.text, "tool_calls": [call.__dict__ for call in turn.tool_calls]}
+            {"role": "assistant", "content": turn.text, "tool_calls": [call.__dict__ for call in turn.tool_calls], "response_items": turn.response_items}
         )
         for call in turn.tool_calls:
             if remaining <= 0:
@@ -248,7 +248,7 @@ def answer_question(
         trace.append({"stage": "answer_final", "usage": turn.usage, "stop_reason": turn.stop_reason})
     citations, errors = _citations(answer, tools.corpus)
     if errors:
-        history.append({"role": "assistant", "content": answer})
+        history.append({"role": "assistant", "content": answer, "response_items": turn.response_items})
         history.append({"role": "user", "content": f"Citation audit failed: {errors}. Correct invalid/missing citations using only source IDs and line numbers already inspected. Return the full corrected answer."})
         revised = model.generate(AGENT_SYSTEM, history, max_tokens=6000)
         trace.append({"stage": "citation_repair", "usage": revised.usage, "stop_reason": revised.stop_reason})
