@@ -2,7 +2,7 @@
 
 This Python CLI creates a source-audited abstraction of text clinical records and answers related questions through a bounded, tool-using agent. It is a prototype for one review corpus at a time. Source records remain read-only; every run gets a new output directory.
 
-**Documentation:** [Runbook: every command and the Gradio page](doc/RUNBOOK.md) · [Submission guide: abstraction, logs, checks and measurements](doc/SUBMISSION.md) · [Implementation walkthrough and related questions](doc/IMPLEMENTATION_WALKTHROUGH.md).
+**Documentation:** [Runbook: every command and the Gradio page](docs/RUNBOOK.md) · [Submission guide: abstraction, logs, checks and measurements](docs/SUBMISSION.md) · [Implementation walkthrough and related questions](docs/IMPLEMENTATION_WALKTHROUGH.md).
 
 ## Architecture and reviewed answers
 
@@ -114,7 +114,7 @@ uv run --env-file .env --extra web bb-review-web \
   --provider openai --model gpt-6-sol
 ```
 
-Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The page shows the answer with source references. **Download Markdown** provides the question, answer, cited original lines, and online model call count. The page checks the model, source hashes, calculation, and validation findings before using a saved offline result. It reuses document processing across questions. Each answer and its model trace are saved under ignored `runs/web/`. To use your fresh offline result, substitute `--run "$PREP_RUN"`. To generate the original five answers, run `bb-review` with `--questions questions.json` and `--snapshot "$PREP_RUN/abstraction.json"`. For ready-to-copy commands, see the [runbook](doc/RUNBOOK.md).
+Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The page shows the answer with source references. **Download Markdown** provides the question, answer, cited original lines, and online model call count. The page checks the model, source hashes, calculation, and validation findings before using a saved offline result. It reuses document processing across questions. Each answer and its model trace are saved under ignored `runs/web/`. To use your fresh offline result, substitute `--run "$PREP_RUN"`. To generate the original five answers, run `bb-review` with `--questions questions.json` and `--snapshot "$PREP_RUN/abstraction.json"`. For ready-to-copy commands, see the [runbook](docs/RUNBOOK.md).
 
 The page listens on the local computer at `127.0.0.1`. For another document set, pass its original source directory with `--documents` to both commands and use the run directory created from those documents.
 
@@ -132,4 +132,4 @@ Start with `run.json` to see source hashes, whether the offline snapshot was reu
 
 These local trace and run files can contain source text, questions, and model responses. The `runs/` directory is excluded from Git.
 
-I directed AI-assisted research and led the architecture, discussing the detailed design with AI. AI implemented the project, and I worked with AI to review and test it. Technical ideas and libraries are credited in [the implementation plan](doc/IMPLEMENTATION_PLAN.md).
+I directed AI-assisted research and led the architecture, discussing the detailed design with AI. AI implemented the project, and I worked with AI to review and test it. Technical ideas and libraries are credited in [the implementation plan](docs/IMPLEMENTATION_PLAN.md).
