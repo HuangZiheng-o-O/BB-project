@@ -85,6 +85,8 @@ TOOL_SPECS: list[dict[str, Any]] = [
 
 @dataclass
 class InvestigationResult:
+    """Final answer and the trace needed to audit its evidence path."""
+
     answer: str
     citations: list[str]
     trace: list[dict[str, Any]]
@@ -92,12 +94,27 @@ class InvestigationResult:
 
 
 class EvidenceTools:
+    """Expose source, inventory, and deterministic calculation views."""
+
     def __init__(self, corpus: Corpus, snapshot: ReviewSnapshot, calculation: dict[str, Any]) -> None:
+        """Bind tools to one validated preparation snapshot and source set."""
         self.corpus = corpus
         self.snapshot = snapshot
         self.calculation = calculation
 
     def invoke(self, name: str, args: dict[str, Any]) -> Any:
+        """Dispatch a model-selected evidence tool.
+
+        Args:
+            name: Tool name from ``TOOL_SPECS``.
+            args: Parsed arguments supplied by the model.
+
+        Returns:
+            Source lines, source claims, inventory rows, or calculated values.
+
+        Raises:
+            ValueError: The model requested an unknown tool.
+        """
         if name == "search":
             return self.corpus.search(str(args["query"]), max(1, min(int(args.get("limit", 12)), 30)))
         if name == "open_source":
@@ -158,6 +175,7 @@ class EvidenceTools:
 
 
 def _citations(answer: str, corpus: Corpus) -> tuple[list[str], list[str]]:
+    """Parse and validate every source reference in the answer text."""
     citations: list[str] = []
     errors: list[str] = []
     pattern = re.compile(r"(?<![A-Za-z0-9_.-])([A-Za-z0-9_.-]+):(L\d+(?:,L\d+|[-–]L\d+)*)")
@@ -191,8 +209,20 @@ def answer_question(
     max_tool_calls: int = 12,
     max_model_turns: int = 6,
 ) -> InvestigationResult:
-    """Run an actual tool-using model loop with bounded time and auditable calls."""
+    """Run a bounded investigation over saved claims and original sources.
+
+    Args:
+        question: New question to investigate.
+        model: Provider-neutral model adapter.
+        tools: Views of the validated snapshot, calculation, and corpus.
+        max_tool_calls: Maximum tool executions during the investigation.
+        max_model_turns: Maximum regular model turns before a forced answer.
+
+    Returns:
+        Answer, validated citations, trace, and remaining citation errors.
+    """
     overview = {
+        # Indexes orient the agent; complete inventories remain available via tools.
         "period": tools.calculation["period"],
         "therapy_sessions": tools.calculation["therapy_sessions"],
         "sessions_by_type": tools.calculation["sessions_by_type"],
@@ -221,6 +251,7 @@ def answer_question(
     remaining = max_tool_calls
     answer = ""
     for turn_number in range(1, max_model_turns + 1):
+        # Keep each model turn and tool result in the trace for debugging.
         turn = model.generate(AGENT_SYSTEM, history, tools=TOOL_SPECS if remaining else None, max_tokens=6000)
         trace.append({
             "stage": "answer", "turn": turn_number, "usage": turn.usage,
@@ -252,6 +283,7 @@ def answer_question(
         trace.append({"stage": "answer_final", "usage": turn.usage, "stop_reason": turn.stop_reason, "model_text": turn.text})
     citations, errors = _citations(answer, tools.corpus)
     if errors:
+        # Give the agent one opportunity to repair citation failures itself.
         trace.append({"stage": "citation_audit", "errors": errors})
         history.append({"role": "assistant", "content": answer, "response_items": turn.response_items})
         history.append({"role": "user", "content": f"Citation audit failed: {errors}. Correct invalid/missing citations using only source IDs and line numbers already inspected. Return the full corrected answer."})

@@ -19,6 +19,7 @@ from bb.source import Corpus
 
 
 def _new_directory(parent: Path) -> Path:
+    """Give each session and answer an independent artifact directory."""
     parent.mkdir(parents=True, exist_ok=True)
     name = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + secrets.token_hex(4)
     target = parent / name
@@ -38,6 +39,7 @@ class ReviewSession:
         max_tool_calls: int = 12,
         max_model_turns: int = 6,
     ) -> None:
+        """Validate source hashes, model identity, and saved calculation."""
         run_metadata = json.loads((run_path / "run.json").read_text(encoding="utf-8"))
         if run_metadata["model"] != model.model_name:
             raise ValueError("The selected run and answer model differ; use a run produced by this model")
@@ -64,6 +66,7 @@ class ReviewSession:
         self.max_model_turns = max_model_turns
 
     def ask(self, question: str) -> tuple[str, str]:
+        """Investigate one new question and save its report and trace."""
         clean_question = (question or "").strip()
         if not clean_question:
             raise ValueError("Enter a question before submitting")
@@ -109,6 +112,7 @@ class ReviewSession:
 
 
 def build_app(session: ReviewSession):
+    """Expose a single-question form and downloadable Markdown report."""
     import gradio as gr
 
     with gr.Blocks(title="Clinical Evidence Review") as app:
@@ -127,6 +131,7 @@ def build_app(session: ReviewSession):
 
 
 def main() -> None:
+    """Launch the local page against an existing preparation run."""
     parser = argparse.ArgumentParser(description="Local question-answer page for a saved clinical review")
     parser.add_argument("--documents", type=Path, default=Path("data"))
     parser.add_argument("--run", type=Path, required=True, help="Directory from a fresh bb-review run with the same model")

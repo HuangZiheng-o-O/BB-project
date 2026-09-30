@@ -41,6 +41,7 @@ def generate_checked_json(
         trace.append({"stage": "validation", "validation_attempt": attempt, "errors": errors})
         if not errors:
             return result, trace
+        # Feedback is derived from the stage validator, not from a particular question.
         previous = json.dumps(result, ensure_ascii=False)
         feedback = (
             "\n\nThe previous candidate failed validation. Re-read the original evidence "

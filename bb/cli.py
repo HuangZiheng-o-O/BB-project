@@ -23,12 +23,14 @@ from bb.time_audit import audit_time_scope
 
 
 def _write_json(path: Path, value: Any) -> None:
+    """Create one auditable artifact without overwriting an existing file."""
     with path.open("x", encoding="utf-8") as stream:
         json.dump(value, stream, ensure_ascii=False, indent=2, default=str)
         stream.write("\n")
 
 
 def _read_questions(path: Path) -> list[dict[str, str]]:
+    """Accept string or identified-object questions with stable fallback IDs."""
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, list):
         raise ValueError("Questions file must contain a JSON array")
@@ -44,6 +46,7 @@ def _read_questions(path: Path) -> list[dict[str, str]]:
 
 
 def _run_directory(parent: Path) -> Path:
+    """Allocate a unique directory for the artifacts of one review run."""
     parent.mkdir(parents=True, exist_ok=True)
     name = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + secrets.token_hex(3)
     target = parent / name
@@ -52,10 +55,12 @@ def _run_directory(parent: Path) -> Path:
 
 
 def run(args: argparse.Namespace) -> Path:
+    """Prepare evidence once, calculate deterministically, then answer questions."""
     started = time.monotonic()
     output = _run_directory(args.output)
 
     def progress(message: str) -> None:
+        """Write timestamped progress to stderr, leaving stdout scriptable."""
         timestamp = datetime.now(timezone.utc).strftime("%H:%M:%S UTC")
         print(f"[{timestamp}] {message}", file=sys.stderr, flush=True)
 
@@ -68,6 +73,7 @@ def run(args: argparse.Namespace) -> Path:
         snapshot = ReviewSnapshot.model_validate_json(args.snapshot.read_text(encoding="utf-8"))
         validate_snapshot_reuse(snapshot, args.model, corpus.manifest())
     else:
+        # Model-derived stages are shared by every question in this run.
         cache_dir = args.output / "_stage_cache" if args.reuse_cache else None
         extraction, findings, extraction_trace = extract_corpus(
             corpus, model, max_chars=args.batch_chars,
@@ -105,6 +111,7 @@ def run(args: argparse.Namespace) -> Path:
     offline_model_calls = model_call_count(trace)
     online_model_calls = 0
     for number, item in enumerate(questions, 1):
+        # Only these question-specific turns count toward the report's online calls.
         progress(f"Investigating question {item['id']}")
         result = answer_question(
             item["question"], model, tools,
@@ -164,6 +171,7 @@ def run(args: argparse.Namespace) -> Path:
 
 
 def main() -> None:
+    """Parse command-line options and print the new artifact directory."""
     parser = argparse.ArgumentParser(description="Auditable, source-grounded clinical record review")
     parser.add_argument("--documents", type=Path, required=True)
     parser.add_argument("--questions", type=Path, help="JSON questions file, unless --prepare-only is used")

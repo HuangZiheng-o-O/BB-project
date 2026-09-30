@@ -11,6 +11,8 @@ from urllib.parse import urlparse
 
 @dataclass(frozen=True)
 class ToolCall:
+    """Provider-independent function request returned by one model turn."""
+
     call_id: str
     name: str
     arguments: dict[str, Any]
@@ -18,6 +20,8 @@ class ToolCall:
 
 @dataclass(frozen=True)
 class ModelTurn:
+    """Normalize text, tool requests, usage, and continuation state."""
+
     text: str
     tool_calls: list[ToolCall] = field(default_factory=list)
     usage: dict[str, int] = field(default_factory=dict)
@@ -26,6 +30,8 @@ class ModelTurn:
 
 
 class ModelPort(Protocol):
+    """Keep the investigation loop independent of provider wire formats."""
+
     model_name: str
 
     def generate(
@@ -35,11 +41,16 @@ class ModelPort(Protocol):
         tools: list[dict[str, Any]] | None = None,
         max_tokens: int = 5000,
         json_mode: bool = False,
-    ) -> ModelTurn: ...
+    ) -> ModelTurn:
+        """Generate one turn from the shared conversation and tool schema."""
+        ...
 
 
 class AnthropicCompatibleModel:
+    """Adapt the shared conversation to Anthropic Messages semantics."""
+
     def __init__(self, model_name: str, base_url: str | None = None) -> None:
+        """Build a client from the configured endpoint and credentials."""
         from anthropic import Anthropic
 
         token = os.getenv("ANTHROPIC_AUTH_TOKEN")
@@ -57,6 +68,7 @@ class AnthropicCompatibleModel:
 
     @staticmethod
     def _messages(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Group tool results as user content, as required by Messages."""
         messages: list[dict[str, Any]] = []
         for turn in history:
             if turn["role"] == "user":
@@ -95,6 +107,7 @@ class AnthropicCompatibleModel:
         max_tokens: int = 5000,
         json_mode: bool = False,
     ) -> ModelTurn:
+        """Translate tool definitions and normalize a Messages response."""
         args: dict[str, Any] = {
             "model": self.model_name,
             "max_tokens": max_tokens,
@@ -125,7 +138,10 @@ class AnthropicCompatibleModel:
 
 
 class OpenAICompatibleModel:
+    """Adapt the same model port to OpenAI-compatible endpoints."""
+
     def __init__(self, model_name: str, base_url: str | None = None) -> None:
+        """Select the credential associated with the effective endpoint."""
         from openai import OpenAI
 
         endpoint = base_url or os.getenv("OPENAI_BASE_URL")
@@ -151,6 +167,7 @@ class OpenAICompatibleModel:
         max_tokens: int = 5000,
         json_mode: bool = False,
     ) -> ModelTurn:
+        """Use Responses where supported, otherwise Chat Completions."""
         if self.model_name.startswith("gpt-6-") and urlparse(str(self.client.base_url)).hostname == "api.openai.com":
             return self._generate_responses(system, history, tools, max_tokens, json_mode)
         messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
@@ -233,6 +250,7 @@ class OpenAICompatibleModel:
         max_tokens: int,
         json_mode: bool,
     ) -> ModelTurn:
+        """Preserve Responses output items across tool turns for continuity."""
         inputs: list[Any] = []
         for turn in history:
             if turn["role"] == "assistant" and turn.get("response_items"):
@@ -294,6 +312,7 @@ class OpenAICompatibleModel:
 
 
 def make_model(provider: str, model_name: str, base_url: str | None = None) -> ModelPort:
+    """Construct the configured adapter behind the stable model port."""
     if provider == "anthropic":
         return AnthropicCompatibleModel(model_name, base_url)
     if provider == "openai":
@@ -325,6 +344,7 @@ def generate_json(
     max_tokens: int,
     attempts: int = 2,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Request structured output and retain usage for every repair attempt."""
     history: list[dict[str, Any]] = [{"role": "user", "content": user}]
     trace: list[dict[str, Any]] = []
     for attempt in range(attempts):

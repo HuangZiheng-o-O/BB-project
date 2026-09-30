@@ -16,6 +16,7 @@ def model_call_count(trace: list[dict[str, Any]]) -> int:
 
 
 def _cited_lines(citations: list[str], corpus: Corpus) -> dict[str, set[int]]:
+    """Validate citations and group original line numbers by source."""
     grouped: dict[str, set[int]] = defaultdict(set)
     for reference in citations:
         source_id, separator, suffix = reference.partition(":")

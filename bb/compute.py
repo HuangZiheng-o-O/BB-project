@@ -11,10 +11,12 @@ from bb.models import AuditFinding, BatchExtraction, Reconciliation, ResolvedEve
 
 
 def _instant(day: date, clock: str) -> datetime:
+    """Combine a local service date and validated 24-hour clock value."""
     return datetime.combine(day, time.fromisoformat(clock))
 
 
 def _ranges(day: date, spans: list[TimeSpan]) -> list[tuple[datetime, datetime]]:
+    """Convert clock spans to datetimes, carrying overnight ends forward."""
     ranges = []
     for span in spans:
         start, end = _instant(day, span.start), _instant(day, span.end)
@@ -25,6 +27,7 @@ def _ranges(day: date, spans: list[TimeSpan]) -> list[tuple[datetime, datetime]]
 
 
 def _union(ranges: list[tuple[datetime, datetime]]) -> list[tuple[datetime, datetime]]:
+    """Merge overlapping or touching intervals to prevent double counting."""
     merged: list[tuple[datetime, datetime]] = []
     for start, end in sorted(ranges):
         if merged and start <= merged[-1][1]:
@@ -37,6 +40,7 @@ def _union(ranges: list[tuple[datetime, datetime]]) -> list[tuple[datetime, date
 def _subtract(
     included: list[tuple[datetime, datetime]], excluded: list[tuple[datetime, datetime]]
 ) -> list[tuple[datetime, datetime]]:
+    """Remove breaks and other excluded intervals from candidate contact."""
     pieces = _union(included)
     for cut_start, cut_end in _union(excluded):
         next_pieces = []
@@ -53,6 +57,7 @@ def _subtract(
 
 
 def _minute_map(ranges: list[tuple[datetime, datetime]]) -> dict[str, int]:
+    """Assign each contact minute to its actual calendar date."""
     minutes: dict[str, int] = defaultdict(int)
     for start, end in ranges:
         cursor = start
@@ -82,6 +87,7 @@ def event_minutes(event: ResolvedEvent) -> list[dict[str, int]]:
 
 
 def _therapy_type(service_type: str) -> str | None:
+    """Classify eligible therapy without counting administrative services."""
     words = set(re.findall(r"[a-z]+", service_type.lower()))
     if words & {"medication", "management", "coordination", "collateral", "administrative", "outreach"}:
         return None
@@ -92,14 +98,17 @@ def _therapy_type(service_type: str) -> str | None:
 
 
 def _bounds(values: list[int]) -> dict[str, int]:
+    """Retain the minimum and maximum across supported event scenarios."""
     return {"minimum": min(values, default=0), "maximum": max(values, default=0)}
 
 
 def _week_start(day: date) -> date:
+    """Find the Monday that starts the day’s reporting week."""
     return day - timedelta(days=day.weekday())
 
 
 def _measure_instances(extraction: BatchExtraction) -> list[dict[str, Any]]:
+    """Group imported copies with their original completed questionnaire."""
     grouped: dict[tuple[str, str], list] = defaultdict(list)
     for item in extraction.measures:
         identity = item.copied_from_form or item.form_id or item.anchor().reference()
@@ -146,6 +155,7 @@ def calculate_review(
     ]
 
     for event in reconciliation.events:
+        # Preserve each decision and its source references in the event ledger.
         source_refs = sorted(
             {mentions[item].anchor().reference() for item in event.supporting_mentions + event.opposing_mentions if item in mentions}
         )
@@ -197,6 +207,7 @@ def calculate_review(
     for day in sorted(day_possible):
         week_days[_week_start(date.fromisoformat(day)).isoformat()].append(day)
     weeks: list[dict[str, Any]] = []
+    # Include zero-contact weeks when the requested period spans them.
     if first and last:
         cursor = _week_start(first)
         while cursor <= last:
@@ -221,6 +232,7 @@ def calculate_review(
         )
     goals = [goal.model_dump() for goal in extraction.goals]
     for week in weeks:
+        # A goal is certain only when the lower bound meets both thresholds.
         applicable = [
             goal for goal in extraction.goals
             if goal.period == "week_monday_sunday"

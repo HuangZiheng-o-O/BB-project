@@ -8,23 +8,31 @@ from bb.models import Anchor, BatchExtraction, Reconciliation, ReviewSnapshot
 
 
 class FakeCorpus:
+    """Offer one searchable, valid source line to the agent test."""
+
     sources = {"SRC-1": object()}
 
     def search(self, query: str, limit: int = 15):
+        """Return the only candidate source line."""
         return [{"source_id": "SRC-1", "line": 1, "text": "A documented clinical observation."}]
 
     def validate_anchor(self, anchor: Anchor) -> None:
+        """Reject references outside the stub source."""
         if anchor.source_id != "SRC-1" or anchor.lines != [1]:
             raise ValueError("Invalid anchor")
 
 
 class FakeModel:
+    """Request one tool call, then answer with its source citation."""
+
     model_name = "offline-fake"
 
     def __init__(self) -> None:
+        """Track the number of model turns."""
         self.calls = 0
 
     def generate(self, system, history, tools=None, max_tokens=5000, json_mode=False):
+        """Return deterministic turns without a provider request."""
         self.calls += 1
         if self.calls == 1:
             return ModelTurn(text="", tool_calls=[ToolCall("call-1", "search", {"query": "observation"})])
@@ -32,7 +40,10 @@ class FakeModel:
 
 
 class AgentTests(unittest.TestCase):
+    """Check tool selection and citation validation in one agent run."""
+
     def test_agent_selects_tool_and_validates_source_reference(self) -> None:
+        """Confirm the tool result precedes a valid cited final answer."""
         snapshot = ReviewSnapshot(
             source_hashes={}, extraction_model="offline-fake",
             extraction=BatchExtraction(), reconciliation=Reconciliation(),

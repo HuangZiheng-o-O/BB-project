@@ -57,6 +57,7 @@ def _validated_items(
     allowed_sources: set[str],
     findings: list[AuditFinding],
 ) -> list[T]:
+    """Accept only schema-valid claims anchored in this exact source batch."""
     values = data.get(key, [])
     if not isinstance(values, list):
         findings.append(AuditFinding(code="invalid_extraction_array", detail=f"{key} is not a list"))
@@ -85,6 +86,7 @@ def _validated_items(
 def _payload_errors(
     data: dict[str, Any], corpus: Corpus, allowed_sources: set[str], required_ids: set[str] | None = None,
 ) -> list[str]:
+    """Return errors that the model can repair before claims enter storage."""
     errors = [f"Missing required array: {key}" for key in ("events", "goals", "measures", "observations") if key not in data]
     findings: list[AuditFinding] = []
     events = _validated_items(data, "events", EventMention, corpus, allowed_sources, findings)
@@ -108,6 +110,18 @@ def extract_corpus(
     cache_dir: Path | None = None,
     progress: Callable[[str], None] | None = None,
 ) -> tuple[BatchExtraction, list[AuditFinding], list[dict[str, Any]]]:
+    """Extract source claims and audit explicit encounter-ID coverage.
+
+    Args:
+        corpus: Numbered original documents and their source manifest.
+        model: Provider-neutral model used for extraction and repair.
+        max_chars: Approximate character budget for each source batch.
+        cache_dir: Optional directory for content-addressed stage results.
+        progress: Optional callback for human-readable stage updates.
+
+    Returns:
+        Validated claims, audit findings, and model-call trace entries.
+    """
     all_events: list[EventMention] = []
     all_goals: list[PlanGoal] = []
     all_measures: list[MeasureMention] = []
@@ -117,6 +131,7 @@ def extract_corpus(
     batches = corpus.extraction_batches(max_chars=max_chars)
     cache = StageCache(cache_dir) if cache_dir else None
     for batch_number, batch in enumerate(batches, 1):
+        # Revalidate cache entries because a prior file may predate current checks.
         if progress:
             progress(f"Extracting batch {batch_number}/{len(batches)}")
         allowed = set(re.findall(r"^DOCUMENT (\S+)", batch, re.MULTILINE))
@@ -147,6 +162,7 @@ def extract_corpus(
         if progress:
             progress(f"Completed extraction batch {batch_number}/{len(batches)}")
     for source in corpus.sources.values():
+        # Explicit IDs provide a source-grounded recall signal independent of search ranking.
         explicit_ids = _explicit_contact_ids("\n".join(source.lines))
         extracted_ids = {
             identity
@@ -187,6 +203,7 @@ def extract_corpus(
             raise ValueError(f"Validated source repair omitted labeled IDs: {sorted(still_missing)}")
         if cache_path and not cache_path.exists():
             StageCache.write(cache_path, result)
+    # A repaired mention may repeat a claim from the initial batch.
     unique_events = {item.mention_id: item for item in all_events}
     extraction = BatchExtraction(
         events=list(unique_events.values()),

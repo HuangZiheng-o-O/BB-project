@@ -10,25 +10,35 @@ from bb.repair import StageValidationError, generate_checked_json
 
 
 class SequenceModel:
+    """Return predetermined JSON candidates across repair attempts."""
+
     model_name = "sequence-model"
 
     def __init__(self, outputs):
+        """Save candidate outputs and the prompts used for each attempt."""
         self.outputs = outputs
         self.prompts = []
 
     def generate(self, system, history, tools=None, max_tokens=5000, json_mode=False):
+        """Advance through candidates without a provider request."""
         self.prompts.append(history[0]["content"])
         return ModelTurn(text=json.dumps(self.outputs[min(len(self.prompts) - 1, len(self.outputs) - 1)]))
 
 
 class SourceStub:
+    """Validate source anchors against a small synthetic document."""
+
     def validate_anchor(self, anchor):
+        """Reject unknown sources and lines outside the synthetic document."""
         if anchor.source_id != "SRC-1" or any(line > 20 for line in anchor.lines):
             raise ValueError("Unknown source line")
 
 
 class RepairTests(unittest.TestCase):
+    """Check generic repair and safe snapshot reuse boundaries."""
+
     def test_line_labels_become_canonical_integer_anchors(self):
+        """Normalize labeled line ranges before formatting citations."""
         mention = EventMention.model_validate({
             "source_id": "SRC-1", "lines": ["L0003-L0006", "L0009"],
             "document_role": "clinical", "status": "delivered",
@@ -39,6 +49,7 @@ class RepairTests(unittest.TestCase):
             Anchor(source_id="SRC-1", lines=["L3-L50"])
 
     def test_extraction_validation_accepts_normalized_source_evidence(self):
+        """Accept source-backed claims after line normalization."""
         payload = {
             "events": [{"source_id": "SRC-1", "lines": ["L0003-L0006"],
                         "document_role": "clinical", "status": "delivered"}],
@@ -47,6 +58,7 @@ class RepairTests(unittest.TestCase):
         self.assertEqual(_payload_errors(payload, SourceStub(), {"SRC-1"}), [])
 
     def test_validation_failure_goes_back_to_model(self):
+        """Feed validator errors into a fresh model attempt."""
         model = SequenceModel([{"events": []}, {"events": ["corrected"]}])
         result, trace = generate_checked_json(
             model, "Extract", "Original source",
@@ -59,6 +71,7 @@ class RepairTests(unittest.TestCase):
                          [["Missing event"], []])
 
     def test_unrepaired_output_never_reaches_next_stage(self):
+        """Stop the pipeline when all bounded repair attempts fail."""
         model = SequenceModel([{"events": []}])
         with self.assertRaises(StageValidationError):
             generate_checked_json(
@@ -68,6 +81,7 @@ class RepairTests(unittest.TestCase):
         self.assertEqual(len(model.prompts), 2)
 
     def test_old_rejected_snapshot_cannot_be_reused_online(self):
+        """Prevent online answers from using rejected offline claims."""
         snapshot = ReviewSnapshot(
             source_hashes={"SRC-1": "hash"}, extraction_model="sequence-model",
             extraction=BatchExtraction(), reconciliation=Reconciliation(),

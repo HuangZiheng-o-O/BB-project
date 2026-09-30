@@ -33,6 +33,7 @@ RECONCILIATION_CACHE_VERSION = "clinical-interval-conflict-v2"
 
 
 def group_mentions(extraction: BatchExtraction) -> dict[str, list[EventMention]]:
+    """Group claims by patient and encounter, linking unique appointment IDs."""
     groups: dict[str, list[EventMention]] = defaultdict(list)
     known_patients = {item.patient_id for item in extraction.events if item.patient_id}
     sole_patient = next(iter(known_patients)) if len(known_patients) == 1 else None
@@ -57,6 +58,7 @@ def group_mentions(extraction: BatchExtraction) -> dict[str, list[EventMention]]
 
 
 def _group_payload(group_id: str, mentions: list[EventMention], corpus: Corpus) -> dict[str, Any]:
+    """Attach concise original excerpts to every claim in a group."""
     payload = []
     for mention in mentions:
         data = mention.model_dump(exclude={"note"}, exclude_none=True)
@@ -68,6 +70,7 @@ def _group_payload(group_id: str, mentions: list[EventMention], corpus: Corpus) 
 
 
 def _batches(groups: dict[str, list[EventMention]], corpus: Corpus, max_chars: int = 18000) -> list[list[dict]]:
+    """Pack complete encounter groups without splitting their evidence."""
     output: list[list[dict]] = []
     pending: list[dict] = []
     length = 0
@@ -91,6 +94,18 @@ def reconcile_events(
     cache_dir: Path | None = None,
     progress: Callable[[str], None] | None = None,
 ) -> tuple[Reconciliation, list[AuditFinding], list[dict[str, Any]]]:
+    """Resolve each encounter while retaining supported conflicts.
+
+    Args:
+        extraction: Validated source claims from the offline stage.
+        corpus: Original lines used to substantiate each claim.
+        model: Provider-neutral model used for decision and repair turns.
+        cache_dir: Optional directory for content-addressed decisions.
+        progress: Optional callback for stage progress messages.
+
+    Returns:
+        Encounter decisions, audit findings, and model-call trace entries.
+    """
     groups = group_mentions(extraction)
     findings: list[AuditFinding] = []
     trace: list[dict[str, Any]] = []
@@ -106,6 +121,7 @@ def reconcile_events(
             "reconcile", model.model_name, RECONCILIATION_SYSTEM + RECONCILIATION_CACHE_VERSION, prompt,
         ) if cache else None
         def validated_events(data: dict[str, Any]) -> tuple[dict[str, ResolvedEvent], list[str]]:
+            """Require complete mention coverage and explicit interval options."""
             accepted: dict[str, ResolvedEvent] = {}
             errors: list[str] = []
             rows = data.get("events")
@@ -151,6 +167,7 @@ def reconcile_events(
             return accepted, errors
 
         cached = cache.read(cache_path) if cache_path else None
+        # Never reuse a decision that fails today's reconciliation contract.
         if cached is not None and validated_events(cached)[1]:
             cached = None
         if cached is None:

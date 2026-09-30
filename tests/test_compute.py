@@ -7,11 +7,15 @@ from bb.models import BatchExtraction, PlanGoal, Reconciliation, ResolvedEvent, 
 
 
 def span(start: str, end: str) -> TimeSpan:
+    """Build a validated clock interval for arithmetic fixtures."""
     return TimeSpan(start=start, end=end)
 
 
 class CalculationTests(unittest.TestCase):
+    """Check event arithmetic and uncertainty propagation."""
+
     def test_interval_union_exclusion_and_conflict(self) -> None:
+        """Deduplicate overlaps, subtract breaks, and keep alternatives."""
         event = ResolvedEvent(
             event_id="case:visit",
             service_date="2026-03-02",
@@ -27,6 +31,7 @@ class CalculationTests(unittest.TestCase):
         self.assertEqual([sum(option.values()) for option in event_minutes(event)], [60, 50])
 
     def test_week_goal_remains_indeterminate_across_bounds(self) -> None:
+        """Keep a weekly goal unresolved when scenarios cross its targets."""
         first = ResolvedEvent(
             event_id="case:one",
             service_date="2026-03-02",

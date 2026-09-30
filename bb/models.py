@@ -11,18 +11,22 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class TimeSpan(BaseModel):
+    """Local clock interval; an end before its start crosses midnight."""
+
     start: str = Field(description="Local HH:MM start time")
     end: str = Field(description="Local HH:MM end time")
 
     @field_validator("start", "end")
     @classmethod
     def valid_clock(cls, value: str) -> str:
+        """Reject ambiguous or out-of-range clock values."""
         if not re.fullmatch(r"(?:[01]\d|2[0-3]):[0-5]\d", value):
             raise ValueError("Time must use 24-hour HH:MM")
         return value
 
 
 def _valid_date(value: str | None) -> str | None:
+    """Validate optional calendar dates without changing their representation."""
     if value is not None:
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
             raise ValueError("Date must use YYYY-MM-DD")
@@ -31,10 +35,12 @@ def _valid_date(value: str | None) -> str | None:
 
 
 def _empty_string(value: str | None) -> str:
+    """Normalize optional model prose to a non-null string."""
     return "" if value is None else value
 
 
 def _empty_list(value: list | None) -> list:
+    """Normalize omitted model arrays before Pydantic validates their items."""
     return [] if value is None else value
 
 
@@ -62,27 +68,34 @@ def _source_lines(value: object) -> object:
 
 
 class Anchor(BaseModel):
+    """Small, validated set of one-based lines from one original source."""
+
     source_id: str
     lines: list[int] = Field(min_length=1, max_length=12)
 
     @field_validator("lines", mode="before")
     @classmethod
     def parse_lines(cls, value: object) -> object:
+        """Accept integer lines and compact line labels from model output."""
         return _source_lines(value)
 
     @field_validator("lines")
     @classmethod
     def positive_lines(cls, values: list[int]) -> list[int]:
+        """Canonicalize lines for stable references and duplicate removal."""
         if any(value < 1 for value in values):
             raise ValueError("Source line numbers must be positive")
         return sorted(set(values))
 
     def reference(self) -> str:
+        """Format a citation understood by the report and agent audit."""
         numbers = ",".join(f"L{line}" for line in self.lines)
         return f"{self.source_id}:{numbers}"
 
 
 class EventMention(BaseModel):
+    """One source's claim about an encounter, before conflict resolution."""
+
     source_id: str
     lines: list[int] = Field(min_length=1, max_length=12)
     patient_id: str | None = None
@@ -105,32 +118,40 @@ class EventMention(BaseModel):
     @field_validator("lines", mode="before")
     @classmethod
     def parse_lines(cls, value: object) -> object:
+        """Normalize this mention's numbered source labels."""
         return _source_lines(value)
 
     @field_validator("note", mode="before")
     @classmethod
     def optional_note(cls, value: str | None) -> str:
+        """Keep absent explanatory text as an empty string."""
         return _empty_string(value)
 
     @field_validator("actual_intervals", "scheduled_intervals", "nontherapy_intervals", mode="before")
     @classmethod
     def optional_intervals(cls, value: list | None) -> list:
+        """Treat omitted contact intervals as an empty set of claims."""
         return _empty_list(value)
 
     @field_validator("service_date")
     @classmethod
     def valid_service_date(cls, value: str | None) -> str | None:
+        """Validate the claimed encounter date when present."""
         return _valid_date(value)
 
     def finalize_id(self) -> None:
+        """Derive a stable mention ID from its source and encounter identity."""
         key = f"{self.source_id}|{self.patient_id}|{self.encounter_id}|{self.service_date}|{self.lines}"
         self.mention_id = sha256(key.encode()).hexdigest()[:16]
 
     def anchor(self) -> Anchor:
+        """Return the original lines supporting this source claim."""
         return Anchor(source_id=self.source_id, lines=self.lines)
 
 
 class PlanGoal(BaseModel):
+    """A sourced treatment-plan target with optional effective dates."""
+
     source_id: str
     lines: list[int] = Field(min_length=1, max_length=12)
     effective_from: str | None = None
@@ -145,11 +166,13 @@ class PlanGoal(BaseModel):
     @field_validator("lines", mode="before")
     @classmethod
     def parse_lines(cls, value: object) -> object:
+        """Normalize the plan's numbered source labels."""
         return _source_lines(value)
 
     @field_validator("period", mode="before")
     @classmethod
     def normalize_period(cls, value: str | None) -> str | None:
+        """Distinguish an explicit Monday–Sunday week from vague weekly text."""
         if value is None:
             return None
         lowered = value.lower().strip()
@@ -162,23 +185,29 @@ class PlanGoal(BaseModel):
     @field_validator("included_services", "excluded_services", mode="before")
     @classmethod
     def optional_services(cls, value: list | None) -> list:
+        """Preserve an omitted service list as an empty list."""
         return _empty_list(value)
 
     @field_validator("description", mode="before")
     @classmethod
     def optional_description(cls, value: str | None) -> str:
+        """Normalize omitted plan description text."""
         return _empty_string(value)
 
     @field_validator("effective_from", "effective_to")
     @classmethod
     def valid_effective_date(cls, value: str | None) -> str | None:
+        """Validate an effective-date boundary when provided."""
         return _valid_date(value)
 
     def anchor(self) -> Anchor:
+        """Return the source lines stating the plan goal."""
         return Anchor(source_id=self.source_id, lines=self.lines)
 
 
 class MeasureMention(BaseModel):
+    """One questionnaire claim, including a possible imported copy."""
+
     source_id: str
     lines: list[int] = Field(min_length=1, max_length=12)
     instrument: str
@@ -191,23 +220,29 @@ class MeasureMention(BaseModel):
     @field_validator("lines", mode="before")
     @classmethod
     def parse_lines(cls, value: object) -> object:
+        """Normalize the measure's numbered source labels."""
         return _source_lines(value)
 
     @field_validator("note", mode="before")
     @classmethod
     def optional_note(cls, value: str | None) -> str:
+        """Keep absent measure notes as an empty string."""
         return _empty_string(value)
 
     @field_validator("completed_date")
     @classmethod
     def valid_completed_date(cls, value: str | None) -> str | None:
+        """Validate the stated completion date, not an import date."""
         return _valid_date(value)
 
     def anchor(self) -> Anchor:
+        """Return the source lines identifying this measure claim."""
         return Anchor(source_id=self.source_id, lines=self.lines)
 
 
 class Observation(BaseModel):
+    """A patient-specific clinical claim with provenance and polarity."""
+
     source_id: str
     lines: list[int] = Field(min_length=1, max_length=12)
     date: str | None = None
@@ -219,18 +254,23 @@ class Observation(BaseModel):
     @field_validator("lines", mode="before")
     @classmethod
     def parse_lines(cls, value: object) -> object:
+        """Normalize the observation's numbered source labels."""
         return _source_lines(value)
 
     @field_validator("date")
     @classmethod
     def valid_observation_date(cls, value: str | None) -> str | None:
+        """Validate the observation date when the source supplies one."""
         return _valid_date(value)
 
     def anchor(self) -> Anchor:
+        """Return the source lines supporting this observation."""
         return Anchor(source_id=self.source_id, lines=self.lines)
 
 
 class BatchExtraction(BaseModel):
+    """All candidate claims extracted from one or more source batches."""
+
     events: list[EventMention] = Field(default_factory=list)
     goals: list[PlanGoal] = Field(default_factory=list)
     measures: list[MeasureMention] = Field(default_factory=list)
@@ -238,6 +278,8 @@ class BatchExtraction(BaseModel):
 
 
 class ResolvedEvent(BaseModel):
+    """One encounter decision that retains conflicting interval options."""
+
     event_id: str
     service_date: str | None = None
     service_type: str
@@ -252,21 +294,28 @@ class ResolvedEvent(BaseModel):
     @field_validator("service_date")
     @classmethod
     def valid_service_date(cls, value: str | None) -> str | None:
+        """Validate the reconciled encounter date when known."""
         return _valid_date(value)
 
 
 class Reconciliation(BaseModel):
+    """Resolved encounters plus mentions the model could not reconcile."""
+
     events: list[ResolvedEvent] = Field(default_factory=list)
     unresolved_mention_ids: list[str] = Field(default_factory=list)
 
 
 class AuditFinding(BaseModel):
+    """Machine-readable issue linked to the relevant original evidence."""
+
     code: str
     detail: str
     source_refs: list[str] = Field(default_factory=list)
 
 
 class ReviewSnapshot(BaseModel):
+    """Reusable offline abstraction bound to model and source fingerprints."""
+
     source_hashes: dict[str, str]
     extraction_model: str
     extraction: BatchExtraction

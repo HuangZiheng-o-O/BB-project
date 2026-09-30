@@ -26,6 +26,7 @@ def audit_time_scope(
     cache_dir: Path | None = None,
     progress: Callable[[str], None] | None = None,
 ) -> tuple[list[AuditFinding], list[dict[str, Any]]]:
+    """Check whether group clock spans describe this patient's actual time."""
     candidates = [
         mention for mention in extraction.events
         if mention.document_role == "clinical"
@@ -55,6 +56,7 @@ def audit_time_scope(
     expected = {mention.mention_id for mention in candidates}
 
     def validation_errors(data: dict[str, Any]) -> list[str]:
+        """Require one three-state decision for every candidate mention."""
         decisions = data.get("decisions")
         if not isinstance(decisions, list):
             return ["decisions must be an array"]
@@ -93,6 +95,7 @@ def audit_time_scope(
         decision = by_id[mention.mention_id]
         verdict = decision.get("patient_actual_supported")
         if verdict is False:
+            # Remove unsupported patient intervals before reconciliation and arithmetic.
             original = [item.model_dump() for item in mention.actual_intervals]
             mention.actual_intervals = []
             findings.append(
