@@ -102,4 +102,4 @@ Start with `run.json` to see source hashes, whether the offline snapshot was reu
 
 These local trace and run files can contain source text, questions, and model responses. The `runs/` directory is excluded from Git.
 
-Implementation assistance: OpenAI Codex generated and reviewed the code and architecture. Technical ideas and libraries are credited in [the implementation plan](cn/IMPLEMENTATION_PLAN.md).
+I directed AI-assisted research and led the architecture, discussing the detailed design with AI. AI implemented the project, and I worked with AI to review and test it. Technical ideas and libraries are credited in [the implementation plan](cn/IMPLEMENTATION_PLAN.md).
