@@ -15,7 +15,7 @@ Thus, neither January 26 receipt creates a new care encounter or a new questionn
 
 Original document lines referenced in the answer:
 
-## BH-D013 — [symptom_measure_review_jan16.txt](<../documents/symptom_measure_review_jan16.txt>)
+## BH-D013 — [symptom_measure_review_jan16.txt](<../data/symptom_measure_review_jan16.txt>)
 
 ```text
 L0006 Instrument: PHQ-9 | Patient portal form HG-Q116
@@ -24,7 +24,7 @@ L0008 Total score: 14
 L0009 Reviewed by Mara Voss, LCSW, 2026-01-16, 09:10 local
 ```
 
-## BH-D014 — [imported_measure_summary_received_jan26.txt](<../documents/imported_measure_summary_received_jan26.txt>)
+## BH-D014 — [imported_measure_summary_received_jan26.txt](<../data/imported_measure_summary_received_jan26.txt>)
 
 ```text
 L0005 Rowan Mercer | DOB 1991-04-12 | MRN HG-M042
@@ -36,7 +36,7 @@ L0017 Import detail: copied result from the January 16 portal form. January 26 i
 L0019  The measurement tab continues to hold the original patient submission. This receipt was entered by the administrative desk and does not document a visit with Rowan.
 ```
 
-## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../documents/BH-D104_resent_roster_received_2026-01-26.txt>)
+## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../data/BH-D104_resent_roster_received_2026-01-26.txt>)
 
 ```text
 L0004 Received: January 26, 2026, 16:22 | Sender: Outpatient group records queue

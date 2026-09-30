@@ -12,13 +12,13 @@ The clinician described improvement, but also noted persistent avoidance, sleep 
 
 Original document lines referenced in the answer:
 
-## BH-D002 — [intake_and_individual_jan05.txt](<../documents/intake_and_individual_jan05.txt>)
+## BH-D002 — [intake_and_individual_jan05.txt](<../data/intake_and_individual_jan05.txt>)
 
 ```text
 L0015 PHQ-9 completed by Rowan on 2026-01-05: total score 18. The questionnaire is retained in the assessment tab. Clinical impressions are depressive symptoms with anxiety and behavioral avoidance. The score was reviewed alongside Rowan's account of sleep and daily functioning.
 ```
 
-## BH-D010 — [medication_review_jan13.txt](<../documents/medication_review_jan13.txt>)
+## BH-D010 — [medication_review_jan13.txt](<../data/medication_review_jan13.txt>)
 
 ```text
 L0011 Rowan attended for medication management. The visit addressed medication use, tolerability, adherence, and symptom response relevant to the current prescription plan. Rowan reported continuing sleep interruption and daytime tiredness. They described mood as somewhat less heavy on days with a planned activity but remained concerned about work communication. The medication list was reviewed with Rowan and reconciled with the active chart.
@@ -26,7 +26,7 @@ L0015 Assessment: ongoing depressive and anxiety symptoms with sleep disruption.
 L0017 Service documented: medication review and management only. No separate psychotherapy component was provided or documented. Rowan was directed to bring activity and communication concerns to the treating therapist for continued work.
 ```
 
-## BH-D013 — [symptom_measure_review_jan16.txt](<../documents/symptom_measure_review_jan16.txt>)
+## BH-D013 — [symptom_measure_review_jan16.txt](<../data/symptom_measure_review_jan16.txt>)
 
 ```text
 L0006 Instrument: PHQ-9 | Patient portal form HG-Q116
@@ -36,7 +36,7 @@ L0011 The submitted score is lower than the intake score of 18 recorded on Janua
 L0013 Clinician review: the score and recent individual-session material suggest some improvement in depressive symptoms. Persistent avoidance, difficulty initiating work communication, and sleep disruption remain clinically relevant. Rowan has attempted small activities and communication practice but has not yet established a reliable routine. Continue the current therapeutic focus and review functioning alongside symptom change during the next direct appointment.
 ```
 
-## BH-D014 — [imported_measure_summary_received_jan26.txt](<../documents/imported_measure_summary_received_jan26.txt>)
+## BH-D014 — [imported_measure_summary_received_jan26.txt](<../data/imported_measure_summary_received_jan26.txt>)
 
 ```text
 L0012 Measure | Result | Date completed | Source form
@@ -44,7 +44,7 @@ L0013 PHQ-9   | 14     | 2026-01-16     | HG-Q116
 L0017 Import detail: copied result from the January 16 portal form. January 26 is the date the summary was received and filed. No newly completed patient questionnaire is included in this batch. The source form identifier and original completion date were retained in the imported row.
 ```
 
-## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../documents/BH-D115_symptom_measure_review_2026-01-30.txt>)
+## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../data/BH-D115_symptom_measure_review_2026-01-30.txt>)
 
 ```text
 L0005 Questionnaire completed January 30, 2026, 12:42

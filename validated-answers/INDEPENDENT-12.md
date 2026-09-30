@@ -12,7 +12,7 @@ The attendance register records a **10:30 arrival**, an **11:30 departure**, and
 
 Original document lines referenced in the answer:
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0007 January 22, 2026 | Encounter HG-E113
@@ -21,7 +21,7 @@ L0009 The session addressed translating a broad intention into one observable ac
 L0017 For both dates, the break was unstructured time without therapeutic activity or facilitator treatment. Patient arrival, departure, and attendance status are entered in the separate attendance register.
 ```
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0006 All times are local. Group rows contain actual patient arrival and departure fields; the scheduled interval identifies the booked appointment.

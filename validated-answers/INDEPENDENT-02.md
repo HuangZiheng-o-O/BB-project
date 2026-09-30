@@ -16,7 +16,7 @@ Thus, **45 + 30 = 75 patient-present minutes**, from **two encounters**.
 
 Original document lines referenced in the answer:
 
-## BH-D007 — [family_primary_jan09.txt](<../documents/family_primary_jan09.txt>)
+## BH-D007 — [family_primary_jan09.txt](<../data/family_primary_jan09.txt>)
 
 ```text
 L0006 Encounter HG-E104 | 2026-01-09, 14:00–14:45 local
@@ -25,7 +25,7 @@ L0008 Clinicians: Mara Voss, LCSW; cofacilitator Leena Park, LPC
 L0009 Patient-present family therapy duration: 45 minutes
 ```
 
-## BH-D008 — [family_cofacilitator_jan09.txt](<../documents/family_cofacilitator_jan09.txt>)
+## BH-D008 — [family_cofacilitator_jan09.txt](<../data/family_cofacilitator_jan09.txt>)
 
 ```text
 L0006 Encounter HG-E104 | Date 2026-01-09 | 14:00–14:45 local
@@ -34,7 +34,7 @@ L0008 Participants: Rowan Mercer and Casey Mercer; both present for the full 45 
 L0011 Accompanying clinical entry for the family appointment facilitated with Mara Voss. My role was to assist with communication practice and observe how the couple responded when slowing down an anxious exchange. Rowan initially described partner reminders as evidence that they were falling behind. Casey explained that the reminders were an attempt to help, while also recognizing that repeated prompts increased tension.
 ```
 
-## BH-D012 — [partner_collateral_jan16.txt](<../documents/partner_collateral_jan16.txt>)
+## BH-D012 — [partner_collateral_jan16.txt](<../data/partner_collateral_jan16.txt>)
 
 ```text
 L0006 Encounter HG-E109 | Date 2026-01-16 | 14:00–14:40 local
@@ -43,7 +43,7 @@ L0011 Casey attended the arranged contact after Rowan advised the office that th
 L0017 Rowan did not join in person, by telephone, or by video. No patient-present psychotherapy occurred during this contact. Information from Casey will be incorporated into the next direct clinical review with Rowan. No new treatment decision was made with Rowan during this appointment.
 ```
 
-## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../documents/BH-D113_family_therapy_2026-01-30.txt>)
+## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../data/BH-D113_family_therapy_2026-01-30.txt>)
 
 ```text
 L0006 Therapist session interval: 13:00–13:45, 45 minutes.

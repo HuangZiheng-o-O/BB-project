@@ -1,3 +1,4 @@
 architecture/*.html -whitespace
+data/*.txt -whitespace
 docs/architecture.html -whitespace
 validated-answers/*.md -whitespace

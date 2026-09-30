@@ -22,7 +22,7 @@ The count is **1 + 1 + 1 + 1 + 1 = 5 distinct encounters**, not eight. Scheduled
 
 Original document lines referenced in the answer:
 
-## BH-D001 — [group_authorization_letter.txt](<../documents/group_authorization_letter.txt>)
+## BH-D001 — [group_authorization_letter.txt](<../data/group_authorization_letter.txt>)
 
 ```text
 L0010 The requested group service authorization is approved for the period January 5, 2026 through January 30, 2026. Authorized quantity: 8 group sessions. One authorization unit represents one scheduled group session. The service description is outpatient therapeutic group work supporting the submitted behavioral health treatment plan. This letter does not authorize individual therapy, family therapy, or medication appointments under the group service quantity.
@@ -30,13 +30,13 @@ L0012 The approved period permits the practice to arrange group appointments wit
 L0015 Letter attached to the program account. Rowan was informed that the office would send a weekly appointment list. Scheduling staff will use the approved group quantity when arranging appointments. No service attendance record accompanies this letter.
 ```
 
-## BH-D004 — [group_facilitator_jan06.txt](<../documents/group_facilitator_jan06.txt>)
+## BH-D004 — [group_facilitator_jan06.txt](<../data/group_facilitator_jan06.txt>)
 
 ```text
 L0014 Rowan was quiet initially and responded when invited to identify a situation involving avoidance. They described delaying a reply to a work message because they feared being asked for a firm return date. Rowan practiced a breathing exercise and selected reading the message before deciding how to respond as a possible next step. Their participation was relevant to the topic, and they appeared receptive to peer suggestions. The patient attendance roster is maintained by the group desk.
 ```
 
-## BH-D005 — [early_group_attendance_roster.txt](<../documents/early_group_attendance_roster.txt>)
+## BH-D005 — [early_group_attendance_roster.txt](<../data/early_group_attendance_roster.txt>)
 
 ```text
 L0009 Date       | Encounter | Scheduled slot | Patient arrived | Patient departed | Desk status
@@ -44,21 +44,21 @@ L0010 2026-01-06 | HG-E102   | 10:00–11:30    | 10:15           | 11:15       
 L0011 2026-01-12 | HG-E105   | 10:00–11:30    | 10:00           | 11:30            | Attended full
 ```
 
-## BH-D009 — [group_facilitator_jan12.txt](<../documents/group_facilitator_jan12.txt>)
+## BH-D009 — [group_facilitator_jan12.txt](<../data/group_facilitator_jan12.txt>)
 
 ```text
 L0014 Rowan contributed an example about leaving work messages unopened. They identified looking at one message as a lower step than replying to every outstanding message. They also described taking a walk with Casey over the weekend and noted that it helped the evening feel less dominated by worry. During the planning exercise, Rowan wrote down an action to try after breakfast and asked how to respond if the morning went poorly.
 L0016 The facilitator reinforced restarting with a smaller step and reviewing what interfered. Rowan listened to peers and offered a supportive comment to another member. The group closed with members naming their next practice attempt. Attendance is recorded on the group desk roster.
 ```
 
-## BH-D016 — [group_cancellation_notice_jan15.txt](<../documents/group_cancellation_notice_jan15.txt>)
+## BH-D016 — [group_cancellation_notice_jan15.txt](<../data/group_cancellation_notice_jan15.txt>)
 
 ```text
 L0009 The coping skills group scheduled for January 15 from 10:00 to 11:30 is cancelled by the clinic because of staff illness. A covering facilitator is unavailable for this morning's group. The group room has been released from the schedule, and registered participants are being contacted before the planned start time.
 L0015 11:35: Cancellation record closed. No group was held and no participants were seen for HG-E108. No replacement group was conducted in the January 15 slot. The telephone contact was limited to confirming the cancellation and upcoming appointment information.
 ```
 
-## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../documents/BH-D101_group_content_2026-01-19.txt>)
+## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../data/BH-D101_group_content_2026-01-19.txt>)
 
 ```text
 L0003 Skills group clinical record | Service date: January 19, 2026
@@ -66,7 +66,7 @@ L0004 Group encounter: HG-E110 | Facilitator: Leah Chen, LCSW
 L0010 Rowan initially followed the exercise and identified postponing a message to a supervisor as a familiar pattern. When discussion turned to returning to the workplace, Rowan became visibly tense and said the amount of discussion felt difficult to manage. The facilitator offered grounding and arranged a same-day individual meeting with the treating clinician. Patient-specific arrival and departure are maintained on the attendance roster.
 ```
 
-## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../documents/BH-D103_attendance_correction_2026-01-20.txt>)
+## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../data/BH-D103_attendance_correction_2026-01-20.txt>)
 
 ```text
 L0005 Applies to group encounter HG-E110, service date January 19, 2026
@@ -76,7 +76,7 @@ L0015 Electronically signed: Leah Chen, LCSW | January 20, 2026, 08:42
 L0016 Correction status: Final
 ```
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0007 January 22, 2026 | Encounter HG-E113
@@ -85,7 +85,7 @@ L0012 January 29, 2026 | Encounter HG-E118
 L0014 The session reviewed setbacks when practicing approach behaviors. Members identified an initial effort, what made follow-through difficult, and one adjustment for the next attempt. Rowan reported opening the work calendar but delaying a follow-up conversation. The facilitator helped identify a specific question to ask rather than trying to anticipate every possible concern. Rowan participated in the paired rehearsal and accepted feedback about keeping the request brief.
 ```
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0008 Service date | Encounter | Service | Scheduled | Actual arrival | Actual departure | Final disposition

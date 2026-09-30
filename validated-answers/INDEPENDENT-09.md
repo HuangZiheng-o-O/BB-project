@@ -18,7 +18,7 @@ Rowan attended the five listed skills groups; the January 22 record notes a late
 
 Original document lines referenced in the answer:
 
-## BH-D004 — [group_facilitator_jan06.txt](<../documents/group_facilitator_jan06.txt>)
+## BH-D004 — [group_facilitator_jan06.txt](<../data/group_facilitator_jan06.txt>)
 
 ```text
 L0010 Group focus: recognizing early physical signs of anxiety and choosing a coping response before withdrawing from a task. Members used recent everyday situations to describe the relationship between thoughts, body sensations, and behavior. The facilitator demonstrated paced breathing, invited short practice rounds, and led discussion about using a skill during a manageable task rather than only after distress has peaked.
@@ -26,7 +26,7 @@ L0012 The whole group took a break from 10:45 to 11:00. No therapy was conducted
 L0014 Rowan was quiet initially and responded when invited to identify a situation involving avoidance. They described delaying a reply to a work message because they feared being asked for a firm return date. Rowan practiced a breathing exercise and selected reading the message before deciding how to respond as a possible next step. Their participation was relevant to the topic, and they appeared receptive to peer suggestions. The patient attendance roster is maintained by the group desk.
 ```
 
-## BH-D005 — [early_group_attendance_roster.txt](<../documents/early_group_attendance_roster.txt>)
+## BH-D005 — [early_group_attendance_roster.txt](<../data/early_group_attendance_roster.txt>)
 
 ```text
 L0009 Date       | Encounter | Scheduled slot | Patient arrived | Patient departed | Desk status
@@ -34,7 +34,7 @@ L0010 2026-01-06 | HG-E102   | 10:00–11:30    | 10:15           | 11:15       
 L0011 2026-01-12 | HG-E105   | 10:00–11:30    | 10:00           | 11:30            | Attended full
 ```
 
-## BH-D009 — [group_facilitator_jan12.txt](<../documents/group_facilitator_jan12.txt>)
+## BH-D009 — [group_facilitator_jan12.txt](<../data/group_facilitator_jan12.txt>)
 
 ```text
 L0010 Today's group addressed behavioral activation and the difference between an activity being possible and it feeling easy. Members reviewed how postponement can briefly reduce discomfort while making the next attempt feel harder. 
@@ -43,7 +43,7 @@ L0014 Rowan contributed an example about leaving work messages unopened. They id
 L0016 The facilitator reinforced restarting with a smaller step and reviewing what interfered. Rowan listened to peers and offered a supportive comment to another member. The group closed with members naming their next practice attempt. Attendance is recorded on the group desk roster.
 ```
 
-## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../documents/BH-D101_group_content_2026-01-19.txt>)
+## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../data/BH-D101_group_content_2026-01-19.txt>)
 
 ```text
 L0008 Today's group addressed recognizing the sequence between a triggering situation, an anxious prediction, physical activation, and an avoidance response. The facilitator used a worked example involving an unanswered work email. Members then practiced describing the prediction without treating it as an established outcome, and selected a small approach behavior they could attempt during the week. The break was for restroom use and refreshments; there was no facilitated discussion, assigned therapeutic activity, or patient treatment during that interval.
@@ -51,21 +51,21 @@ L0010 Rowan initially followed the exercise and identified postponing a message 
 L0012 Continue practicing brief coping skills before an approach task. Coordinate with the individual clinician regarding the group experience so that future attendance can be supported without assuming that participation in a group exercise reflects completion of the patient's own work task.
 ```
 
-## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../documents/BH-D102_original_attendance_2026-01-19.txt>)
+## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../data/BH-D102_original_attendance_2026-01-19.txt>)
 
 ```text
 L0008 Scheduled opening: 10:00 | Scheduled closing: 11:30
 L0009 Patient arrival: 10:00 | Patient departure: 11:30 | Status: Attended
 ```
 
-## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../documents/BH-D106_telehealth_2026-01-21.txt>)
+## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../data/BH-D106_telehealth_2026-01-21.txt>)
 
 ```text
 L0005 January 21, 2026 | Video | Clinician: Mira Patel, LCSW
 L0009 Rowan reported drafting a short message about a possible gradual return to work but stopping before sending it. Explored the difference between uncertainty about the supervisor's response and evidence that a response would be negative. The patient identified checking the draft repeatedly as another way the task was being delayed. Practiced reading the draft once and choosing a planned time to send it.
 ```
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0007 January 22, 2026 | Encounter HG-E113
@@ -74,7 +74,7 @@ L0012 January 29, 2026 | Encounter HG-E118
 L0014 The session reviewed setbacks when practicing approach behaviors. Members identified an initial effort, what made follow-through difficult, and one adjustment for the next attempt. Rowan reported opening the work calendar but delaying a follow-up conversation. The facilitator helped identify a specific question to ask rather than trying to anticipate every possible concern. Rowan participated in the paired rehearsal and accepted feedback about keeping the request brief.
 ```
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0008 Service date | Encounter | Service | Scheduled | Actual arrival | Actual departure | Final disposition

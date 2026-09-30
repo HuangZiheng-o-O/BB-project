@@ -12,14 +12,14 @@ No. It would be inaccurate to describe January 15 as Rowan failing to attend a h
 
 Original document lines referenced in the answer:
 
-## BH-D006 — [early_appointment_status_export.txt](<../documents/early_appointment_status_export.txt>)
+## BH-D006 — [early_appointment_status_export.txt](<../data/early_appointment_status_export.txt>)
 
 ```text
 L0017 HG-E108   | Jan15 | Coping skills group    | 10:00–11:30    | Clinic cancelled
 L0020 Desk comments: HG-E103 remained unarrived at close of its appointment slot on January 8. Outreach was assigned to the individual therapist's support queue. HG-E108 was removed from the active room schedule after staff illness was reported. A cancellation message was released to all registered members. Appointment HG-E109 was retained as a partner collateral contact after Rowan could not attend.
 ```
 
-## BH-D016 — [group_cancellation_notice_jan15.txt](<../documents/group_cancellation_notice_jan15.txt>)
+## BH-D016 — [group_cancellation_notice_jan15.txt](<../data/group_cancellation_notice_jan15.txt>)
 
 ```text
 L0009 The coping skills group scheduled for January 15 from 10:00 to 11:30 is cancelled by the clinic because of staff illness. A covering facilitator is unavailable for this morning's group. The group room has been released from the schedule, and registered participants are being contacted before the planned start time.

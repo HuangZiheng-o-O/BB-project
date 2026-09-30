@@ -19,7 +19,7 @@ Make a January 30 activity ledger distinguishing questionnaire, partner-only fam
 
 Original document lines referenced in the answer:
 
-## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../documents/BH-D113_family_therapy_2026-01-30.txt>)
+## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../data/BH-D113_family_therapy_2026-01-30.txt>)
 
 ```text
 L0006 Therapist session interval: 13:00–13:45, 45 minutes.
@@ -28,14 +28,14 @@ L0009 Rowan's partner, Casey Mercer, arrived first. During the initial interval,
 L0011 Rowan joined at 13:15 and participated through the end of the session. Together, they identified a recurring pattern in which a reminder about contacting work led to a lengthy discussion, followed by Rowan withdrawing from the task. Facilitated a rehearsal in which Casey first asked whether Rowan wanted company, practical help, or a later check-in. Rowan practiced requesting a specific kind of help and naming when a reminder felt overwhelming.
 ```
 
-## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../documents/BH-D114_medication_management_2026-01-30.txt>)
+## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../data/BH-D114_medication_management_2026-01-30.txt>)
 
 ```text
 L0005 January 30, 2026 | 15:00–15:20 | Completed, 20 minutes
 L0012 The service consisted of medication evaluation and management, including symptom review and medication counseling. No separately documented psychotherapy was provided. Ongoing psychotherapy goals and behavioral assignments remain with the treating therapist. Rowan agreed to continue attending scheduled outpatient follow-up and to bring questions about the medication regimen to the next medication appointment.
 ```
 
-## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../documents/BH-D115_symptom_measure_review_2026-01-30.txt>)
+## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../data/BH-D115_symptom_measure_review_2026-01-30.txt>)
 
 ```text
 L0005 Questionnaire completed January 30, 2026, 12:42

@@ -14,20 +14,20 @@ Thus, the record supports progress toward a conversation about a possible gradua
 
 Original document lines referenced in the answer:
 
-## BH-D011 — [individual_therapy_jan14.txt](<../documents/individual_therapy_jan14.txt>)
+## BH-D011 — [individual_therapy_jan14.txt](<../data/individual_therapy_jan14.txt>)
 
 ```text
 L0011 Rowan reported completing several small activities since the prior individual appointment, including opening a work message and taking two short walks. They have not yet replied to the message and continue to imagine being asked questions they cannot answer. Rowan described the family appointment as helpful because the planned check-in with Casey reduced repeated reminders. Sleep remains interrupted, and getting started in the morning continues to require effort.
 L0013 The session focused on identifying the prediction behind the delayed reply and separating a brief acknowledgment from a commitment to a specific work schedule. We drafted a short response in Rowan's own words and practiced reading it aloud. Rowan noticed physical tension during the rehearsal but was able to remain with the task. They said the message seemed less overwhelming when it did not need to solve the entire return-to-work question.
 ```
 
-## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../documents/BH-D106_telehealth_2026-01-21.txt>)
+## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../data/BH-D106_telehealth_2026-01-21.txt>)
 
 ```text
 L0009 Rowan reported drafting a short message about a possible gradual return to work but stopping before sending it. Explored the difference between uncertainty about the supervisor's response and evidence that a response would be negative. The patient identified checking the draft repeatedly as another way the task was being delayed. Practiced reading the draft once and choosing a planned time to send it.
 ```
 
-## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../documents/BH-D109_care_coordination_2026-01-23.txt>)
+## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../data/BH-D109_care_coordination_2026-01-23.txt>)
 
 ```text
 L0006 Participants: Mira Patel, LCSW, and Daniel Shaw, outside social worker
@@ -40,14 +40,14 @@ L0012
 L0013 This contact was between professionals only. Rowan did not join by telephone or video, and no psychotherapy was delivered to the patient during the call. A brief coordination summary will be available to the treating team so that the patient is not asked to repeat administrative information unnecessarily.
 ```
 
-## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../documents/BH-D110_individual_primary_record_2026-01-26.txt>)
+## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../data/BH-D110_individual_primary_record_2026-01-26.txt>)
 
 ```text
 L0009 Rowan described sending a short message to the supervisor and receiving a request to discuss possible next steps. The reply reduced one uncertainty but also brought up worry about being asked for commitments the patient might not be able to meet. Rowan continued to postpone choosing a time for the conversation. Sleep remained uneven, with difficulty settling on nights when work-related thoughts became repetitive.
 L0011 We practiced a brief response that acknowledged the request and asked for a limited discussion of options. Used a role-play to identify when Rowan shifted from asking a question into apologizing or trying to explain every possible difficulty. Rowan was able to return to the main request with prompting. Nora Ellis participated directly in the clinical work and helped rehearse a grounding cue to use before sending the response.
 ```
 
-## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../documents/BH-D113_family_therapy_2026-01-30.txt>)
+## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../data/BH-D113_family_therapy_2026-01-30.txt>)
 
 ```text
 L0011 Rowan joined at 13:15 and participated through the end of the session. Together, they identified a recurring pattern in which a reminder about contacting work led to a lengthy discussion, followed by Rowan withdrawing from the task. Facilitated a rehearsal in which Casey first asked whether Rowan wanted company, practical help, or a later check-in. Rowan practiced requesting a specific kind of help and naming when a reminder felt overwhelming.

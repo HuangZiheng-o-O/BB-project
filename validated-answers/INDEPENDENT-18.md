@@ -12,13 +12,13 @@ The record documents **45 minutes of completed medication management**: 25 minut
 
 Original document lines referenced in the answer:
 
-## BH-D003 — [signed_treatment_plan_jan05.txt](<../documents/signed_treatment_plan_jan05.txt>)
+## BH-D003 — [signed_treatment_plan_jan05.txt](<../data/signed_treatment_plan_jan05.txt>)
 
 ```text
 L0012 Local treatment participation goal: at least 3 therapy days and at least 150 minutes of patient-present therapy in each Monday–Sunday week. A therapy day is a calendar day on which Rowan participates in individual, group, or family psychotherapy. Patient-present individual, group, and family therapy contribute to the minute goal. Medication management, contacts with collateral informants only, and care coordination do not contribute. This is the program's individualized treatment-plan goal for Rowan.
 ```
 
-## BH-D010 — [medication_review_jan13.txt](<../documents/medication_review_jan13.txt>)
+## BH-D010 — [medication_review_jan13.txt](<../data/medication_review_jan13.txt>)
 
 ```text
 L0006 Encounter HG-E106 | Date 2026-01-13
@@ -26,7 +26,7 @@ L0007 Actual visit 09:00–09:25 local; completed, 25 minutes
 L0017 Service documented: medication review and management only. No separate psychotherapy component was provided or documented. Rowan was directed to bring activity and communication concerns to the treating therapist for continued work.
 ```
 
-## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../documents/BH-D114_medication_management_2026-01-30.txt>)
+## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../data/BH-D114_medication_management_2026-01-30.txt>)
 
 ```text
 L0003 Medication management | Encounter HG-E120

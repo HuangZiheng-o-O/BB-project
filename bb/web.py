@@ -128,7 +128,7 @@ def build_app(session: ReviewSession):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Local question-answer page for a saved clinical review")
-    parser.add_argument("--documents", type=Path, default=Path("documents"))
+    parser.add_argument("--documents", type=Path, default=Path("data"))
     parser.add_argument("--run", type=Path, required=True, help="Directory from a fresh bb-review run with the same model")
     parser.add_argument("--output", type=Path, default=Path("runs/web"))
     parser.add_argument("--provider", choices=("anthropic", "openai"), default="openai")

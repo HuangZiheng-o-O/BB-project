@@ -21,7 +21,7 @@ Scheduled slots and nontherapeutic group breaks are not additional sessions: for
 
 Original document lines referenced in the answer:
 
-## BH-D002 — [intake_and_individual_jan05.txt](<../documents/intake_and_individual_jan05.txt>)
+## BH-D002 — [intake_and_individual_jan05.txt](<../data/intake_and_individual_jan05.txt>)
 
 ```text
 L0004 Harbor Grove Behavioral Health | Outpatient psychotherapy
@@ -30,7 +30,7 @@ L0006 Encounter HG-E101 | Service date 2026-01-05
 L0008 Patient-present individual therapy: 09:00–09:50 local; completed, 50 minutes.
 ```
 
-## BH-D004 — [group_facilitator_jan06.txt](<../documents/group_facilitator_jan06.txt>)
+## BH-D004 — [group_facilitator_jan06.txt](<../data/group_facilitator_jan06.txt>)
 
 ```text
 L0005 Service date 2026-01-06 | Group scheduled 10:00–11:30 local
@@ -39,7 +39,7 @@ L0012 The whole group took a break from 10:45 to 11:00. No therapy was conducted
 L0014 Rowan was quiet initially and responded when invited to identify a situation involving avoidance. They described delaying a reply to a work message because they feared being asked for a firm return date. Rowan practiced a breathing exercise and selected reading the message before deciding how to respond as a possible next step. Their participation was relevant to the topic, and they appeared receptive to peer suggestions. The patient attendance roster is maintained by the group desk.
 ```
 
-## BH-D005 — [early_group_attendance_roster.txt](<../documents/early_group_attendance_roster.txt>)
+## BH-D005 — [early_group_attendance_roster.txt](<../data/early_group_attendance_roster.txt>)
 
 ```text
 L0009 Date       | Encounter | Scheduled slot | Patient arrived | Patient departed | Desk status
@@ -48,7 +48,7 @@ L0011 2026-01-12 | HG-E105   | 10:00–11:30    | 10:00           | 11:30       
 L0017 The desk records arrival and departure when members enter or leave the scheduled group. Session activities and room breaks are documented in the facilitator's record. Prepared from the signed reception attendance sheet for the two dates listed.
 ```
 
-## BH-D007 — [family_primary_jan09.txt](<../documents/family_primary_jan09.txt>)
+## BH-D007 — [family_primary_jan09.txt](<../data/family_primary_jan09.txt>)
 
 ```text
 L0005 Rowan Mercer | DOB 1991-04-12 | MRN HG-M042
@@ -59,7 +59,7 @@ L0009 Patient-present family therapy duration: 45 minutes
 L0018 Plan: try the planned check-in and review its effect at the next individual visit. Continue the small activity steps selected in treatment. Leena Park's accompanying entry is filed under encounter HG-E104.
 ```
 
-## BH-D008 — [family_cofacilitator_jan09.txt](<../documents/family_cofacilitator_jan09.txt>)
+## BH-D008 — [family_cofacilitator_jan09.txt](<../data/family_cofacilitator_jan09.txt>)
 
 ```text
 L0005 Rowan Mercer | DOB 1991-04-12 | MRN HG-M042
@@ -69,7 +69,7 @@ L0008 Participants: Rowan Mercer and Casey Mercer; both present for the full 45 
 L0011 Accompanying clinical entry for the family appointment facilitated with Mara Voss. My role was to assist with communication practice and observe how the couple responded when slowing down an anxious exchange. Rowan initially described partner reminders as evidence that they were falling behind. Casey explained that the reminders were an attempt to help, while also recognizing that repeated prompts increased tension.
 ```
 
-## BH-D009 — [group_facilitator_jan12.txt](<../documents/group_facilitator_jan12.txt>)
+## BH-D009 — [group_facilitator_jan12.txt](<../data/group_facilitator_jan12.txt>)
 
 ```text
 L0005 Rowan Mercer | DOB 1991-04-12 | MRN HG-M042 | Encounter HG-E105
@@ -78,7 +78,7 @@ L0012 Group break: 10:40–10:55; no therapeutic activity occurred during the br
 L0014 Rowan contributed an example about leaving work messages unopened. They identified looking at one message as a lower step than replying to every outstanding message. They also described taking a walk with Casey over the weekend and noted that it helped the evening feel less dominated by worry. During the planning exercise, Rowan wrote down an action to try after breakfast and asked how to respond if the morning went poorly.
 ```
 
-## BH-D010 — [medication_review_jan13.txt](<../documents/medication_review_jan13.txt>)
+## BH-D010 — [medication_review_jan13.txt](<../data/medication_review_jan13.txt>)
 
 ```text
 L0004 Harbor Grove Behavioral Health | Prescriber visit
@@ -89,7 +89,7 @@ L0011 Rowan attended for medication management. The visit addressed medication u
 L0017 Service documented: medication review and management only. No separate psychotherapy component was provided or documented. Rowan was directed to bring activity and communication concerns to the treating therapist for continued work.
 ```
 
-## BH-D011 — [individual_therapy_jan14.txt](<../documents/individual_therapy_jan14.txt>)
+## BH-D011 — [individual_therapy_jan14.txt](<../data/individual_therapy_jan14.txt>)
 
 ```text
 L0004 Harbor Grove Behavioral Health | Individual psychotherapy
@@ -98,7 +98,7 @@ L0006 Encounter HG-E107 | Date 2026-01-14
 L0007 Patient-present session 11:00–11:45 local; completed, 45 minutes
 ```
 
-## BH-D012 — [partner_collateral_jan16.txt](<../documents/partner_collateral_jan16.txt>)
+## BH-D012 — [partner_collateral_jan16.txt](<../data/partner_collateral_jan16.txt>)
 
 ```text
 L0004 Harbor Grove Behavioral Health | Family collateral
@@ -109,7 +109,7 @@ L0011 Casey attended the arranged contact after Rowan advised the office that th
 L0017 Rowan did not join in person, by telephone, or by video. No patient-present psychotherapy occurred during this contact. Information from Casey will be incorporated into the next direct clinical review with Rowan. No new treatment decision was made with Rowan during this appointment.
 ```
 
-## BH-D015 — [missed_visit_outreach_jan08.txt](<../documents/missed_visit_outreach_jan08.txt>)
+## BH-D015 — [missed_visit_outreach_jan08.txt](<../data/missed_visit_outreach_jan08.txt>)
 
 ```text
 L0004 Harbor Grove Behavioral Health | Scheduling support log
@@ -119,7 +119,7 @@ L0009 11:12: Reception notified the clinician that Rowan had not checked in. The
 L0011 11:45: Appointment marked no show. Rowan was not seen for the scheduled individual visit.
 ```
 
-## BH-D016 — [group_cancellation_notice_jan15.txt](<../documents/group_cancellation_notice_jan15.txt>)
+## BH-D016 — [group_cancellation_notice_jan15.txt](<../data/group_cancellation_notice_jan15.txt>)
 
 ```text
 L0005 Patient copy: Rowan Mercer | DOB 1991-04-12 | MRN HG-M042
@@ -129,7 +129,7 @@ L0009 The coping skills group scheduled for January 15 from 10:00 to 11:30 is ca
 L0011 08:15: Portal notice delivered to Rowan's account. The notice states that the office initiated the cancellation and that the participant should not come to the group room this morning.
 ```
 
-## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../documents/BH-D101_group_content_2026-01-19.txt>)
+## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../data/BH-D101_group_content_2026-01-19.txt>)
 
 ```text
 L0003 Skills group clinical record | Service date: January 19, 2026
@@ -138,7 +138,7 @@ L0006 Scheduled group: 10:00–11:30. Nontherapeutic break: 10:45–11:00.
 L0010 Rowan initially followed the exercise and identified postponing a message to a supervisor as a familiar pattern. When discussion turned to returning to the workplace, Rowan became visibly tense and said the amount of discussion felt difficult to manage. The facilitator offered grounding and arranged a same-day individual meeting with the treating clinician. Patient-specific arrival and departure are maintained on the attendance roster.
 ```
 
-## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../documents/BH-D103_attendance_correction_2026-01-20.txt>)
+## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../data/BH-D103_attendance_correction_2026-01-20.txt>)
 
 ```text
 L0005 Applies to group encounter HG-E110, service date January 19, 2026
@@ -147,7 +147,7 @@ L0009 During review of the same-day transfer, the original group roster was foun
 L0011 This correction applies only to Rowan Mercer's departure field on the January 19 group attendance roster. It does not change the group service date, scheduled opening or closing, the break recorded in the group clinical note, or the separate individual appointment. The original signed roster is retained in the chart with this correction attached to its attendance entry.
 ```
 
-## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../documents/BH-D104_resent_roster_received_2026-01-26.txt>)
+## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../data/BH-D104_resent_roster_received_2026-01-26.txt>)
 
 ```text
 L0008 The attached attendance sheet was resent following a request for the original group roster. The transmitted packet contains the cover sheet and the original patient-specific roster extract. No correction sheet was included in this transmission. Intake staff indexed the received copy under the service date printed on the roster. The receipt date is the inbox processing date.
@@ -156,7 +156,7 @@ L0014 Patient arrival: 10:00 | Patient departure: 11:30 | Status: Attended
 L0020 Records intake: indexed by Ana Reed, records assistant, January 26, 2026, 16:31. This is a retransmission of the January 19 roster for HG-E110. The received copy contains no new clinician signature and records no additional visit.
 ```
 
-## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../documents/BH-D105_individual_2026-01-19.txt>)
+## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../data/BH-D105_individual_2026-01-19.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E111
@@ -165,7 +165,7 @@ L0006 Patient contact: 11:15–11:45 | Completed: 30 minutes
 L0009 This visit was added because Rowan became anxious during group and needed individual grounding and review of coping strategies. Rowan came directly from the group room. The patient described feeling overwhelmed when other members discussed workplace demands and worried that returning to work would expose difficulties keeping up. Rowan was able to identify muscle tension, rapid breathing, and an urge to leave as early signs of activation.
 ```
 
-## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../documents/BH-D106_telehealth_2026-01-21.txt>)
+## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../data/BH-D106_telehealth_2026-01-21.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E112 | Appointment HG-A112
@@ -174,7 +174,7 @@ L0005 January 21, 2026 | Video | Clinician: Mira Patel, LCSW
 L0007 Patient contact occurred 13:00–13:20 and 13:30–13:55. Connection was lost from 13:20–13:30; there was no therapeutic contact during that interval. Total patient psychotherapy contact: 45 minutes. The reconnection continued the same clinical encounter under original appointment HG-A112.
 ```
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0004 Chart routing: Rowan Mercer | DOB: 1991-04-12 | MRN: HG-M042
@@ -186,7 +186,7 @@ L0013 Scheduled group 10:00–11:30. Nontherapeutic break 10:45–11:00.
 L0014 The session reviewed setbacks when practicing approach behaviors. Members identified an initial effort, what made follow-through difficult, and one adjustment for the next attempt. Rowan reported opening the work calendar but delaying a follow-up conversation. The facilitator helped identify a specific question to ask rather than trying to anticipate every possible concern. Rowan participated in the paired rehearsal and accepted feedback about keeping the request brief.
 ```
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0004 Rowan Mercer | DOB: 1991-04-12 | MRN: HG-M042
@@ -197,7 +197,7 @@ L0012 January 29 | HG-E118 | Skills group | 10:00–11:30 | 10:00 | 11:30 | Atte
 L0018 January 28 scheduling entry: Cancellation received from patient January 28, 08:12. Rowan reported a personal scheduling conflict. Appointment HG-E117 was cancelled before the scheduled start; no replacement appointment was booked within January 2026. Entered by Ana Reed, January 28, 08:18.
 ```
 
-## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../documents/BH-D109_care_coordination_2026-01-23.txt>)
+## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../data/BH-D109_care_coordination_2026-01-23.txt>)
 
 ```text
 L0003 Care coordination | Encounter HG-E114
@@ -208,7 +208,7 @@ L0007 Patient participation: None. No patient contact occurred.
 L0013 This contact was between professionals only. Rowan did not join by telephone or video, and no psychotherapy was delivered to the patient during the call. A brief coordination summary will be available to the treating team so that the patient is not asked to repeat administrative information unnecessarily.
 ```
 
-## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../documents/BH-D110_individual_primary_record_2026-01-26.txt>)
+## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../data/BH-D110_individual_primary_record_2026-01-26.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E115 | Appointment HG-A115
@@ -217,7 +217,7 @@ L0005 January 26, 2026 | In person
 L0007 Actual patient psychotherapy contact: 09:00–09:50, 50 minutes.
 ```
 
-## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../documents/BH-D111_individual_second_record_2026-01-26.txt>)
+## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../data/BH-D111_individual_second_record_2026-01-26.txt>)
 
 ```text
 L0003 Participating clinician psychotherapy record
@@ -227,7 +227,7 @@ L0006 Service: Individual psychotherapy, in person
 L0007 Actual patient psychotherapy contact: 09:10–09:50, 40 minutes.
 ```
 
-## BH-D112 — [BH-D112_draft_note_and_charge_extract_2026-01-27.txt](<../documents/BH-D112_draft_note_and_charge_extract_2026-01-27.txt>)
+## BH-D112 — [BH-D112_draft_note_and_charge_extract_2026-01-27.txt](<../data/BH-D112_draft_note_and_charge_extract_2026-01-27.txt>)
 
 ```text
 L0018 SECTION B — POSTED CHARGE EXTRACT
@@ -239,7 +239,7 @@ L0023 Charge status in this export: Posted
 L0025 The charge row was exported from the billing work queue. This administrative extract preserves the draft document fields and posted charge fields as they appeared on January 30. The signed group attendance register is maintained in the clinical attendance section of the chart.
 ```
 
-## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../documents/BH-D113_family_therapy_2026-01-30.txt>)
+## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../data/BH-D113_family_therapy_2026-01-30.txt>)
 
 ```text
 L0003 Family psychotherapy | Encounter HG-E119
@@ -250,7 +250,7 @@ L0007 Partner only: 13:00–13:15. Rowan present with partner: 13:15–13:45, 30
 L0009 Rowan's partner, Casey Mercer, arrived first. During the initial interval, Casey described uncertainty about when reminders helped and when they seemed to increase Rowan's sense of pressure. Rowan was not present for that portion. The discussion focused on Casey's observations and questions about supporting the agreed approach tasks.
 ```
 
-## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../documents/BH-D114_medication_management_2026-01-30.txt>)
+## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../data/BH-D114_medication_management_2026-01-30.txt>)
 
 ```text
 L0003 Medication management | Encounter HG-E120

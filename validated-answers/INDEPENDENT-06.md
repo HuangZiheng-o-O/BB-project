@@ -12,7 +12,7 @@ Count **45 minutes of patient psychotherapy time**: 13:00–13:20 (20 minutes) p
 
 Original document lines referenced in the answer:
 
-## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../documents/BH-D106_telehealth_2026-01-21.txt>)
+## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../data/BH-D106_telehealth_2026-01-21.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E112 | Appointment HG-A112

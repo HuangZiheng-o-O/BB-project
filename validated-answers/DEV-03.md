@@ -23,14 +23,14 @@ Only delivered, patient-present psychotherapy is counted; scheduled time and non
 
 Original document lines referenced in the answer:
 
-## BH-D002 — [intake_and_individual_jan05.txt](<../documents/intake_and_individual_jan05.txt>)
+## BH-D002 — [intake_and_individual_jan05.txt](<../data/intake_and_individual_jan05.txt>)
 
 ```text
 L0006 Encounter HG-E101 | Service date 2026-01-05
 L0008 Patient-present individual therapy: 09:00–09:50 local; completed, 50 minutes.
 ```
 
-## BH-D003 — [signed_treatment_plan_jan05.txt](<../documents/signed_treatment_plan_jan05.txt>)
+## BH-D003 — [signed_treatment_plan_jan05.txt](<../data/signed_treatment_plan_jan05.txt>)
 
 ```text
 L0006 Episode dates: 2026-01-05 through 2026-01-30
@@ -39,13 +39,13 @@ L0008 Patient agreement recorded 2026-01-05, 13:12 local
 L0012 Local treatment participation goal: at least 3 therapy days and at least 150 minutes of patient-present therapy in each Monday–Sunday week. A therapy day is a calendar day on which Rowan participates in individual, group, or family psychotherapy. Patient-present individual, group, and family therapy contribute to the minute goal. Medication management, contacts with collateral informants only, and care coordination do not contribute. This is the program's individualized treatment-plan goal for Rowan.
 ```
 
-## BH-D004 — [group_facilitator_jan06.txt](<../documents/group_facilitator_jan06.txt>)
+## BH-D004 — [group_facilitator_jan06.txt](<../data/group_facilitator_jan06.txt>)
 
 ```text
 L0012 The whole group took a break from 10:45 to 11:00. No therapy was conducted during that interval. Following the break, the facilitator resumed with a paired planning exercise and a group discussion of barriers to practice at home. 
 ```
 
-## BH-D005 — [early_group_attendance_roster.txt](<../documents/early_group_attendance_roster.txt>)
+## BH-D005 — [early_group_attendance_roster.txt](<../data/early_group_attendance_roster.txt>)
 
 ```text
 L0009 Date       | Encounter | Scheduled slot | Patient arrived | Patient departed | Desk status
@@ -53,7 +53,7 @@ L0010 2026-01-06 | HG-E102   | 10:00–11:30    | 10:15           | 11:15       
 L0011 2026-01-12 | HG-E105   | 10:00–11:30    | 10:00           | 11:30            | Attended full
 ```
 
-## BH-D007 — [family_primary_jan09.txt](<../documents/family_primary_jan09.txt>)
+## BH-D007 — [family_primary_jan09.txt](<../data/family_primary_jan09.txt>)
 
 ```text
 L0006 Encounter HG-E104 | 2026-01-09, 14:00–14:45 local
@@ -61,21 +61,21 @@ L0007 Present: Rowan and partner, Casey Mercer
 L0009 Patient-present family therapy duration: 45 minutes
 ```
 
-## BH-D009 — [group_facilitator_jan12.txt](<../documents/group_facilitator_jan12.txt>)
+## BH-D009 — [group_facilitator_jan12.txt](<../data/group_facilitator_jan12.txt>)
 
 ```text
 L0012 Group break: 10:40–10:55; no therapeutic activity occurred during the break. The second portion of the group included creating an activity ladder, anticipating obstacles, and rehearsing a neutral response to a missed attempt. Members were encouraged to specify the next action in concrete terms, including when and where it could take place.
 L0014 Rowan contributed an example about leaving work messages unopened. They identified looking at one message as a lower step than replying to every outstanding message. They also described taking a walk with Casey over the weekend and noted that it helped the evening feel less dominated by worry. During the planning exercise, Rowan wrote down an action to try after breakfast and asked how to respond if the morning went poorly.
 ```
 
-## BH-D011 — [individual_therapy_jan14.txt](<../documents/individual_therapy_jan14.txt>)
+## BH-D011 — [individual_therapy_jan14.txt](<../data/individual_therapy_jan14.txt>)
 
 ```text
 L0006 Encounter HG-E107 | Date 2026-01-14
 L0007 Patient-present session 11:00–11:45 local; completed, 45 minutes
 ```
 
-## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../documents/BH-D103_attendance_correction_2026-01-20.txt>)
+## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../data/BH-D103_attendance_correction_2026-01-20.txt>)
 
 ```text
 L0007 Correction: Patient departure for HG-E110 is 11:15, replacing the original roster value of 11:30. Patient arrival remains 10:00.
@@ -83,7 +83,7 @@ L0011 This correction applies only to Rowan Mercer's departure field on the Janu
 L0013 No additional clinical service was provided in making this correction. The group discussion and the individual clinician's assessment remain documented in their respective service records.
 ```
 
-## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../documents/BH-D104_resent_roster_received_2026-01-26.txt>)
+## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../data/BH-D104_resent_roster_received_2026-01-26.txt>)
 
 ```text
 L0010 ATTACHED ROSTER COPY
@@ -92,21 +92,21 @@ L0014 Patient arrival: 10:00 | Patient departure: 11:30 | Status: Attended
 L0020 Records intake: indexed by Ana Reed, records assistant, January 26, 2026, 16:31. This is a retransmission of the January 19 roster for HG-E110. The received copy contains no new clinician signature and records no additional visit.
 ```
 
-## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../documents/BH-D105_individual_2026-01-19.txt>)
+## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../data/BH-D105_individual_2026-01-19.txt>)
 
 ```text
 L0005 January 19, 2026 | In person
 L0006 Patient contact: 11:15–11:45 | Completed: 30 minutes
 ```
 
-## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../documents/BH-D106_telehealth_2026-01-21.txt>)
+## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../data/BH-D106_telehealth_2026-01-21.txt>)
 
 ```text
 L0005 January 21, 2026 | Video | Clinician: Mira Patel, LCSW
 L0007 Patient contact occurred 13:00–13:20 and 13:30–13:55. Connection was lost from 13:20–13:30; there was no therapeutic contact during that interval. Total patient psychotherapy contact: 45 minutes. The reconnection continued the same clinical encounter under original appointment HG-A112.
 ```
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0007 January 22, 2026 | Encounter HG-E113
@@ -118,7 +118,7 @@ L0014 The session reviewed setbacks when practicing approach behaviors. Members 
 L0017 For both dates, the break was unstructured time without therapeutic activity or facilitator treatment. Patient arrival, departure, and attendance status are entered in the separate attendance register.
 ```
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0009 January 22 | HG-E113 | Skills group | 10:00–11:30 | 10:30 | 11:30 | Attended, late arrival
@@ -131,7 +131,7 @@ L0018 January 28 scheduling entry: Cancellation received from patient January 28
 L0020 January 29 attendance attestation: Rowan was present from opening through closing. Signed: Leah Chen, LCSW, January 29, 12:15.
 ```
 
-## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../documents/BH-D110_individual_primary_record_2026-01-26.txt>)
+## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../data/BH-D110_individual_primary_record_2026-01-26.txt>)
 
 ```text
 L0005 January 26, 2026 | In person
@@ -140,7 +140,7 @@ L0015 Electronically signed: Mira Patel, LCSW | January 26, 2026, 11:16
 L0016 Record status: Final
 ```
 
-## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../documents/BH-D111_individual_second_record_2026-01-26.txt>)
+## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../data/BH-D111_individual_second_record_2026-01-26.txt>)
 
 ```text
 L0005 Rowan Mercer | DOB: 1991-04-12 | MRN: HG-M042
@@ -150,7 +150,7 @@ L0016 Electronically signed: Nora Ellis, LCSW | January 26, 2026, 12:03
 L0017 Record status: Final
 ```
 
-## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../documents/BH-D113_family_therapy_2026-01-30.txt>)
+## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../data/BH-D113_family_therapy_2026-01-30.txt>)
 
 ```text
 L0005 January 30, 2026 | In person | Clinician: Mira Patel, LCSW

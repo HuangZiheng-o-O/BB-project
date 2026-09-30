@@ -12,21 +12,21 @@ Exclude the documented nontherapeutic break from 10:45–11:00. That leaves **10
 
 Original document lines referenced in the answer:
 
-## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../documents/BH-D101_group_content_2026-01-19.txt>)
+## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../data/BH-D101_group_content_2026-01-19.txt>)
 
 ```text
 L0006 Scheduled group: 10:00–11:30. Nontherapeutic break: 10:45–11:00.
 L0008 Today's group addressed recognizing the sequence between a triggering situation, an anxious prediction, physical activation, and an avoidance response. The facilitator used a worked example involving an unanswered work email. Members then practiced describing the prediction without treating it as an established outcome, and selected a small approach behavior they could attempt during the week. The break was for restroom use and refreshments; there was no facilitated discussion, assigned therapeutic activity, or patient treatment during that interval.
 ```
 
-## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../documents/BH-D102_original_attendance_2026-01-19.txt>)
+## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../data/BH-D102_original_attendance_2026-01-19.txt>)
 
 ```text
 L0008 Scheduled opening: 10:00 | Scheduled closing: 11:30
 L0009 Patient arrival: 10:00 | Patient departure: 11:30 | Status: Attended
 ```
 
-## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../documents/BH-D103_attendance_correction_2026-01-20.txt>)
+## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../data/BH-D103_attendance_correction_2026-01-20.txt>)
 
 ```text
 L0007 Correction: Patient departure for HG-E110 is 11:15, replacing the original roster value of 11:30. Patient arrival remains 10:00.
@@ -35,7 +35,7 @@ L0015 Electronically signed: Leah Chen, LCSW | January 20, 2026, 08:42
 L0016 Correction status: Final
 ```
 
-## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../documents/BH-D104_resent_roster_received_2026-01-26.txt>)
+## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../data/BH-D104_resent_roster_received_2026-01-26.txt>)
 
 ```text
 L0004 Received: January 26, 2026, 16:22 | Sender: Outpatient group records queue

@@ -14,7 +14,7 @@ A contemporaneous patient-entry or contact-time record, or a signed clarificatio
 
 Original document lines referenced in the answer:
 
-## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../documents/BH-D110_individual_primary_record_2026-01-26.txt>)
+## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../data/BH-D110_individual_primary_record_2026-01-26.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E115 | Appointment HG-A115
@@ -24,7 +24,7 @@ L0015 Electronically signed: Mira Patel, LCSW | January 26, 2026, 11:16
 L0016 Record status: Final
 ```
 
-## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../documents/BH-D111_individual_second_record_2026-01-26.txt>)
+## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../data/BH-D111_individual_second_record_2026-01-26.txt>)
 
 ```text
 L0003 Participating clinician psychotherapy record

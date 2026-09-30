@@ -12,7 +12,7 @@ On **January 29**, Rowan **reported having opened** the work calendar, but said 
 
 Original document lines referenced in the answer:
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0007 January 22, 2026 | Encounter HG-E113

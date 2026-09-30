@@ -13,7 +13,7 @@ No. **Neither record establishes a new employment determination, a change in psy
 
 Original document lines referenced in the answer:
 
-## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../documents/BH-D109_care_coordination_2026-01-23.txt>)
+## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../data/BH-D109_care_coordination_2026-01-23.txt>)
 
 ```text
 L0006 Participants: Mira Patel, LCSW, and Daniel Shaw, outside social worker
@@ -26,7 +26,7 @@ L0012
 L0013 This contact was between professionals only. Rowan did not join by telephone or video, and no psychotherapy was delivered to the patient during the call. A brief coordination summary will be available to the treating team so that the patient is not asked to repeat administrative information unnecessarily.
 ```
 
-## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../documents/BH-D114_medication_management_2026-01-30.txt>)
+## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../data/BH-D114_medication_management_2026-01-30.txt>)
 
 ```text
 L0008 Reviewed the patient's current medication regimen, adherence, tolerability, and interval symptoms. Rowan reported taking the medication as prescribed and did not describe a new adverse effect. Mood felt less persistently low than earlier in the month, although anxiety remained noticeable when anticipating contact with work. Sleep was still variable. Reviewed the patient's report alongside the symptom questionnaire available in the chart.

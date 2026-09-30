@@ -16,7 +16,7 @@ These observations support **short-term improvement in communication and tolerab
 
 Original document lines referenced in the answer:
 
-## BH-D007 — [family_primary_jan09.txt](<../documents/family_primary_jan09.txt>)
+## BH-D007 — [family_primary_jan09.txt](<../data/family_primary_jan09.txt>)
 
 ```text
 L0012 The appointment focused on patterns of support at home as Rowan attempts to rebuild a routine. Rowan described feeling watched when asked repeatedly whether they had contacted work. Casey described worry that giving Rowan space might leave them isolated. Both were able to acknowledge that their intentions differed from how the other person experienced the exchange.
@@ -25,7 +25,7 @@ L0016 Rowan remained present and engaged throughout the visit. They became more 
 L0018 Plan: try the planned check-in and review its effect at the next individual visit. Continue the small activity steps selected in treatment. Leena Park's accompanying entry is filed under encounter HG-E104.
 ```
 
-## BH-D008 — [family_cofacilitator_jan09.txt](<../documents/family_cofacilitator_jan09.txt>)
+## BH-D008 — [family_cofacilitator_jan09.txt](<../data/family_cofacilitator_jan09.txt>)
 
 ```text
 L0011 Accompanying clinical entry for the family appointment facilitated with Mara Voss. My role was to assist with communication practice and observe how the couple responded when slowing down an anxious exchange. Rowan initially described partner reminders as evidence that they were falling behind. Casey explained that the reminders were an attempt to help, while also recognizing that repeated prompts increased tension.
@@ -33,13 +33,13 @@ L0013 I asked each participant to reflect the other person's concern before movi
 L0015 The couple selected an evening walk as an activity they could share without making it a discussion about progress. Rowan said this felt more acceptable than a lengthy review of unfinished tasks. The agreed home practice and ongoing treatment plan are recorded in Mara Voss's primary note for HG-E104.
 ```
 
-## BH-D011 — [individual_therapy_jan14.txt](<../documents/individual_therapy_jan14.txt>)
+## BH-D011 — [individual_therapy_jan14.txt](<../data/individual_therapy_jan14.txt>)
 
 ```text
 L0011 Rowan reported completing several small activities since the prior individual appointment, including opening a work message and taking two short walks. They have not yet replied to the message and continue to imagine being asked questions they cannot answer. Rowan described the family appointment as helpful because the planned check-in with Casey reduced repeated reminders. Sleep remains interrupted, and getting started in the morning continues to require effort.
 ```
 
-## BH-D012 — [partner_collateral_jan16.txt](<../documents/partner_collateral_jan16.txt>)
+## BH-D012 — [partner_collateral_jan16.txt](<../data/partner_collateral_jan16.txt>)
 
 ```text
 L0008 Participant: Casey Mercer, partner. Rowan was absent for the entire contact.
@@ -49,7 +49,7 @@ L0015 I gathered information about daily routine and reviewed supportive respons
 L0017 Rowan did not join in person, by telephone, or by video. No patient-present psychotherapy occurred during this contact. Information from Casey will be incorporated into the next direct clinical review with Rowan. No new treatment decision was made with Rowan during this appointment.
 ```
 
-## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../documents/BH-D113_family_therapy_2026-01-30.txt>)
+## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../data/BH-D113_family_therapy_2026-01-30.txt>)
 
 ```text
 L0009 Rowan's partner, Casey Mercer, arrived first. During the initial interval, Casey described uncertainty about when reminders helped and when they seemed to increase Rowan's sense of pressure. Rowan was not present for that portion. The discussion focused on Casey's observations and questions about supporting the agreed approach tasks.
@@ -57,7 +57,7 @@ L0011 Rowan joined at 13:15 and participated through the end of the session. Tog
 L0013 Both participants agreed to try one brief check-in at a planned time rather than repeated questions across the evening. Rowan remained anxious about the work conversation but could explain the intended first step. The patient reported that having a limited plan felt more manageable. Continue the current outpatient treatment plan and revisit whether the agreed communication pattern was useful.
 ```
 
-## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../documents/BH-D115_symptom_measure_review_2026-01-30.txt>)
+## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../data/BH-D115_symptom_measure_review_2026-01-30.txt>)
 
 ```text
 L0008 Rowan completed the questionnaire before the afternoon appointment. The patient continued to endorse sleep difficulty and trouble sustaining usual activities, with fewer days of pervasive low mood than reported at intake. The form was available to the treating clinician for review with the patient's account of functioning.

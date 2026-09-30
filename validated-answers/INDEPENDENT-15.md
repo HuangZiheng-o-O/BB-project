@@ -18,34 +18,34 @@ Thus, **60 + 30 + 45 + 45 = 180 minutes** across January 19, 21, and 22. The Jan
 
 Original document lines referenced in the answer:
 
-## BH-D003 — [signed_treatment_plan_jan05.txt](<../documents/signed_treatment_plan_jan05.txt>)
+## BH-D003 — [signed_treatment_plan_jan05.txt](<../data/signed_treatment_plan_jan05.txt>)
 
 ```text
 L0012 Local treatment participation goal: at least 3 therapy days and at least 150 minutes of patient-present therapy in each Monday–Sunday week. A therapy day is a calendar day on which Rowan participates in individual, group, or family psychotherapy. Patient-present individual, group, and family therapy contribute to the minute goal. Medication management, contacts with collateral informants only, and care coordination do not contribute. This is the program's individualized treatment-plan goal for Rowan.
 ```
 
-## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../documents/BH-D101_group_content_2026-01-19.txt>)
+## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../data/BH-D101_group_content_2026-01-19.txt>)
 
 ```text
 L0006 Scheduled group: 10:00–11:30. Nontherapeutic break: 10:45–11:00.
 L0008 Today's group addressed recognizing the sequence between a triggering situation, an anxious prediction, physical activation, and an avoidance response. The facilitator used a worked example involving an unanswered work email. Members then practiced describing the prediction without treating it as an established outcome, and selected a small approach behavior they could attempt during the week. The break was for restroom use and refreshments; there was no facilitated discussion, assigned therapeutic activity, or patient treatment during that interval.
 ```
 
-## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../documents/BH-D102_original_attendance_2026-01-19.txt>)
+## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../data/BH-D102_original_attendance_2026-01-19.txt>)
 
 ```text
 L0008 Scheduled opening: 10:00 | Scheduled closing: 11:30
 L0009 Patient arrival: 10:00 | Patient departure: 11:30 | Status: Attended
 ```
 
-## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../documents/BH-D103_attendance_correction_2026-01-20.txt>)
+## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../data/BH-D103_attendance_correction_2026-01-20.txt>)
 
 ```text
 L0007 Correction: Patient departure for HG-E110 is 11:15, replacing the original roster value of 11:30. Patient arrival remains 10:00.
 L0009 During review of the same-day transfer, the original group roster was found to retain the scheduled group closing time in Rowan's departure field. The room-transfer record shows Rowan leaving skills room B at 11:15 and being received by the individual clinician at 11:15. I reviewed that record with the receiving clinician and confirm the corrected departure time above. The group continued for other members until its scheduled close.
 ```
 
-## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../documents/BH-D105_individual_2026-01-19.txt>)
+## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../data/BH-D105_individual_2026-01-19.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E111
@@ -53,7 +53,7 @@ L0005 January 19, 2026 | In person
 L0006 Patient contact: 11:15–11:45 | Completed: 30 minutes
 ```
 
-## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../documents/BH-D106_telehealth_2026-01-21.txt>)
+## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../data/BH-D106_telehealth_2026-01-21.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E112 | Appointment HG-A112
@@ -62,7 +62,7 @@ L0005 January 21, 2026 | Video | Clinician: Mira Patel, LCSW
 L0007 Patient contact occurred 13:00–13:20 and 13:30–13:55. Connection was lost from 13:20–13:30; there was no therapeutic contact during that interval. Total patient psychotherapy contact: 45 minutes. The reconnection continued the same clinical encounter under original appointment HG-A112.
 ```
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0007 January 22, 2026 | Encounter HG-E113
@@ -71,7 +71,7 @@ L0009 The session addressed translating a broad intention into one observable ac
 L0017 For both dates, the break was unstructured time without therapeutic activity or facilitator treatment. Patient arrival, departure, and attendance status are entered in the separate attendance register.
 ```
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0008 Service date | Encounter | Service | Scheduled | Actual arrival | Actual departure | Final disposition
@@ -79,7 +79,7 @@ L0009 January 22 | HG-E113 | Skills group | 10:00–11:30 | 10:30 | 11:30 | Atte
 L0014 January 22 attendance attestation: Rowan arrived at 10:30 and remained until the group closed. Signed: Leah Chen, LCSW, January 22, 12:09.
 ```
 
-## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../documents/BH-D109_care_coordination_2026-01-23.txt>)
+## BH-D109 — [BH-D109_care_coordination_2026-01-23.txt](<../data/BH-D109_care_coordination_2026-01-23.txt>)
 
 ```text
 L0003 Care coordination | Encounter HG-E114

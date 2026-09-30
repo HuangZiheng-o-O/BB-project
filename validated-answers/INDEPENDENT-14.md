@@ -12,7 +12,7 @@ On January 19, **two distinct patient psychotherapy contacts** occurred: a group
 
 Original document lines referenced in the answer:
 
-## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../documents/BH-D101_group_content_2026-01-19.txt>)
+## BH-D101 — [BH-D101_group_content_2026-01-19.txt](<../data/BH-D101_group_content_2026-01-19.txt>)
 
 ```text
 L0003 Skills group clinical record | Service date: January 19, 2026
@@ -22,13 +22,13 @@ L0008 Today's group addressed recognizing the sequence between a triggering situ
 L0010 Rowan initially followed the exercise and identified postponing a message to a supervisor as a familiar pattern. When discussion turned to returning to the workplace, Rowan became visibly tense and said the amount of discussion felt difficult to manage. The facilitator offered grounding and arranged a same-day individual meeting with the treating clinician. Patient-specific arrival and departure are maintained on the attendance roster.
 ```
 
-## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../documents/BH-D102_original_attendance_2026-01-19.txt>)
+## BH-D102 — [BH-D102_original_attendance_2026-01-19.txt](<../data/BH-D102_original_attendance_2026-01-19.txt>)
 
 ```text
 L0009 Patient arrival: 10:00 | Patient departure: 11:30 | Status: Attended
 ```
 
-## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../documents/BH-D103_attendance_correction_2026-01-20.txt>)
+## BH-D103 — [BH-D103_attendance_correction_2026-01-20.txt](<../data/BH-D103_attendance_correction_2026-01-20.txt>)
 
 ```text
 L0007 Correction: Patient departure for HG-E110 is 11:15, replacing the original roster value of 11:30. Patient arrival remains 10:00.
@@ -36,14 +36,14 @@ L0009 During review of the same-day transfer, the original group roster was foun
 L0011 This correction applies only to Rowan Mercer's departure field on the January 19 group attendance roster. It does not change the group service date, scheduled opening or closing, the break recorded in the group clinical note, or the separate individual appointment. The original signed roster is retained in the chart with this correction attached to its attendance entry.
 ```
 
-## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../documents/BH-D104_resent_roster_received_2026-01-26.txt>)
+## BH-D104 — [BH-D104_resent_roster_received_2026-01-26.txt](<../data/BH-D104_resent_roster_received_2026-01-26.txt>)
 
 ```text
 L0014 Patient arrival: 10:00 | Patient departure: 11:30 | Status: Attended
 L0020 Records intake: indexed by Ana Reed, records assistant, January 26, 2026, 16:31. This is a retransmission of the January 19 roster for HG-E110. The received copy contains no new clinician signature and records no additional visit.
 ```
 
-## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../documents/BH-D105_individual_2026-01-19.txt>)
+## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../data/BH-D105_individual_2026-01-19.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E111

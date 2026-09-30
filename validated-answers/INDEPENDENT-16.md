@@ -16,13 +16,13 @@ Thus the week totals **40 + 75 + 30 = 145 minutes** if the 09:10 start is correc
 
 Original document lines referenced in the answer:
 
-## BH-D003 — [signed_treatment_plan_jan05.txt](<../documents/signed_treatment_plan_jan05.txt>)
+## BH-D003 — [signed_treatment_plan_jan05.txt](<../data/signed_treatment_plan_jan05.txt>)
 
 ```text
 L0012 Local treatment participation goal: at least 3 therapy days and at least 150 minutes of patient-present therapy in each Monday–Sunday week. A therapy day is a calendar day on which Rowan participates in individual, group, or family psychotherapy. Patient-present individual, group, and family therapy contribute to the minute goal. Medication management, contacts with collateral informants only, and care coordination do not contribute. This is the program's individualized treatment-plan goal for Rowan.
 ```
 
-## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../documents/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
+## BH-D107 — [BH-D107_group_activity_records_2026-01-22_and_29.txt](<../data/BH-D107_group_activity_records_2026-01-22_and_29.txt>)
 
 ```text
 L0012 January 29, 2026 | Encounter HG-E118
@@ -30,7 +30,7 @@ L0013 Scheduled group 10:00–11:30. Nontherapeutic break 10:45–11:00.
 L0017 For both dates, the break was unstructured time without therapeutic activity or facilitator treatment. Patient arrival, departure, and attendance status are entered in the separate attendance register.
 ```
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0010 January 27 | HG-E116 | Skills group | 10:00–11:30 | — | — | No show; patient did not attend
@@ -41,7 +41,7 @@ L0018 January 28 scheduling entry: Cancellation received from patient January 28
 L0020 January 29 attendance attestation: Rowan was present from opening through closing. Signed: Leah Chen, LCSW, January 29, 12:15.
 ```
 
-## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../documents/BH-D110_individual_primary_record_2026-01-26.txt>)
+## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../data/BH-D110_individual_primary_record_2026-01-26.txt>)
 
 ```text
 L0003 Individual psychotherapy | Encounter HG-E115 | Appointment HG-A115
@@ -50,7 +50,7 @@ L0015 Electronically signed: Mira Patel, LCSW | January 26, 2026, 11:16
 L0016 Record status: Final
 ```
 
-## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../documents/BH-D111_individual_second_record_2026-01-26.txt>)
+## BH-D111 — [BH-D111_individual_second_record_2026-01-26.txt](<../data/BH-D111_individual_second_record_2026-01-26.txt>)
 
 ```text
 L0004 Encounter HG-E115 | Appointment HG-A115 | Service date January 26, 2026
@@ -60,7 +60,7 @@ L0016 Electronically signed: Nora Ellis, LCSW | January 26, 2026, 12:03
 L0017 Record status: Final
 ```
 
-## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../documents/BH-D113_family_therapy_2026-01-30.txt>)
+## BH-D113 — [BH-D113_family_therapy_2026-01-30.txt](<../data/BH-D113_family_therapy_2026-01-30.txt>)
 
 ```text
 L0005 January 30, 2026 | In person | Clinician: Mira Patel, LCSW

@@ -12,20 +12,20 @@ The evidentiary limit is that the reviewed record covers services **through Janu
 
 Original document lines referenced in the answer:
 
-## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../documents/BH-D108_final_attendance_and_cancellation_register.txt>)
+## BH-D108 — [BH-D108_final_attendance_and_cancellation_register.txt](<../data/BH-D108_final_attendance_and_cancellation_register.txt>)
 
 ```text
 L0005 Extract prepared January 30, 2026, 17:10
 L0008 Service date | Encounter | Service | Scheduled | Actual arrival | Actual departure | Final disposition
 ```
 
-## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../documents/BH-D114_medication_management_2026-01-30.txt>)
+## BH-D114 — [BH-D114_medication_management_2026-01-30.txt](<../data/BH-D114_medication_management_2026-01-30.txt>)
 
 ```text
 L0012 The service consisted of medication evaluation and management, including symptom review and medication counseling. No separately documented psychotherapy was provided. Ongoing psychotherapy goals and behavioral assignments remain with the treating therapist. Rowan agreed to continue attending scheduled outpatient follow-up and to bring questions about the medication regimen to the next medication appointment.
 ```
 
-## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../documents/BH-D115_symptom_measure_review_2026-01-30.txt>)
+## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../data/BH-D115_symptom_measure_review_2026-01-30.txt>)
 
 ```text
 L0010 Clinician review, January 30: Rowan shows partial improvement, with persistent avoidance and meaningful functional impact around returning to work. The patient has taken some initial steps, including drafting and sending a message, but continues to delay follow-up and becomes anxious when a task expands beyond a narrowly defined action. Sleep disruption remains an intermittent barrier to establishing a steadier daytime routine.

@@ -16,7 +16,7 @@ Subsequently, Rowan drafted but had not sent the message by January 21, and desc
 
 Original document lines referenced in the answer:
 
-## BH-D002 — [intake_and_individual_jan05.txt](<../documents/intake_and_individual_jan05.txt>)
+## BH-D002 — [intake_and_individual_jan05.txt](<../data/intake_and_individual_jan05.txt>)
 
 ```text
 L0011 Reason for care: Rowan describes several weeks of low mood, reduced interest in usual activities, fragmented sleep, and difficulty beginning ordinary tasks. Worry increases when thinking about returning to work after a recent leave. Rowan has been postponing email replies, avoiding conversations about the return date, and spending more time alone at home. They want a routine that makes the work transition feel manageable. The current outpatient episode is planned for January 5 through January 30, with review as treatment progresses.
@@ -24,14 +24,14 @@ L0013 Rowan arrived independently and participated throughout the appointment. S
 L0015 PHQ-9 completed by Rowan on 2026-01-05: total score 18. The questionnaire is retained in the assessment tab. Clinical impressions are depressive symptoms with anxiety and behavioral avoidance. The score was reviewed alongside Rowan's account of sleep and daily functioning.
 ```
 
-## BH-D011 — [individual_therapy_jan14.txt](<../documents/individual_therapy_jan14.txt>)
+## BH-D011 — [individual_therapy_jan14.txt](<../data/individual_therapy_jan14.txt>)
 
 ```text
 L0011 Rowan reported completing several small activities since the prior individual appointment, including opening a work message and taking two short walks. They have not yet replied to the message and continue to imagine being asked questions they cannot answer. Rowan described the family appointment as helpful because the planned check-in with Casey reduced repeated reminders. Sleep remains interrupted, and getting started in the morning continues to require effort.
 L0015 We reviewed the activity record and explored the missed appointment from the prior week without treating it as a reason to abandon the schedule. Rowan identified setting out appointment information the evening before as a helpful preparation step. Affect was more varied than at intake, although worry was evident when discussing employment.
 ```
 
-## BH-D013 — [symptom_measure_review_jan16.txt](<../documents/symptom_measure_review_jan16.txt>)
+## BH-D013 — [symptom_measure_review_jan16.txt](<../data/symptom_measure_review_jan16.txt>)
 
 ```text
 L0006 Instrument: PHQ-9 | Patient portal form HG-Q116
@@ -41,7 +41,7 @@ L0011 The submitted score is lower than the intake score of 18 recorded on Janua
 L0013 Clinician review: the score and recent individual-session material suggest some improvement in depressive symptoms. Persistent avoidance, difficulty initiating work communication, and sleep disruption remain clinically relevant. Rowan has attempted small activities and communication practice but has not yet established a reliable routine. Continue the current therapeutic focus and review functioning alongside symptom change during the next direct appointment.
 ```
 
-## BH-D014 — [imported_measure_summary_received_jan26.txt](<../documents/imported_measure_summary_received_jan26.txt>)
+## BH-D014 — [imported_measure_summary_received_jan26.txt](<../data/imported_measure_summary_received_jan26.txt>)
 
 ```text
 L0012 Measure | Result | Date completed | Source form
@@ -52,7 +52,7 @@ L0016
 L0017 Import detail: copied result from the January 16 portal form. January 26 is the date the summary was received and filed. No newly completed patient questionnaire is included in this batch. The source form identifier and original completion date were retained in the imported row.
 ```
 
-## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../documents/BH-D105_individual_2026-01-19.txt>)
+## BH-D105 — [BH-D105_individual_2026-01-19.txt](<../data/BH-D105_individual_2026-01-19.txt>)
 
 ```text
 L0006 Patient contact: 11:15–11:45 | Completed: 30 minutes
@@ -63,7 +63,7 @@ L0012
 L0013 Rowan denied current suicidal thoughts and remained future oriented in discussing the next appointment. No acute safety concern was identified during this contact. Persistent avoidance and disrupted sleep continue to interfere with resuming a usual work routine. Continue the established outpatient plan and review how the smaller task went at the next individual visit.
 ```
 
-## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../documents/BH-D106_telehealth_2026-01-21.txt>)
+## BH-D106 — [BH-D106_telehealth_2026-01-21.txt](<../data/BH-D106_telehealth_2026-01-21.txt>)
 
 ```text
 L0009 Rowan reported drafting a short message about a possible gradual return to work but stopping before sending it. Explored the difference between uncertainty about the supervisor's response and evidence that a response would be negative. The patient identified checking the draft repeatedly as another way the task was being delayed. Practiced reading the draft once and choosing a planned time to send it.
@@ -71,7 +71,7 @@ L0010
 L0011 After the connection resumed, the discussion returned to the same task and to evening routines. Rowan described one night of improved sleep followed by a night of prolonged wakefulness. Discussed keeping the wind-down routine brief and repeatable. Rowan was engaged and able to restate the agreed task. No urgent safety concern was reported. Follow-up remains with the established outpatient team.
 ```
 
-## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../documents/BH-D110_individual_primary_record_2026-01-26.txt>)
+## BH-D110 — [BH-D110_individual_primary_record_2026-01-26.txt](<../data/BH-D110_individual_primary_record_2026-01-26.txt>)
 
 ```text
 L0009 Rowan described sending a short message to the supervisor and receiving a request to discuss possible next steps. The reply reduced one uncertainty but also brought up worry about being asked for commitments the patient might not be able to meet. Rowan continued to postpone choosing a time for the conversation. Sleep remained uneven, with difficulty settling on nights when work-related thoughts became repetitive.
@@ -81,7 +81,7 @@ L0012
 L0013 The patient remained attentive and collaborative, although hesitant about completing the task outside the office. No current suicidal ideation was reported. Continue work on avoidance and the bedtime routine. Discussed maintaining scheduled treatment contact during the return-to-work planning period and bringing the response draft to the next visit if the patient remained stuck.
 ```
 
-## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../documents/BH-D115_symptom_measure_review_2026-01-30.txt>)
+## BH-D115 — [BH-D115_symptom_measure_review_2026-01-30.txt](<../data/BH-D115_symptom_measure_review_2026-01-30.txt>)
 
 ```text
 L0005 Questionnaire completed January 30, 2026, 12:42

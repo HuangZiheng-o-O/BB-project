@@ -63,7 +63,7 @@ For `glm-4.7`, the adapter disables thinking by default to keep extraction and t
 
 ```bash
 uv run --env-file .env bb-review \
-  --documents documents \
+  --documents data \
   --questions questions.json \
   --provider openai \
   --model YOUR_MODEL \
@@ -82,7 +82,7 @@ The questions file is a JSON array of strings or `{ "id": "...", "question": "..
 
 Markdown reports contain **Question**, **Answer**, and **Evidence** sections. The model generates the answer and inline citations. The Evidence section copies the cited original document lines locally, without another model call or additional model output tokens. The displayed call count includes only the online calls made to answer that question. Offline processing calls remain separately recorded in `run.json`.
 
-The original inputs are `documents/` and `questions.json`.
+The supplied inputs are `data/` and `questions.json`.
 
 For a new model, omit `--snapshot` to process the original documents. After a successful offline run, later questions with the same model and unchanged documents may reuse its `abstraction.json` through `--snapshot`; source hashes, model identity, and validation findings are checked before reuse. `--reuse-cache` is an explicit content-addressed stage option.
 
@@ -94,7 +94,7 @@ First let the new model process the original documents, with a separate output r
 
 ```bash
 uv run --env-file .env bb-review \
-  --documents documents --prepare-only \
+  --documents data --prepare-only \
   --provider openai --model YOUR_MODEL \
   --base-url YOUR_API_BASE_URL \
   --output runs/new-model \
@@ -129,4 +129,4 @@ Start with `run.json` to see source hashes, whether the offline snapshot was reu
 
 These local trace and run files can contain source text, questions, and model responses. The `runs/` directory is excluded from Git.
 
-I directed AI-assisted research and led the architecture, discussing the detailed design with AI. AI implemented the project, and I worked with AI to review and test it. Technical ideas and libraries are credited in [the implementation plan](cn/IMPLEMENTATION_PLAN.md).
+I directed AI-assisted research and led the architecture, discussing the detailed design with AI. AI implemented the project, and I worked with AI to review and test it. Technical ideas and libraries are credited in [the implementation plan](doc/IMPLEMENTATION_PLAN.md).
