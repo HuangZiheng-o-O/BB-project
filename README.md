@@ -10,14 +10,14 @@ Python 3.11+ and `uv` are recommended:
 uv sync
 ```
 
-Set a key for a **general-purpose, programmatic model API** in the environment. For Z.AI's regular OpenAI-compatible API, use `ZAI_API_KEY`; for another OpenAI-compatible service, use `OPENAI_API_KEY`. The Anthropic adapter accepts `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN`. Keep credentials outside the repository and run outputs. The [Z.AI Coding Plan endpoint](https://docs.z.ai/devpack/quick-start) is documented for supported coding tools, while the [standard API endpoint](https://docs.z.ai/guides/overview/quick-start) is for programmatic model calls; use the latter for this application with an eligible API key.
+Set a key for a **general-purpose, programmatic model API** in the environment. For Z.AI's regular OpenAI-compatible API, use `ZAI_API_KEY`; for OpenAI, use `OPENAI_API_KEY`. The Anthropic adapter accepts `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN`. Keep credentials outside version control and run outputs. A local `.env` file is ignored by Git; load it with `uv run --env-file .env`. Both keys may be set at once: an explicit Z.AI base URL selects `ZAI_API_KEY`, while the default OpenAI endpoint selects `OPENAI_API_KEY`. The [Z.AI Coding Plan endpoint](https://docs.z.ai/devpack/quick-start) is documented for supported coding tools, while the [standard API endpoint](https://docs.z.ai/guides/overview/quick-start) is for programmatic model calls; use the latter for this application with an eligible API key.
 
 For `glm-4.7`, the adapter disables thinking by default to keep extraction and tool responses within the output budget. Set `BB_GLM_THINKING=enabled` to test the reasoning variant. Z.AI documents this [per-turn thinking control](https://docs.z.ai/guides/capabilities/thinking-mode).
 
 ## Run
 
 ```bash
-uv run bb-review \
+uv run --env-file .env bb-review \
   --documents documents \
   --questions questions.json \
   --provider openai \
@@ -45,7 +45,7 @@ When `--reuse-cache` is explicitly selected, validated extraction and reconcilia
 First let the new model process the original documents, with a separate output root. `--prepare-only` skips the five development answers so you can ask only the questions you want in the page. The command prints a unique run directory when finished:
 
 ```bash
-uv run bb-review \
+uv run --env-file .env bb-review \
   --documents documents --prepare-only \
   --provider openai --model YOUR_MODEL \
   --base-url YOUR_API_BASE_URL \
@@ -57,7 +57,7 @@ Install the optional Gradio interface and point it to **that new run directory**
 
 ```bash
 uv sync --extra web
-uv run --extra web bb-review-web \
+uv run --env-file .env --extra web bb-review-web \
   --run PATH_PRINTED_BY_BB_REVIEW \
   --provider openai --model YOUR_MODEL \
   --base-url YOUR_API_BASE_URL

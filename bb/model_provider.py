@@ -6,6 +6,7 @@ import json
 import os
 from dataclasses import dataclass, field
 from typing import Any, Protocol
+from urllib.parse import urlparse
 
 
 @dataclass(frozen=True)
@@ -126,13 +127,17 @@ class OpenAICompatibleModel:
     def __init__(self, model_name: str, base_url: str | None = None) -> None:
         from openai import OpenAI
 
-        key = os.getenv("ZAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+        endpoint = base_url or os.getenv("OPENAI_BASE_URL")
+        if not endpoint and not os.getenv("OPENAI_API_KEY"):
+            endpoint = os.getenv("ZAI_BASE_URL")
+        key_name = "ZAI_API_KEY" if endpoint and urlparse(endpoint).hostname == "api.z.ai" else "OPENAI_API_KEY"
+        key = os.getenv(key_name)
         if not key:
-            raise RuntimeError("Set ZAI_API_KEY or OPENAI_API_KEY")
+            raise RuntimeError(f"Set {key_name}")
         self.model_name = model_name
         self.client = OpenAI(
             api_key=key,
-            base_url=base_url or os.getenv("ZAI_BASE_URL") or os.getenv("OPENAI_BASE_URL"),
+            base_url=endpoint,
             timeout=float(os.getenv("BB_MODEL_TIMEOUT_SECONDS", "180")),
             max_retries=2,
         )
