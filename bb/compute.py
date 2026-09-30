@@ -81,11 +81,14 @@ def event_minutes(event: ResolvedEvent) -> list[dict[str, int]]:
     return choices
 
 
-def _is_therapy(service_type: str) -> bool:
+def _therapy_type(service_type: str) -> str | None:
     words = set(re.findall(r"[a-z]+", service_type.lower()))
     if words & {"medication", "management", "coordination", "collateral", "administrative", "outreach"}:
-        return False
-    return bool(words & {"individual", "group", "family", "psychotherapy", "therapy"})
+        return None
+    for category in ("individual", "group", "family"):
+        if category in words:
+            return category
+    return "therapy_unspecified" if words & {"psychotherapy", "therapy"} else None
 
 
 def _bounds(values: list[int]) -> dict[str, int]:
@@ -144,7 +147,8 @@ def calculate_review(
         options = event_minutes(event)
         date_totals = sorted(set(day for option in options for day in option))
         event_totals = [sum(option.values()) for option in options]
-        eligible = _is_therapy(event.service_type)
+        category = _therapy_type(event.service_type)
+        eligible = category is not None
         within = not event.service_date or (
             (first is None or date.fromisoformat(event.service_date) >= first)
             and (last is None or date.fromisoformat(event.service_date) <= last)
@@ -152,8 +156,8 @@ def calculate_review(
         if eligible and within:
             if event.disposition != "not_delivered" and event.patient_therapy != "no" and (not event.service_date or not event.interval_options):
                 unquantified_event_ids.append(event.event_id)
-            type_counts[event.service_type][0] += int(all(value > 0 for value in event_totals))
-            type_counts[event.service_type][1] += int(any(value > 0 for value in event_totals))
+            type_counts[category][0] += int(all(value > 0 for value in event_totals))
+            type_counts[category][1] += int(any(value > 0 for value in event_totals))
             for day in date_totals:
                 if first and date.fromisoformat(day) < first or last and date.fromisoformat(day) > last:
                     continue
@@ -169,6 +173,7 @@ def calculate_review(
                 "event_id": event.event_id,
                 "service_date": event.service_date,
                 "service_type": event.service_type,
+                "service_category": category,
                 "disposition": event.disposition,
                 "patient_therapy": event.patient_therapy,
                 "eligible_service": eligible,

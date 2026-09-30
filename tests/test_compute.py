@@ -52,6 +52,8 @@ class CalculationTests(unittest.TestCase):
         )
         self.assertEqual(result["therapy_days"], {"minimum": 1, "maximum": 2})
         self.assertEqual(result["therapy_minutes"], {"minimum": 60, "maximum": 120})
+        self.assertEqual(result["sessions_by_type"]["individual"], {"minimum": 1, "maximum": 1})
+        self.assertEqual(result["sessions_by_type"]["family"], {"minimum": 0, "maximum": 1})
         self.assertEqual(result["weeks"][0]["goals"][0]["status"], "indeterminate")
 
 
