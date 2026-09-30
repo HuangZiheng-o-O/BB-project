@@ -4,7 +4,7 @@ This Python CLI creates a source-audited abstraction of text clinical records an
 
 ## Architecture and reviewed answers
 
-**[Download the interactive architecture diagram](architecture/clinical-evidence.html)** · [View its source specification](architecture/clinical-evidence.architecture.json) · [Browse all 15 reviewed question, answer, and evidence reports](validated-answers/README.md)
+**[Download the interactive architecture diagram](architecture/clinical-evidence.html)** · [View its source specification](architecture/clinical-evidence.architecture.json) · [Browse all 27 reviewed question, answer, and evidence reports](validated-answers/README.md)
 
 The diagram was generated and checked with [Archify](https://github.com/tt-a1i/archify). Open the downloaded standalone HTML in a browser to explore its components and source links.
 
@@ -18,7 +18,34 @@ The diagram was generated and checked with [Archify](https://github.com/tt-a1i/a
 | January 19 and 21 care | January 19: two contacts, 90 minutes; January 21: one contact, 45 minutes | [DEV-04](validated-answers/DEV-04.md) |
 | Symptom course | Three distinct PHQ-9 scores of 18, 14, and 10; partial improvement with ongoing difficulty | [DEV-05](validated-answers/DEV-05.md) |
 
-The [ten independent examples](validated-answers/README.md#independent-questions) cover authorization, copied records, no-shows, family support, future care, and time calculations. The answer key was held outside the repository and was not part of the searchable corpus.
+### Independent questions
+
+| Question | Reviewed result | Full answer and evidence |
+|---|---|---|
+| 01 · Group authorization | 8 authorized; 5 attended | [Read](validated-answers/INDEPENDENT-01.md) |
+| 02 · Family encounters | 2 patient-present encounters; 75 minutes | [Read](validated-answers/INDEPENDENT-02.md) |
+| 03 · January 26 records | 1 encounter; 40–50 minutes unresolved | [Read](validated-answers/INDEPENDENT-03.md) |
+| 04 · Two skills groups | 45 minutes each; 90 combined | [Read](validated-answers/INDEPENDENT-04.md) |
+| 05 · Corrected roster | January 19 group ends at 11:15; 60 therapy minutes | [Read](validated-answers/INDEPENDENT-05.md) |
+| 06 · Video reconnection | 1 encounter; 45 minutes | [Read](validated-answers/INDEPENDENT-06.md) |
+| 07 · Family support | Planned check-ins improved reported interactions; durable outcome unestablished | [Read](validated-answers/INDEPENDENT-07.md) |
+| 08 · Coordination and medication | No employment, therapy-frequency, or medication change documented | [Read](validated-answers/INDEPENDENT-08.md) |
+| 09 · Skills-group content | Five themes documented; in-group practice does not prove home completion | [Read](validated-answers/INDEPENDENT-09.md) |
+| 10 · January 8 no-show | Later attended treatment rules out stopping participation then | [Read](validated-answers/INDEPENDENT-10.md) |
+| 11 · January 15 group | Clinic cancellation; no group held | [Read](validated-answers/INDEPENDENT-11.md) |
+| 12 · January 22 group | Late arrival; 45 patient therapy minutes | [Read](validated-answers/INDEPENDENT-12.md) |
+| 13 · Work calendar | January 22 example; January 29 reported action, with follow-up delayed | [Read](validated-answers/INDEPENDENT-13.md) |
+| 14 · January 19 | 2 encounters, 1 therapy day, 90 minutes | [Read](validated-answers/INDEPENDENT-14.md) |
+| 15 · January 19–25 week | 4 encounters, 3 days, 180 minutes; goal met | [Read](validated-answers/INDEPENDENT-15.md) |
+| 16 · January 26 week | 3 days, 145–155 minutes; minute goal undetermined | [Read](validated-answers/INDEPENDENT-16.md) |
+| 17 · January 26 receipts | Copies preserve earlier events; neither creates new care or assessment | [Read](validated-answers/INDEPENDENT-17.md) |
+| 18 · Medication visits | 45 medication-management minutes; 0 psychotherapy-goal minutes | [Read](validated-answers/INDEPENDENT-18.md) |
+| 19 · Symptom scores | 18, 14, 10 observed; psychotherapy causation unestablished | [Read](validated-answers/INDEPENDENT-19.md) |
+| 20 · Future services | Recommendations do not establish later delivered visits | [Read](validated-answers/INDEPENDENT-20.md) |
+| 21 · Employment transition | Preparatory actions documented; no workplace determination | [Read](validated-answers/INDEPENDENT-21.md) |
+| 22 · January 30 ledger | 1 family therapy day, 30 patient psychotherapy minutes | [Read](validated-answers/INDEPENDENT-22.md) |
+
+The independent answer key was held outside the repository and was not part of the searchable corpus.
 
 ## Setup
 
