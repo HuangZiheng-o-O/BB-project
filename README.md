@@ -21,8 +21,8 @@ uv run bb-review \
   --documents documents \
   --questions questions.json \
   --provider openai \
-  --model glm-4.7 \
-  --base-url https://api.z.ai/api/paas/v4/ \
+  --model YOUR_MODEL \
+  --base-url YOUR_API_BASE_URL \
   --start 2026-01-05 --end 2026-01-30
 ```
 
@@ -34,26 +34,38 @@ The questions file is a JSON array of strings or `{ "id": "...", "question": "..
 - `trace.jsonl`: extraction, reconciliation, model and tool calls with token usage.
 - `run.json`: model, runtime, source manifest and usage summary.
 
-The recorded development run is available in `artifacts/development/`. It includes the complete abstraction, calculation, five generated answers, execution trace and run metadata. These are raw model outputs, with the answer limitations listed below.
+The original inputs are `documents/` and `questions.json`. The historical GLM run is stored separately in `artifacts/development/` and is never selected by the fresh-run command or the question page. Its answer limitations are listed below.
 
-For follow-up questions over **unchanged** documents, use `--snapshot /path/to/prior/abstraction.json` with a new questions file. Every source hash must match; this avoids repeating extraction and reconciliation calls. Adding documents requires a fresh abstraction.
+For a new model, omit `--snapshot`: this forces extraction and reconciliation from the original documents. Model-stage cache reuse is disabled by default. `--snapshot` and `--reuse-cache` remain explicit options for separate experiments, but do not use either when establishing an independent model result.
 
-Validated extraction and reconciliation batches are also cached by model, prompt and input content under ignored `runs/_stage_cache/`. A restarted run can reuse completed batches without replacing prior artifacts. Progress messages identify the active batch or question.
+When `--reuse-cache` is explicitly selected, validated extraction and reconciliation batches are cached by model, prompt and input content under the chosen output root's `_stage_cache/`. Progress messages identify the active batch or question.
 
 ## Local question page
 
-Install the optional Gradio interface and launch it from the project directory:
+First let the new model process the original documents, with a separate output root. `--prepare-only` skips the five development answers so you can ask only the questions you want in the page. The command prints a unique run directory when finished:
+
+```bash
+uv run bb-review \
+  --documents documents --prepare-only \
+  --provider openai --model YOUR_MODEL \
+  --base-url YOUR_API_BASE_URL \
+  --output runs/new-model \
+  --start 2026-01-05 --end 2026-01-30
+```
+
+Install the optional Gradio interface and point it to **that new run directory**:
 
 ```bash
 uv sync --extra web
 uv run --extra web bb-review-web \
-  --model glm-4.7 \
-  --base-url https://api.z.ai/api/paas/v4/
+  --run PATH_PRINTED_BY_BB_REVIEW \
+  --provider openai --model YOUR_MODEL \
+  --base-url YOUR_API_BASE_URL
 ```
 
-Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The answer appears in the page with its source references. **Download Markdown** provides the same answer as a `.md` file. The page uses `documents/`, `artifacts/development/abstraction.json`, and `artifacts/development/calculation.json` by default, so it does not repeat the extraction for each question. Each answer and its model trace are saved under ignored `runs/web/`.
+Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The answer appears in the page with its source references. **Download Markdown** provides the same answer as a `.md` file. The page requires a run produced from the original documents by the same model without a reused snapshot or model-stage cache. Each answer and its model trace are saved under ignored `runs/web/`. To generate the original five answers, run `bb-review` separately with `--questions questions.json` instead of `--prepare-only`.
 
-The page listens on the local computer only and does not create a public Gradio share link. For another document set, first create a new abstraction and calculation with `bb-review`, then pass their paths with `--documents`, `--snapshot`, and `--calculation`. To try a replacement model on the same records, change `--model` and, if needed, `--provider` and `--base-url`.
+The page listens on the local computer only and does not create a public Gradio share link. For another document set, pass its original source directory with `--documents` to both commands and use the run directory created from those documents.
 
 ## Method and checks
 
@@ -73,7 +85,7 @@ The calculated abstraction contains 20 distinct events, including 12 delivered p
 
 The independent questions in `validation/unseen-questions.json` and their prespecified expectations in `validation/unseen-expectations.md` are ready for a replacement-model run. They have **not** been run on the current model. The current implementation also has a design limit beyond model quality: it pre-extracts a fixed set of fact categories, provides lexical line search and fixed calculation views, and sends the full event index to the answer agent. It cannot claim reliable coverage of arbitrary new predicates or performance on tens of thousands of documents. The next architecture investigation is query-time evidence derivation, scoped retrieval and backend aggregation; changing the model alone cannot establish those capabilities.
 
-To compare a replacement model on the same abstraction without repeating extraction, use `--snapshot artifacts/development/abstraction.json` with the same document directory and a new model name. To evaluate extraction itself, run without `--snapshot` and compare the resulting abstraction and source coverage. Keep the new run separate from the recorded development outputs.
+To evaluate a replacement model independently, run without `--snapshot` and `--reuse-cache`, then compare its new abstraction, source coverage, and answers with the prespecified expectations. The historical GLM output is retained only as an audit record and is not used by this path.
 
 ## Limits
 

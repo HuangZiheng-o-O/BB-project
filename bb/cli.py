@@ -68,7 +68,7 @@ def run(args: argparse.Namespace) -> Path:
         if snapshot.source_hashes != corpus.manifest():
             raise ValueError("Snapshot source hashes do not match the current document directory")
     else:
-        cache_dir = args.output / "_stage_cache"
+        cache_dir = args.output / "_stage_cache" if args.reuse_cache else None
         extraction, findings, extraction_trace = extract_corpus(
             corpus, model, max_chars=args.batch_chars,
             cache_dir=cache_dir, progress=progress,
@@ -98,7 +98,8 @@ def run(args: argparse.Namespace) -> Path:
     _write_json(output / "calculation.json", calculation)
     tools = EvidenceTools(corpus, snapshot, calculation)
     answers: list[dict[str, Any]] = []
-    for item in _read_questions(args.questions):
+    questions = [] if args.prepare_only else _read_questions(args.questions)
+    for item in questions:
         progress(f"Investigating question {item['id']}")
         result = answer_question(
             item["question"], model, tools,
@@ -137,6 +138,7 @@ def run(args: argparse.Namespace) -> Path:
             "runtime_seconds": round(time.monotonic() - started, 2),
             "source_hashes": corpus.manifest(),
             "snapshot_reused": bool(args.snapshot),
+            "cache_enabled": args.reuse_cache,
             "cost_usd": None,
             "cost_note": "Provider billing rate was not supplied; token usage is recorded for independent costing.",
         },
@@ -148,18 +150,24 @@ def run(args: argparse.Namespace) -> Path:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Auditable, source-grounded clinical record review")
     parser.add_argument("--documents", type=Path, required=True)
-    parser.add_argument("--questions", type=Path, required=True)
+    parser.add_argument("--questions", type=Path, help="JSON questions file, unless --prepare-only is used")
+    parser.add_argument("--prepare-only", action="store_true", help="Build a fresh abstraction without asking questions yet")
     parser.add_argument("--output", type=Path, default=Path("runs"))
     parser.add_argument("--provider", choices=("anthropic", "openai"), default="openai")
     parser.add_argument("--model", required=True)
     parser.add_argument("--base-url")
     parser.add_argument("--snapshot", type=Path, help="Reuse an abstraction only if every source hash matches")
+    parser.add_argument("--reuse-cache", action="store_true", help="Reuse prior model-stage results from this output root")
     parser.add_argument("--start", help="Inclusive review start date, YYYY-MM-DD")
     parser.add_argument("--end", help="Inclusive review end date, YYYY-MM-DD")
     parser.add_argument("--batch-chars", type=int, default=13500)
     parser.add_argument("--max-tool-calls", type=int, default=12)
     parser.add_argument("--max-model-turns", type=int, default=6)
     args = parser.parse_args()
+    if args.prepare_only and args.questions:
+        parser.error("--prepare-only and --questions cannot be used together")
+    if not args.prepare_only and not args.questions:
+        parser.error("--questions is required unless --prepare-only is used")
     target = run(args)
     print(target)
 

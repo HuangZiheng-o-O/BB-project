@@ -31,19 +31,29 @@ class ReviewSession:
     def __init__(
         self,
         documents: Path,
-        snapshot_path: Path,
-        calculation_path: Path,
+        run_path: Path,
         output_root: Path,
         model: ModelPort,
         max_tool_calls: int = 12,
         max_model_turns: int = 6,
     ) -> None:
+        run_metadata = json.loads((run_path / "run.json").read_text(encoding="utf-8"))
+        if run_metadata["snapshot_reused"]:
+            raise ValueError("The selected run reused an older abstraction; create a fresh model run first")
+        if run_metadata.get("cache_enabled", True):
+            raise ValueError("The selected run may contain cached model output; create a run without --reuse-cache")
+        if run_metadata["model"] != model.model_name:
+            raise ValueError("The selected run and answer model differ; use a run produced by this model")
         self.directory = _new_directory(output_root)
         self.corpus = Corpus(documents, self.directory / "index.sqlite3")
-        self.snapshot = ReviewSnapshot.model_validate_json(snapshot_path.read_text(encoding="utf-8"))
+        self.snapshot = ReviewSnapshot.model_validate_json(
+            (run_path / "abstraction.json").read_text(encoding="utf-8")
+        )
+        if self.snapshot.extraction_model != model.model_name:
+            raise ValueError("The abstraction was produced by a different model")
         if self.snapshot.source_hashes != self.corpus.manifest():
             raise ValueError("Snapshot source hashes do not match the document directory")
-        recorded = json.loads(calculation_path.read_text(encoding="utf-8"))
+        recorded = json.loads((run_path / "calculation.json").read_text(encoding="utf-8"))
         period = recorded["period"]
         recalculated = calculate_review(
             self.snapshot.reconciliation,
@@ -123,8 +133,7 @@ def build_app(session: ReviewSession):
 def main() -> None:
     parser = argparse.ArgumentParser(description="Local question-answer page for a saved clinical review")
     parser.add_argument("--documents", type=Path, default=Path("documents"))
-    parser.add_argument("--snapshot", type=Path, default=Path("artifacts/development/abstraction.json"))
-    parser.add_argument("--calculation", type=Path, default=Path("artifacts/development/calculation.json"))
+    parser.add_argument("--run", type=Path, required=True, help="Directory from a fresh bb-review run with the same model")
     parser.add_argument("--output", type=Path, default=Path("runs/web"))
     parser.add_argument("--provider", choices=("anthropic", "openai"), default="openai")
     parser.add_argument("--model", required=True)
@@ -133,7 +142,7 @@ def main() -> None:
     args = parser.parse_args()
 
     model = make_model(args.provider, args.model, args.base_url)
-    session = ReviewSession(args.documents, args.snapshot, args.calculation, args.output, model)
+    session = ReviewSession(args.documents, args.run, args.output, model)
     build_app(session).launch(server_name="127.0.0.1", server_port=args.port, share=False, show_error=True)
 
 
