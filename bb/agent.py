@@ -118,14 +118,20 @@ class EvidenceTools:
         if name == "search":
             return self.corpus.search(str(args["query"]), max(1, min(int(args.get("limit", 12)), 30)))
         if name == "open_source":
+            # Clamp the requested window so one tool result stays readable.
             source_id = str(args["source_id"])
+            # First and last are the inclusive original line bounds to return.
             first = max(1, int(args.get("first", 1)))
             last = min(first + 99, int(args.get("last", first + 49)))
             return self.corpus.open(source_id, first, last)
         if name == "related":
+            # Event identity retrieves the decision and all contributing claims.
             event_id = str(args["event_id"])
+            # Event is the one reconciled decision requested by the agent.
             event = next(item for item in self.snapshot.reconciliation.events if item.event_id == event_id)
+            # Both supporting and opposing mentions are necessary for conflict review.
             ids = set(event.supporting_mentions + event.opposing_mentions)
+            # Mentions are all original claims the decision considered.
             mentions = [item for item in self.snapshot.extraction.events if item.mention_id in ids]
             return {
                 "decision": event.model_dump(),
@@ -135,7 +141,9 @@ class EvidenceTools:
                 ],
             }
         if name == "scan":
+            # A complete inventory can be paged without relying on search ranking.
             kind = str(args["kind"])
+            # Items is the selected full inventory before optional filtering.
             if kind == "sources":
                 items = [
                     {"source_id": item.source_id, "filename": item.filename, "line_count": len(item.lines)}
@@ -145,18 +153,23 @@ class EvidenceTools:
                 items = [item.model_dump() for item in self.snapshot.reconciliation.events]
             else:
                 items = [item.model_dump() for item in getattr(self.snapshot.extraction, kind)]
+            # Key is one optional filter supported by the inventory tool.
             for key in ("date", "service_type", "theme"):
                 if args.get(key):
+                    # Different inventories store the same date concept under different fields.
                     field = "service_date" if key == "date" and kind == "events" else key
                     if key == "date" and kind == "observations":
                         field = "date"
                     if key == "date" and kind == "measures":
                         field = "completed_date"
                     items = [item for item in items if str(args[key]).lower() in str(item.get(field, "")).lower()]
+            # Offset and limit bound each page while total remains exhaustive.
             offset = max(0, int(args.get("offset", 0)))
+            # Limit caps the number of returned inventory rows.
             limit = max(1, min(int(args.get("limit", 30)), 100))
             return {"total": len(items), "offset": offset, "items": items[offset : offset + limit], "next_offset": offset + limit if offset + limit < len(items) else None}
         if name == "calculate":
+            # Views prevent a large ledger from consuming context unnecessarily.
             view = str(args["view"])
             if view == "summary":
                 return {key: value for key, value in self.calculation.items() if key not in {"events", "weeks", "goals"}}
@@ -176,13 +189,21 @@ class EvidenceTools:
 
 def _citations(answer: str, corpus: Corpus) -> tuple[list[str], list[str]]:
     """Parse and validate every source reference in the answer text."""
+    # Citations holds canonical references; errors records invalid references.
     citations: list[str] = []
+    # Errors is returned to the agent for one correction attempt.
     errors: list[str] = []
+    # The pattern recognizes source IDs followed by numbered original lines.
     pattern = re.compile(r"(?<![A-Za-z0-9_.-])([A-Za-z0-9_.-]+):(L\d+(?:,L\d+|[-–]L\d+)*)")
+    # Match visits each textual citation in the final answer.
     for match in pattern.finditer(answer):
+        # Split the source identifier from its compact line expression.
         source_id, line_text = match.groups()
+        # Expand individual labels and ranges to validated one-based numbers.
         numbers: list[int] = []
+        # Part is one comma-delimited label or inclusive range.
         for part in line_text.split(","):
+            # A range has two endpoints; a single label has only one.
             endpoints = [int(value) for value in re.findall(r"L(\d+)", part)]
             if len(endpoints) == 2:
                 if endpoints[1] < endpoints[0] or endpoints[1] - endpoints[0] > 100:
@@ -192,6 +213,7 @@ def _citations(answer: str, corpus: Corpus) -> tuple[list[str], list[str]]:
             else:
                 numbers.extend(endpoints)
         try:
+            # Canonical anchors also reject unknown sources and out-of-range lines.
             anchor = Anchor(source_id=source_id, lines=numbers)
             corpus.validate_anchor(anchor)
             citations.append(anchor.reference())
@@ -221,8 +243,8 @@ def answer_question(
     Returns:
         Answer, validated citations, trace, and remaining citation errors.
     """
+    # Overview indexes orient the agent; tools expose the complete inventories.
     overview = {
-        # Indexes orient the agent; complete inventories remain available via tools.
         "period": tools.calculation["period"],
         "therapy_sessions": tools.calculation["therapy_sessions"],
         "sessions_by_type": tools.calculation["sessions_by_type"],
@@ -232,10 +254,12 @@ def answer_question(
         "unquantified_event_ids": tools.calculation["unquantified_event_ids"],
         "unresolved_mention_ids": tools.calculation["unresolved_mention_ids"],
         "coverage_gaps": tools.calculation["coverage_gaps"],
+        # Key and value omit per-day details from the initial weekly index.
         "weeks": [
             {key: value for key, value in item.items() if key != "days"}
             for item in tools.calculation["weeks"]
         ],
+        # Item is each calculated event summarized for initial orientation.
         "event_index": [
             {key: item[key] for key in ("event_id", "service_date", "service_type", "minutes", "source_refs")}
             for item in tools.calculation["events"]
@@ -244,12 +268,17 @@ def answer_question(
         "measure_instances": tools.calculation["measure_instances"],
         "findings": [item.model_dump() for item in tools.snapshot.findings],
     }
+    # History is the provider-neutral conversation sent on each model turn.
     history: list[dict[str, Any]] = [
         {"role": "user", "content": f"Question: {question}\n\nReview overview (candidate, inspect sources):\n{json.dumps(overview, ensure_ascii=False)}"}
     ]
+    # Trace records model usage, tool arguments, and tool results for debugging.
     trace: list[dict[str, Any]] = []
+    # Remaining enforces a hard tool-call budget across all turns.
     remaining = max_tool_calls
+    # Answer stays empty until the model returns a turn without tool requests.
     answer = ""
+    # Turn number bounds the number of regular model continuations.
     for turn_number in range(1, max_model_turns + 1):
         # Keep each model turn and tool result in the trace for debugging.
         turn = model.generate(AGENT_SYSTEM, history, tools=TOOL_SPECS if remaining else None, max_tokens=6000)
@@ -264,8 +293,11 @@ def answer_question(
         history.append(
             {"role": "assistant", "content": turn.text, "tool_calls": [call.__dict__ for call in turn.tool_calls], "response_items": turn.response_items}
         )
+        # Call is one model-selected evidence tool request in this turn.
         for call in turn.tool_calls:
+            # Tool errors return to the model as data, allowing self-correction.
             if remaining <= 0:
+                # Result is a structured error when the budget is exhausted.
                 result = {"error": "Tool call budget exhausted; answer with current evidence."}
             else:
                 remaining -= 1
@@ -273,20 +305,24 @@ def answer_question(
                     result = tools.invoke(call.name, call.arguments)
                 except (KeyError, ValueError, TypeError, StopIteration) as error:
                     result = {"error": str(error)}
+            # Serialized is the exact tool payload that enters conversation history.
             serialized = json.dumps(result, ensure_ascii=False, default=str)
             history.append({"role": "tool", "tool_call_id": call.call_id, "content": serialized})
+            # Call and result are recorded together for replay and debugging.
             trace.append({"stage": "tool", "name": call.name, "arguments": call.arguments, "result_chars": len(serialized), "result": result})
     if not answer:
         history.append({"role": "user", "content": "Tool or turn budget is exhausted. Give a cautious final answer using the evidence already available."})
         turn = model.generate(AGENT_SYSTEM, history, max_tokens=6000)
         answer = turn.text
         trace.append({"stage": "answer_final", "usage": turn.usage, "stop_reason": turn.stop_reason, "model_text": turn.text})
+    # Validate the final answer against original source-line anchors.
     citations, errors = _citations(answer, tools.corpus)
     if errors:
         # Give the agent one opportunity to repair citation failures itself.
         trace.append({"stage": "citation_audit", "errors": errors})
         history.append({"role": "assistant", "content": answer, "response_items": turn.response_items})
         history.append({"role": "user", "content": f"Citation audit failed: {errors}. Correct invalid/missing citations using only source IDs and line numbers already inspected. Return the full corrected answer."})
+        # Revised is the agent's single citation-repair attempt.
         revised = model.generate(AGENT_SYSTEM, history, max_tokens=6000)
         trace.append({"stage": "citation_repair", "usage": revised.usage, "stop_reason": revised.stop_reason, "model_text": revised.text})
         answer = revised.text

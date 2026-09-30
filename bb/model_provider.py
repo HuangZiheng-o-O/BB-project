@@ -53,6 +53,7 @@ class AnthropicCompatibleModel:
         """Build a client from the configured endpoint and credentials."""
         from anthropic import Anthropic
 
+        # Token and key are alternative credential forms accepted by the SDK.
         token = os.getenv("ANTHROPIC_AUTH_TOKEN")
         api_key = os.getenv("ANTHROPIC_API_KEY")
         if not token and not api_key:
@@ -69,14 +70,17 @@ class AnthropicCompatibleModel:
     @staticmethod
     def _messages(history: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Group tool results as user content, as required by Messages."""
+        # Messages is the Anthropic wire representation of shared history.
         messages: list[dict[str, Any]] = []
         for turn in history:
             if turn["role"] == "user":
                 messages.append({"role": "user", "content": turn["content"]})
             elif turn["role"] == "assistant":
+                # Blocks combine assistant prose with any requested tools.
                 blocks: list[dict[str, Any]] = []
                 if turn.get("content"):
                     blocks.append({"type": "text", "text": turn["content"]})
+                # Call is each assistant tool request carried into this turn.
                 for call in turn.get("tool_calls", []):
                     blocks.append(
                         {
@@ -88,6 +92,7 @@ class AnthropicCompatibleModel:
                     )
                 messages.append({"role": "assistant", "content": blocks})
             elif turn["role"] == "tool":
+                # Tool results are user-role content in the Messages format.
                 block = {
                     "type": "tool_result",
                     "tool_use_id": turn["tool_call_id"],
@@ -108,6 +113,7 @@ class AnthropicCompatibleModel:
         json_mode: bool = False,
     ) -> ModelTurn:
         """Translate tool definitions and normalize a Messages response."""
+        # Args is the provider-specific request assembled from the common port.
         args: dict[str, Any] = {
             "model": self.model_name,
             "max_tokens": max_tokens,
@@ -115,6 +121,7 @@ class AnthropicCompatibleModel:
             "messages": self._messages(history),
         }
         if tools:
+            # Tool is one provider-neutral function definition.
             args["tools"] = [
                 {
                     "name": tool["name"],
@@ -123,13 +130,17 @@ class AnthropicCompatibleModel:
                 }
                 for tool in tools
             ]
+        # Response is the raw Messages result, normalized below.
         response = self.client.messages.create(**args)
+        # Text concatenates assistant text blocks without tool payloads.
         text = "\n".join(block.text for block in response.content if block.type == "text")
+        # Calls preserves function identifiers and parsed arguments.
         calls = [
             ToolCall(call_id=block.id, name=block.name, arguments=block.input)
             for block in response.content
             if block.type == "tool_use"
         ]
+        # Usage is a provider-neutral input/output token pair.
         usage = {
             "input_tokens": int(response.usage.input_tokens or 0),
             "output_tokens": int(response.usage.output_tokens or 0),
@@ -144,10 +155,13 @@ class OpenAICompatibleModel:
         """Select the credential associated with the effective endpoint."""
         from openai import OpenAI
 
+        # Endpoint chooses the compatible service used by this adapter.
         endpoint = base_url or os.getenv("OPENAI_BASE_URL")
         if not endpoint and not os.getenv("OPENAI_API_KEY"):
             endpoint = os.getenv("ZAI_BASE_URL")
+        # Key name follows the effective host so credentials are not mixed.
         key_name = "ZAI_API_KEY" if endpoint and urlparse(endpoint).hostname == "api.z.ai" else "OPENAI_API_KEY"
+        # Key is read only at client construction, never written to artifacts.
         key = os.getenv(key_name)
         if not key:
             raise RuntimeError(f"Set {key_name}")
@@ -170,11 +184,14 @@ class OpenAICompatibleModel:
         """Use Responses where supported, otherwise Chat Completions."""
         if self.model_name.startswith("gpt-6-") and urlparse(str(self.client.base_url)).hostname == "api.openai.com":
             return self._generate_responses(system, history, tools, max_tokens, json_mode)
+        # Messages translates the shared history to Chat Completions roles.
         messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
         for turn in history:
             if turn["role"] in ("user", "assistant"):
+                # Payload retains assistant tool calls beside assistant text.
                 payload: dict[str, Any] = {"role": turn["role"], "content": turn.get("content") or ""}
                 if turn["role"] == "assistant" and turn.get("tool_calls"):
+                    # Call is one assistant function request in shared history.
                     payload["tool_calls"] = [
                         {
                             "id": call["call_id"],
@@ -195,12 +212,14 @@ class OpenAICompatibleModel:
                         "content": turn["content"],
                     }
                 )
+        # Args contains only capabilities supported by this wire endpoint.
         args: dict[str, Any] = {
             "model": self.model_name,
             "messages": messages,
             "max_tokens": max_tokens,
         }
         if tools:
+            # Tool is one function made available for Chat Completions.
             args["tools"] = [
                 {
                     "type": "function",
@@ -214,6 +233,7 @@ class OpenAICompatibleModel:
             ]
         if json_mode:
             args["response_format"] = {"type": "json_object"}
+        # Thinking mode is optional and defaults off for the GLM family here.
         thinking_mode = os.getenv("BB_GLM_THINKING")
         if not thinking_mode and self.model_name.lower().startswith("glm-4.7"):
             thinking_mode = "disabled"
@@ -221,8 +241,10 @@ class OpenAICompatibleModel:
             if thinking_mode not in {"enabled", "disabled"}:
                 raise ValueError("BB_GLM_THINKING must be enabled or disabled")
             args["extra_body"] = {"thinking": {"type": thinking_mode}}
+        # Response is the raw completion; message contains its first choice.
         response = self.client.chat.completions.create(**args)
         message = response.choices[0].message
+        # Calls converts JSON-encoded arguments back to dictionaries.
         calls = [
             ToolCall(
                 call_id=call.id,
@@ -231,6 +253,7 @@ class OpenAICompatibleModel:
             )
             for call in (message.tool_calls or [])
         ]
+        # Usage may be absent on some compatible endpoints.
         usage = response.usage
         return ModelTurn(
             text=message.content or "",
@@ -251,6 +274,7 @@ class OpenAICompatibleModel:
         json_mode: bool,
     ) -> ModelTurn:
         """Preserve Responses output items across tool turns for continuity."""
+        # Inputs replays assistant output items and function results in order.
         inputs: list[Any] = []
         for turn in history:
             if turn["role"] == "assistant" and turn.get("response_items"):
@@ -258,6 +282,7 @@ class OpenAICompatibleModel:
             elif turn["role"] in ("user", "assistant"):
                 if turn.get("content"):
                     inputs.append({"role": turn["role"], "content": turn["content"]})
+                # Call is an assistant function request replayed in order.
                 for call in turn.get("tool_calls", []):
                     inputs.append({
                         "type": "function_call",
@@ -271,6 +296,7 @@ class OpenAICompatibleModel:
                     "call_id": turn["tool_call_id"],
                     "output": turn["content"],
                 })
+        # Args asks the Responses API for a stateless, auditable continuation.
         args: dict[str, Any] = {
             "model": self.model_name,
             "instructions": system,
@@ -281,6 +307,7 @@ class OpenAICompatibleModel:
             "include": ["reasoning.encrypted_content"],
         }
         if tools:
+            # Tool is one function exposed through the Responses interface.
             args["tools"] = [
                 {
                     "type": "function",
@@ -294,7 +321,9 @@ class OpenAICompatibleModel:
         if json_mode:
             inputs.append({"role": "user", "content": "Return one valid JSON object."})
             args["text"] = {"format": {"type": "json_object"}}
+        # Response carries opaque output items needed by later tool turns.
         response = self.client.responses.create(**args)
+        # Calls extracts function requests while preserving raw output separately.
         calls = [
             ToolCall(call_id=item.call_id, name=item.name, arguments=json.loads(item.arguments))
             for item in response.output if item.type == "function_call"
@@ -322,15 +351,18 @@ def make_model(provider: str, model_name: str, base_url: str | None = None) -> M
 
 def parse_json_object(text: str) -> dict[str, Any]:
     """Extract one JSON object without accepting trailing model prose as data."""
+    # Stripped is the candidate body after optional Markdown-fence removal.
     stripped = text.strip()
     if stripped.startswith("```"):
         stripped = stripped.split("\n", 1)[1].rsplit("```", 1)[0].strip()
     if not stripped.startswith("{"):
+        # First and last bracket positions isolate an embedded object.
         first = stripped.find("{")
         last = stripped.rfind("}")
         if first < 0 or last <= first:
             raise ValueError("Model did not return a JSON object")
         stripped = stripped[first : last + 1]
+    # Value must be a mapping to satisfy downstream stage contracts.
     value = json.loads(stripped)
     if not isinstance(value, dict):
         raise ValueError("Expected a JSON object")
@@ -345,9 +377,12 @@ def generate_json(
     attempts: int = 2,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Request structured output and retain usage for every repair attempt."""
+    # History includes feedback so a malformed response can be corrected.
     history: list[dict[str, Any]] = [{"role": "user", "content": user}]
+    # Trace records usage and stop reason for each model attempt.
     trace: list[dict[str, Any]] = []
     for attempt in range(attempts):
+        # Turn is one model response, valid or invalid.
         turn = model.generate(system, history, max_tokens=max_tokens, json_mode=True)
         trace.append({"stage": "json", "attempt": attempt + 1, "usage": turn.usage, "stop_reason": turn.stop_reason})
         try:

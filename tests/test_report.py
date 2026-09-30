@@ -12,6 +12,7 @@ class SourceStub:
 
     def __init__(self):
         """Construct the report's synthetic source."""
+        # Source holds the original lines used by the report fixture.
         self.source = Source(
             source_id="SRC-1", filename="note.txt", absolute_path="/example/note.txt",
             sha256="hash", lines=("first line", "source evidence", "third line"),
@@ -25,6 +26,7 @@ class SourceStub:
 
     def validate_anchor(self, anchor: Anchor):
         """Reject out-of-range references in rendered evidence."""
+        # Line is each one-based source position named by the answer.
         if anchor.source_id != "SRC-1" or any(line > 3 for line in anchor.lines):
             raise ValueError("Invalid source anchor")
 
@@ -34,12 +36,15 @@ class ReportTests(unittest.TestCase):
 
     def test_report_contains_source_evidence_without_model_label(self):
         """Render cited original lines and exclude offline call counts."""
+        # Trace mixes model turns and a tool execution to test online counting.
         trace = [
             {"stage": "answer", "usage": {"input_tokens": 5, "output_tokens": 2}},
             {"stage": "tool", "name": "open_source"},
             {"stage": "answer", "usage": {"input_tokens": 6, "output_tokens": 3}},
         ]
+        # Calls excludes the tool event because it has no token usage.
         calls = model_call_count(trace)
+        # Report copies the cited original line into downloadable Markdown.
         report = render_answer_markdown(
             "What happened?", "The source confirms it [SRC-1:L2].",
             ["SRC-1:L2"], SourceStub(), calls,

@@ -48,6 +48,7 @@ def _source_lines(value: object) -> object:
     """Accept numbered source labels while storing one canonical integer anchor."""
     if not isinstance(value, list):
         return value
+    # Numbers accumulates every one-based line represented by the model output.
     numbers: list[int] = []
     for entry in value:
         if isinstance(entry, int) and not isinstance(entry, bool):
@@ -55,10 +56,13 @@ def _source_lines(value: object) -> object:
             continue
         if not isinstance(entry, str):
             raise ValueError("Source lines must be integers or L-prefixed line labels")
+        # Part is one comma-separated label within a model-provided entry.
         for part in entry.split(","):
+            # Match supports one label or a short inclusive range.
             match = re.fullmatch(r"L?(\d+)(?:[-–]L?(\d+))?", part.strip())
             if not match:
                 raise ValueError(f"Invalid source line label: {entry}")
+            # First and last bound the expanded, size-limited source range.
             first = int(match.group(1))
             last = int(match.group(2)) if match.group(2) else first
             if last < first or last - first >= 12:
@@ -83,12 +87,14 @@ class Anchor(BaseModel):
     @classmethod
     def positive_lines(cls, values: list[int]) -> list[int]:
         """Canonicalize lines for stable references and duplicate removal."""
+        # Value is each requested one-based line number.
         if any(value < 1 for value in values):
             raise ValueError("Source line numbers must be positive")
         return sorted(set(values))
 
     def reference(self) -> str:
         """Format a citation understood by the report and agent audit."""
+        # Numbers joins each validated line with its citation prefix.
         numbers = ",".join(f"L{line}" for line in self.lines)
         return f"{self.source_id}:{numbers}"
 
@@ -141,6 +147,7 @@ class EventMention(BaseModel):
 
     def finalize_id(self) -> None:
         """Derive a stable mention ID from its source and encounter identity."""
+        # Key combines source provenance, event identity, date, and cited lines.
         key = f"{self.source_id}|{self.patient_id}|{self.encounter_id}|{self.service_date}|{self.lines}"
         self.mention_id = sha256(key.encode()).hexdigest()[:16]
 
@@ -175,6 +182,7 @@ class PlanGoal(BaseModel):
         """Distinguish an explicit Monday–Sunday week from vague weekly text."""
         if value is None:
             return None
+        # Lowered supports equivalent textual forms of a weekly plan period.
         lowered = value.lower().strip()
         if lowered == "week_monday_sunday" or ("monday" in lowered and "sunday" in lowered):
             return "week_monday_sunday"
@@ -340,6 +348,7 @@ def validate_snapshot_reuse(
         raise ValueError("The abstraction was produced by a different model")
     if snapshot.source_hashes != source_hashes:
         raise ValueError("Snapshot source hashes do not match the document directory")
+    # Rejected findings mark a preparation result unsafe for later answers.
     rejected = sorted({item.code for item in snapshot.findings if item.code in INVALID_STAGE_FINDINGS})
     if rejected:
         raise ValueError(f"The abstraction contains rejected or omitted source claims: {', '.join(rejected)}")

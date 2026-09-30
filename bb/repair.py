@@ -26,17 +26,23 @@ def generate_checked_json(
     The validator owns domain rules. The repair loop only communicates errors and
     retries against the original evidence, so one question cannot change its rules.
     """
+    # Trace records every model attempt and validation decision.
     trace: list[dict[str, Any]] = []
+    # Feedback is empty on the first pass and carries validator errors later.
     feedback = ""
     for attempt in range(1, attempts + 1):
+        # Prompt always includes the original evidence plus any repair feedback.
         prompt = source_prompt + feedback
         try:
+            # Result is a JSON candidate; calls captures its model usage.
             result, calls = generate_json(model, system, prompt, max_tokens=max_tokens)
         except ValueError as error:
+            # Errors also covers invalid JSON before domain validation can run.
             errors = [str(error)]
             result, calls = {}, []
         else:
             errors = validate(result)
+        # Call is one model attempt annotated with its validation pass.
         trace.extend({**call, "validation_attempt": attempt} for call in calls)
         trace.append({"stage": "validation", "validation_attempt": attempt, "errors": errors})
         if not errors:

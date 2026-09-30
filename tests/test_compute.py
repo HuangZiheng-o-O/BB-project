@@ -16,6 +16,7 @@ class CalculationTests(unittest.TestCase):
 
     def test_interval_union_exclusion_and_conflict(self) -> None:
         """Deduplicate overlaps, subtract breaks, and keep alternatives."""
+        # Event has two conflicting contact options and one shared break.
         event = ResolvedEvent(
             event_id="case:visit",
             service_date="2026-03-02",
@@ -28,10 +29,12 @@ class CalculationTests(unittest.TestCase):
             ],
             excluded_intervals=[span("09:30", "09:45")],
         )
+        # Option is one plausible patient-minute map for the encounter.
         self.assertEqual([sum(option.values()) for option in event_minutes(event)], [60, 50])
 
     def test_week_goal_remains_indeterminate_across_bounds(self) -> None:
         """Keep a weekly goal unresolved when scenarios cross its targets."""
+        # First event is certain; second event may or may not contribute.
         first = ResolvedEvent(
             event_id="case:one",
             service_date="2026-03-02",
@@ -40,6 +43,7 @@ class CalculationTests(unittest.TestCase):
             patient_therapy="yes",
             interval_options=[[span("09:00", "10:00")]],
         )
+        # Second is an uncertain family encounter that widens weekly bounds.
         second = ResolvedEvent(
             event_id="case:two",
             service_date="2026-03-04",
@@ -48,7 +52,9 @@ class CalculationTests(unittest.TestCase):
             patient_therapy="uncertain",
             interval_options=[[span("09:00", "10:00")]],
         )
+        # Goal requires two days and enough minutes in one defined week.
         goal = PlanGoal(source_id="PLAN", lines=[1], period="Monday-Sunday week", minimum_days=2, minimum_minutes=100)
+        # Result retains both lower and upper bounds for the week.
         result = calculate_review(
             Reconciliation(events=[first, second]),
             BatchExtraction(goals=[goal]),

@@ -29,6 +29,7 @@ class FakeModel:
 
     def __init__(self) -> None:
         """Track the number of model turns."""
+        # Calls selects which deterministic response to return next.
         self.calls = 0
 
     def generate(self, system, history, tools=None, max_tokens=5000, json_mode=False):
@@ -44,21 +45,26 @@ class AgentTests(unittest.TestCase):
 
     def test_agent_selects_tool_and_validates_source_reference(self) -> None:
         """Confirm the tool result precedes a valid cited final answer."""
+        # Snapshot provides the minimum validated offline state.
         snapshot = ReviewSnapshot(
             source_hashes={}, extraction_model="offline-fake",
             extraction=BatchExtraction(), reconciliation=Reconciliation(),
         )
+        # Calculation supplies the overview fields expected by the agent.
         calculation = {
             "period": {}, "therapy_sessions": {}, "sessions_by_type": {},
             "therapy_days": {}, "therapy_minutes": {}, "weeks": [], "events": [],
             "measure_instances": [], "totals_complete": True,
             "unquantified_event_ids": [], "unresolved_mention_ids": [], "coverage_gaps": [],
         }
+        # Model returns one tool request followed by a cited answer.
         model = FakeModel()
+        # Result captures both turns and the validated source reference.
         result = answer_question("What is documented?", model, EvidenceTools(FakeCorpus(), snapshot, calculation))
         self.assertEqual(model.calls, 2)
         self.assertEqual(result.citations, ["SRC-1:L1"])
         self.assertFalse(result.audit)
+        # Item is one trace action checked for a tool execution.
         self.assertIn("tool", [item["stage"] for item in result.trace])
 
 

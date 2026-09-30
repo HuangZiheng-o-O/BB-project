@@ -27,6 +27,7 @@ def audit_time_scope(
     progress: Callable[[str], None] | None = None,
 ) -> tuple[list[AuditFinding], list[dict[str, Any]]]:
     """Check whether group clock spans describe this patient's actual time."""
+    # Candidates have both group schedule and claimed patient-contact intervals.
     candidates = [
         mention for mention in extraction.events
         if mention.document_role == "clinical"
@@ -38,35 +39,45 @@ def audit_time_scope(
         return [], []
     if progress:
         progress(f"Auditing patient-time scope for {len(candidates)} clinical group mentions")
+    # Payload pairs each candidate with its original numbered source.
     payload = [
         {
             "mention_id": mention.mention_id,
             "source_id": mention.source_id,
+            # Item is each extracted time span serialized for audit context.
             "extracted_actual_intervals": [item.model_dump() for item in mention.actual_intervals],
             "scheduled_intervals": [item.model_dump() for item in mention.scheduled_intervals],
             "source": corpus.get(mention.source_id).formatted(),
         }
         for mention in candidates
     ]
+    # Serialized input is also the content-addressed cache key material.
     serialized = json.dumps(payload, ensure_ascii=False)
+    # Optional cache entries are revalidated before reuse.
     cache = StageCache(cache_dir) if cache_dir else None
     cache_path = cache.path("time_scope", model.model_name, TIME_SCOPE_SYSTEM, serialized) if cache else None
+    # Result contains one three-state decision per candidate mention.
     result = cache.read(cache_path) if cache_path else None
 
+    # Expected IDs prevent a model from silently skipping a candidate.
     expected = {mention.mention_id for mention in candidates}
 
     def validation_errors(data: dict[str, Any]) -> list[str]:
         """Require one three-state decision for every candidate mention."""
+        # Decisions is the array returned by the time-scope model pass.
         decisions = data.get("decisions")
         if not isinstance(decisions, list):
             return ["decisions must be an array"]
+        # Errors accumulates schema and coverage failures for generic repair.
         errors: list[str] = []
+        # Identifiers detects both duplicate and missing mention decisions.
         identifiers: list[str] = []
         for index, decision in enumerate(decisions):
             if not isinstance(decision, dict):
                 errors.append(f"decisions[{index}] must be an object")
                 continue
             identifiers.append(str(decision.get("mention_id")))
+            # Verdict may be supported, unsupported, or genuinely unclear.
             verdict = decision.get("patient_actual_supported")
             if verdict is not True and verdict is not False and verdict is not None:
                 errors.append(f"decisions[{index}].patient_actual_supported must be true, false, or null")
@@ -79,6 +90,7 @@ def audit_time_scope(
     if result is not None and validation_errors(result):
         result = None
     if result is None:
+        # Calls captures any fresh model and repair attempts.
         result, calls = generate_checked_json(
             model, TIME_SCOPE_SYSTEM,
             f"Audit these extracted time claims:\n{serialized}",
@@ -87,15 +99,19 @@ def audit_time_scope(
         )
     else:
         calls = [{"cache_hit": True}]
+    # Trace preserves model usage separately from the validated decisions.
     trace = [{**call, "stage": "time_scope"} for call in calls]
+    # By-ID lookup reconnects each verdict to the corresponding claim.
     decisions = result.get("decisions", [])
     by_id = {item.get("mention_id"): item for item in decisions if isinstance(item, dict)}
+    # Findings records reclassifications and remaining ambiguity.
     findings: list[AuditFinding] = []
     for mention in candidates:
         decision = by_id[mention.mention_id]
         verdict = decision.get("patient_actual_supported")
         if verdict is False:
             # Remove unsupported patient intervals before reconciliation and arithmetic.
+            # Original saves the rejected intervals in the audit detail.
             original = [item.model_dump() for item in mention.actual_intervals]
             mention.actual_intervals = []
             findings.append(
