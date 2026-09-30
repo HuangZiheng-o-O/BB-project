@@ -74,6 +74,17 @@ uv run --env-file .env bb-review \
   --start 2026-01-05 --end 2026-01-30
 ```
 
+With the `ZAI_API_KEY` already in `.env`, the same five-question run on GLM is:
+
+```bash
+uv run --env-file .env bb-review \
+  --documents data \
+  --questions questions.json \
+  --provider openai --model glm-4.7 \
+  --base-url https://api.z.ai/api/paas/v4/ \
+  --start 2026-01-05 --end 2026-01-30
+```
+
 The questions file is a JSON array of strings or `{ "id": "...", "question": "..." }` objects. `--start` and `--end` define an inclusive review period; omit them to include all extracted dates. Results appear in a new `runs/<timestamp>-<random>/` directory:
 
 - `abstraction.json`: source hashes, extracted claims, event reconciliation, unresolved items and audit findings.
@@ -112,6 +123,20 @@ uv run --env-file .env --extra web bb-review-web \
   --documents data \
   --run artifacts/reviewed-development \
   --provider openai --model gpt-6-sol
+```
+
+For GLM, prepare its own snapshot once and launch the page in the same terminal:
+
+```bash
+GLM_PREP_RUN="$(uv run --env-file .env bb-review \
+  --documents data --prepare-only \
+  --provider openai --model glm-4.7 \
+  --base-url https://api.z.ai/api/paas/v4/ \
+  --start 2026-01-05 --end 2026-01-30)"
+uv run --env-file .env --extra web bb-review-web \
+  --documents data --run "$GLM_PREP_RUN" \
+  --provider openai --model glm-4.7 \
+  --base-url https://api.z.ai/api/paas/v4/
 ```
 
 Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The page shows the answer with source references. **Download Markdown** provides the question, answer, cited original lines, and online model call count. The page checks the model, source hashes, calculation, and validation findings before using a saved offline result. It reuses document processing across questions. Each answer and its model trace are saved under ignored `runs/web/`. To use your fresh offline result, substitute `--run "$PREP_RUN"`. To generate the original five answers, run `bb-review` with `--questions questions.json` and `--snapshot "$PREP_RUN/abstraction.json"`. For ready-to-copy commands, see the [runbook](docs/RUNBOOK.md).

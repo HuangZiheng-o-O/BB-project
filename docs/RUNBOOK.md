@@ -1,6 +1,6 @@
 # Runbook
 
-This guide runs the command-line reviewer, the local Gradio question page, and the inspection tools. Run commands from the repository root. The supplied corpus is `data/`; `questions.json` contains the five development questions. The program accepts a directory of UTF-8 `.txt` files and does not contain patient-specific answer rules.
+This guide runs the command-line reviewer, the local Gradio question page, and the inspection tools. Run commands from the repository root. The supplied corpus is `data/`; `questions.json` contains the five development questions. The program accepts a directory of UTF-8 `.txt` files and does not contain patient-specific answer rules. The GPT and GLM commands below use the local `.env` directly; no key needs to be pasted into a command. When a command saves a run path in a shell variable, run the dependent command in the **same terminal session**.
 
 ## 1. Install and configure a model
 
@@ -10,7 +10,7 @@ Install Python 3.11 or newer and [`uv`](https://docs.astral.sh/uv/). Then run:
 uv sync --locked
 ```
 
-Create a local `.env` file in the repository root. It is ignored by Git. Add the key for the provider you use; never commit real credentials:
+The existing local checkout already has an ignored `.env` with `OPENAI_API_KEY` and `ZAI_API_KEY`. In a new checkout, create `.env` in the repository root and add the key for the provider you use; never commit real credentials:
 
 ```dotenv
 # Use one or more of these, as appropriate.
@@ -31,6 +31,7 @@ Use one of these model options consistently in both the preparation and question
 
 Model availability and billing depend on the account. The repository's reviewed development bundle used `gpt-6-sol`; you may use another model available to you, but a snapshot is reusable only with the same model name and unchanged source hashes.
 The Anthropic example names a [documented Claude API model](https://platform.claude.com/docs/en/models/overview); it was not the model used for the bundled results.
+On the project machine, a minimal live request succeeded for each documented model and key pairing: `gpt-6-sol` with `OPENAI_API_KEY`, and `glm-4.7` with `ZAI_API_KEY`. These checks verify credentials and endpoint routing, not a complete new offline extraction.
 
 ## 2. Answer the supplied five questions from fresh source processing
 
@@ -59,6 +60,8 @@ The command prints a unique directory such as `runs/20260930T061914Z-3aa79c`. It
 
 ### Run only the reusable offline preparation
 
+Prepare once with GPT:
+
 ```bash
 PREP_RUN="$(uv run --env-file .env bb-review \
   --documents data --prepare-only \
@@ -67,7 +70,18 @@ PREP_RUN="$(uv run --env-file .env bb-review \
 printf 'Prepared run: %s\n' "$PREP_RUN"
 ```
 
-The captured directory contains `abstraction.json` and `calculation.json`; `answers.json` is an empty array. In the same shell, answer the five questions without another offline model pass:
+Prepare once with GLM:
+
+```bash
+GLM_PREP_RUN="$(uv run --env-file .env bb-review \
+  --documents data --prepare-only \
+  --provider openai --model glm-4.7 \
+  --base-url https://api.z.ai/api/paas/v4/ \
+  --start 2026-01-05 --end 2026-01-30)"
+printf 'Prepared GLM run: %s\n' "$GLM_PREP_RUN"
+```
+
+Each captured directory contains `abstraction.json` and `calculation.json`; `answers.json` is an empty array. In the same shell, answer the five questions without another offline model pass. GPT:
 
 ```bash
 uv run --env-file .env bb-review \
@@ -76,6 +90,18 @@ uv run --env-file .env bb-review \
   --provider openai --model gpt-6-sol \
   --snapshot "$PREP_RUN/abstraction.json" \
   --start 2026-01-05 --end 2026-01-30
+```
+
+GLM:
+
+```bash
+GLM_ANSWER_RUN="$(uv run --env-file .env bb-review \
+  --documents data --questions questions.json \
+  --provider openai --model glm-4.7 \
+  --base-url https://api.z.ai/api/paas/v4/ \
+  --snapshot "$GLM_PREP_RUN/abstraction.json" \
+  --start 2026-01-05 --end 2026-01-30)"
+printf 'GLM answer run: %s\n' "$GLM_ANSWER_RUN"
 ```
 
 If you want to skip fresh preparation, replace `"$PREP_RUN/abstraction.json"` with the checked-in `artifacts/reviewed-development/abstraction.json`. This bundled snapshot was produced with `gpt-6-sol` from the same 31 files in `data/`.
@@ -94,7 +120,7 @@ The reviewer checks model identity and every source hash before reusing a snapsh
 
 ### Ask different questions in a batch
 
-Create a JSON array outside the original `questions.json`, under the ignored `runs/` directory. This complete command creates a unique question file and then uses the checked-in `gpt-6-sol` snapshot:
+Create a JSON array outside the original `questions.json`, under the ignored `runs/` directory. This setup creates a unique question file for either model:
 
 ```bash
 mkdir -p runs
@@ -105,12 +131,27 @@ cat > "$QUESTIONS_FILE" <<'JSON'
   {"id": "NEW-02", "question": "Which symptom assessments are distinct rather than received copies?"}
 ]
 JSON
+```
 
+Ask with GPT using the checked-in reviewed snapshot:
+
+```bash
 uv run --env-file .env bb-review \
   --documents data \
   --questions "$QUESTIONS_FILE" \
   --provider openai --model gpt-6-sol \
   --snapshot artifacts/reviewed-development/abstraction.json \
+  --start 2026-01-05 --end 2026-01-30
+```
+
+Ask the same new questions with GLM using the `GLM_PREP_RUN` created above. If you have not prepared GLM yet, run its preparation command first; a GPT snapshot cannot be reused with GLM:
+
+```bash
+uv run --env-file .env bb-review \
+  --documents data --questions "$QUESTIONS_FILE" \
+  --provider openai --model glm-4.7 \
+  --base-url https://api.z.ai/api/paas/v4/ \
+  --snapshot "$GLM_PREP_RUN/abstraction.json" \
   --start 2026-01-05 --end 2026-01-30
 ```
 
@@ -168,6 +209,14 @@ For example:
 uv run python -m json.tool artifacts/reviewed-development/run.json
 uv run python -m json.tool artifacts/reviewed-development/calculation.json
 rg '"question_id": "DEV-02"|"stage": "citation_audit"' artifacts/reviewed-development/trace.jsonl
+```
+
+After the GLM five-question command above, inspect its newly generated files with the captured `GLM_ANSWER_RUN`:
+
+```bash
+uv run python -m json.tool "$GLM_ANSWER_RUN/run.json"
+uv run python -m json.tool "$GLM_ANSWER_RUN/calculation.json"
+rg '"question_id": "DEV-02"|"stage": "citation_audit"' "$GLM_ANSWER_RUN/trace.jsonl"
 ```
 
 For a wrong answer, locate its `question_id` in the trace, identify the tool results it saw, then check the underlying source lines and the abstraction's competing claims. `search` is ranked and is not an exhaustive count; `scan` pages complete inventories, `related` displays a reconciled event with all linked mentions, `calculate` returns deterministic totals, and `open_source` shows numbered original lines. The agent is bounded by `--max-tool-calls` (default 12) and `--max-model-turns` (default 6). The offline batch size can be adjusted with `--batch-chars` (default 13,500). Validation failures during extraction and reconciliation go back to the model for bounded repair before a snapshot is accepted.
