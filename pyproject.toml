@@ -1,5 +1,5 @@
 [project]
-name = "bb-clinical-evidence-agent"
+name = "bb-project"
 version = "0.1.0"
 description = "Auditable clinical record abstraction with bounded agent investigation"
 requires-python = ">=3.11"

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="BB Project: an auditable clinical evidence review agent with source-linked answers.">
+    <title>BB Project · Clinical Evidence Review</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172d38;
+        --muted: #566e78;
+        --teal: #087b79;
+        --teal-dark: #075e5d;
+        --line: #d7e4e5;
+        --surface: #ffffff;
+        --mist: #f1f8f7;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #f8fbfa;
+        font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      a { color: var(--teal-dark); }
+      a:focus-visible { outline: 3px solid #e3ac60; outline-offset: 4px; }
+      .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+      header { border-bottom: 1px solid var(--line); background: rgba(255,255,255,.93); }
+      nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 74px; }
+      .brand { color: var(--ink); font-size: 1.08rem; font-weight: 800; letter-spacing: .08em; text-decoration: none; }
+      .nav-links { display: flex; flex-wrap: wrap; gap: 22px; font-size: .94rem; font-weight: 650; }
+      .nav-links a { color: var(--muted); text-decoration: none; }
+      .nav-links a:hover { color: var(--teal-dark); }
+      .hero {
+        padding: 88px 0 78px;
+        background: radial-gradient(circle at 88% 18%, #d8f2ed 0, transparent 35%),
+                    linear-gradient(155deg, #f8fbfa 15%, #eaf6f3 100%);
+      }
+      .eyebrow { margin: 0 0 18px; color: var(--teal-dark); font-size: .8rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+      h1 { max-width: 790px; margin: 0; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1.08; letter-spacing: -.052em; }
+      .lead { max-width: 720px; margin: 26px 0 0; color: var(--muted); font-size: clamp(1.08rem, 1.7vw, 1.28rem); }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+      .button { display: inline-block; padding: 12px 20px; border: 1px solid var(--teal); border-radius: 8px; font-weight: 750; text-decoration: none; }
+      .button.primary { color: white; background: var(--teal-dark); border-color: var(--teal-dark); }
+      .button.secondary { color: var(--teal-dark); background: white; }
+      .metrics { display: flex; flex-wrap: wrap; gap: 28px 48px; margin-top: 60px; }
+      .metric strong { display: block; font-size: 2rem; line-height: 1.1; letter-spacing: -.04em; }
+      .metric span { color: var(--muted); font-size: .91rem; }
+      section { padding: 78px 0; }
+      .section-head { max-width: 760px; margin-bottom: 32px; }
+      .section-head h2 { margin: 0 0 12px; font-size: clamp(2rem, 3.6vw, 2.8rem); line-height: 1.16; letter-spacing: -.04em; }
+      .section-head p { margin: 0; color: var(--muted); }
+      .architecture { background: var(--surface); }
+      .diagram-link { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 16px 48px rgba(23,45,56,.09); }
+      .diagram-link img { display: block; width: 100%; height: auto; }
+      .caption { margin-top: 14px; color: var(--muted); font-size: .9rem; }
+      .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .step { padding: 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+      .step .number { color: var(--teal); font-size: .82rem; font-weight: 800; letter-spacing: .14em; }
+      .step h3 { margin: 10px 0 7px; font-size: 1.15rem; }
+      .step p { margin: 0; color: var(--muted); }
+      .answers { background: var(--surface); }
+      .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+      table { width: 100%; border-collapse: collapse; min-width: 640px; }
+      th, td { padding: 15px 18px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { background: var(--mist); font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; }
+      tr:last-child td { border-bottom: 0; }
+      td:first-child { font-weight: 700; white-space: nowrap; }
+      .more { margin: 28px 0 0; color: var(--muted); }
+      footer { padding: 36px 0 50px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+      footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+      @media (max-width: 700px) {
+        nav { align-items: flex-start; flex-direction: column; justify-content: center; padding: 16px 0; gap: 10px; }
+        .hero { padding: 64px 0; }
+        section { padding: 58px 0; }
+        .steps { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="wrap" aria-label="Main navigation">
+        <a class="brand" href="./">BB PROJECT</a>
+        <div class="nav-links">
+          <a href="#method">Method</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="https://github.com/HuangZiheng-o-O/BB-project/tree/main/validated-answers">Answers</a>
+          <a href="https://github.com/HuangZiheng-o-O/BB-project">GitHub</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="wrap">
+          <p class="eyebrow">Source-linked clinical evidence review</p>
+          <h1>Ask a record. See the answer and its evidence.</h1>
+          <p class="lead">BB Project turns text records into a reusable, source-audited abstraction, then uses a bounded investigation agent to answer new questions with citations and reviewable calculations.</p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/HuangZiheng-o-O/BB-project">Explore the repository</a>
+            <a class="button secondary" href="architecture.html">Open interactive architecture</a>
+          </div>
+          <div class="metrics" aria-label="Project evaluation">
+            <div class="metric"><strong>27</strong><span>reviewed question reports</span></div>
+            <div class="metric"><strong>31</strong><span>supplied source documents</span></div>
+            <div class="metric"><strong>5</strong><span>agent investigation tools</span></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="architecture" id="architecture">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">System map</p>
+            <h2>From documents to auditable answers</h2>
+            <p>The interactive architecture shows the offline abstraction, deterministic calculations, online agent, evidence tools, and report trail. Its components link to verified repository source lines.</p>
+          </div>
+          <a class="diagram-link" href="architecture.html" aria-label="Open the interactive architecture diagram">
+            <img src="architecture-preview.png" alt="Architecture showing source documents, offline abstraction, a bounded answer agent, evidence tools, and cited output">
+          </a>
+          <p class="caption">Open the diagram to inspect components, source links, and the path from a new question to a cited answer.</p>
+        </div>
+      </section>
+
+      <section id="method">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Method</p>
+            <h2>One preparation step, many new questions</h2>
+            <p>Document processing is retained across questions while each answer can investigate the original source lines.</p>
+          </div>
+          <div class="steps">
+            <div class="step"><span class="number">01 / OFFLINE</span><h3>Prepare source evidence</h3><p>Index line-addressable documents, extract claims, reconcile encounters, and preserve conflicting evidence.</p></div>
+            <div class="step"><span class="number">02 / ONLINE</span><h3>Investigate each question</h3><p>The agent chooses search, source, related-record, inventory, and calculation tools as needed.</p></div>
+            <div class="step"><span class="number">03 / AUDIT</span><h3>Review the answer</h3><p>Each report includes the question, cited answer, original source lines, and online model-call count.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="answers" id="answers">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Reviewed examples</p>
+            <h2>Answers you can inspect</h2>
+            <p>The five original questions and 22 independent questions each have a full question, answer, and evidence report.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Original question</th><th>Reviewed result</th><th>Report</th></tr></thead>
+              <tbody>
+                <tr><td>Therapy encounters</td><td>12 sessions on 11 days: 5 individual, 5 group, 2 family</td><td><a href="https://github.com/HuangZiheng-o-O/BB-project/blob/main/validated-answers/DEV-01.md">DEV-01</a></td></tr>
+                <tr><td>Therapy time</td><td>585–595 patient-present minutes across the review period</td><td><a href="https://github.com/HuangZiheng-o-O/BB-project/blob/main/validated-answers/DEV-02.md">DEV-02</a></td></tr>
+                <tr><td>Weekly goal</td><td>Not met, not met, met, and undetermined across four weeks</td><td><a href="https://github.com/HuangZiheng-o-O/BB-project/blob/main/validated-answers/DEV-03.md">DEV-03</a></td></tr>
+                <tr><td>January 19 and 21</td><td>Two contacts and 90 minutes; one contact and 45 minutes</td><td><a href="https://github.com/HuangZiheng-o-O/BB-project/blob/main/validated-answers/DEV-04.md">DEV-04</a></td></tr>
+                <tr><td>Symptom course</td><td>Three distinct PHQ-9 scores: 18, 14, and 10</td><td><a href="https://github.com/HuangZiheng-o-O/BB-project/blob/main/validated-answers/DEV-05.md">DEV-05</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="more"><a href="https://github.com/HuangZiheng-o-O/BB-project/tree/main/validated-answers">Browse all 27 reviewed reports →</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer><div class="wrap"><span>BB Project · Clinical Evidence Review</span><a href="https://github.com/HuangZiheng-o-O/BB-project">Source code and documentation</a></div></footer>
+  </body>
+</html>

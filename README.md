@@ -1,14 +1,14 @@
-# Clinical Evidence Review Agent
+# BB Project — Clinical Evidence Review Agent
 
 This Python CLI creates a source-audited abstraction of text clinical records and answers related questions through a bounded, tool-using agent. It is a prototype for one review corpus at a time. Source records remain read-only; every run gets a new output directory.
 
 ## Architecture and reviewed answers
 
-**[Download the interactive architecture diagram](architecture/clinical-evidence.html)** · [View its source specification](architecture/clinical-evidence.architecture.json) · [Browse all 27 reviewed question, answer, and evidence reports](validated-answers/README.md)
+**[Project homepage](https://huangziheng-o-o.github.io/BB-project/)** · **[Interactive architecture](https://huangziheng-o-o.github.io/BB-project/architecture.html)** · [View its source specification](architecture/bb-project.architecture.json) · [Browse all 27 reviewed question, answer, and evidence reports](validated-answers/README.md)
 
-The diagram was generated and checked with [Archify](https://github.com/tt-a1i/archify). Open the downloaded standalone HTML in a browser to explore its components and source links.
+The diagram was generated and checked with [Archify](https://github.com/tt-a1i/archify). Open the interactive page to explore its components and verified source links.
 
-[![Architecture preview](architecture/clinical-evidence-preview.png)](architecture/clinical-evidence.html)
+[![Architecture preview](architecture/bb-project-preview.png)](https://huangziheng-o-o.github.io/BB-project/architecture.html)
 
 | Original question | Reviewed result | Full answer and evidence |
 |---|---|---|
