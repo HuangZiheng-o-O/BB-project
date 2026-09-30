@@ -2,7 +2,7 @@
 
 This Python CLI creates a source-audited abstraction of text clinical records and answers related questions through a bounded, tool-using agent. It is a prototype for one review corpus at a time. Source records remain read-only; every run gets a new output directory.
 
-**Documentation:** [Runbook: every command and the Gradio page](docs/RUNBOOK.md) · [Submission guide: abstraction, logs, checks and measurements](docs/SUBMISSION.md) · [Implementation walkthrough and related questions](docs/IMPLEMENTATION_WALKTHROUGH.md).
+**Documentation:** [Detailed code walkthrough](docs/CODE_WALKTHROUGH.md) · [Runbook: every command and the Gradio page](docs/RUNBOOK.md) · [Submission guide: abstraction, logs, checks and measurements](docs/SUBMISSION.md) · [Implementation walkthrough and related questions](docs/IMPLEMENTATION_WALKTHROUGH.md).
 
 ## Architecture and reviewed answers
 
