@@ -2,6 +2,35 @@
 
 > This document walks through the process from input documents to final answers. At each key step, it first explains the specific problem the step solves, then shows a short excerpt of real code, followed immediately by an explanation of the variables and conditions in that code. English names are retained in parentheses or code formatting to make it easy to compare them with the source. This document covers only the runtime code at commit [967b1b4](https://github.com/HuangZiheng-o-O/BB-project/tree/967b1b4862b355e625ec7e90710dc8bd029a095c).
 
+## Architecture diagram: what each node does
+
+Read the [architecture diagram](architecture.html) as two paths: prepare the documents once, then use the prepared results to answer new questions. The arrows show the main flow; the answering tools also read the original documents and the saved preparation results even where the diagram omits those extra arrows.
+
+| Node in the diagram | What it does |
+| --- | --- |
+| **Source documents** | The original, read-only `.txt` files. They are the evidence that all later records and citations must point back to. |
+| **Corpus + search** | Reads every file, gives it an ID and numbered lines, records a content fingerprint, and builds a local keyword-search index. It lets the answering model reopen the original wording. |
+| **Offline abstraction** | Before questions are answered, extracts what each file says, checks whether reported times describe this patient's presence, and combines records about the same encounter while retaining conflicts. This is what **Extract, audit, reconcile** means. |
+| **Validated snapshot** | Saves that preparation work as `abstraction.json`: source-linked claims, decisions about encounters, unresolved issues, source fingerprints, and the model name. “Validated” means its format, source references, and reuse conditions are checked; it does not guarantee that every interpretation is clinically correct. |
+| **Deterministic totals** | Ordinary Python code calculates encounter counts, therapy days, minutes, weekly totals, and possible ranges from the prepared records. It saves the result as `calculation.json`; the answering model does not perform this arithmetic. |
+| **New question** | A question supplied in the command-line question file or typed into the local web page. It does not change the saved preparation result. |
+| **CLI / Gradio page** | Accepts the question and starts the answering process. The command line can process a list of questions; the web page accepts one new question at a time. |
+| **Investigation agent** | The answering model decides what to inspect for this question, calls evidence tools as needed, and writes an answer with original-file line citations. |
+| **Evidence tools** | Five ways for the agent to inspect original text, prepared records, and calculated results; see the table below. |
+| **Answer + audit** | Saves the answer, a readable Markdown report with cited original lines, and a trace of model and tool activity so the result can be reviewed. These are output files, not a separate database. |
+
+The **Evidence tools** node contains five actions:
+
+| Tool | What it returns and when it helps |
+| --- | --- |
+| `search` | Ranks potentially relevant original lines by keywords. Its limited results cannot prove that every matching record was found. |
+| `open_source` (shown as **open**) | Opens specific numbered lines of an original file to check exact wording and context. |
+| `related` | Shows all extracted records linked to one encounter, the combined decision, and original excerpts; useful when records disagree. |
+| `scan` | Pages through a complete **prepared inventory**, such as encounters, measures, or observations. It cannot recover an item that was never extracted from the original text. |
+| `calculate` | Reads selected parts of the already calculated results. Despite its name, this tool does not calculate minutes when called. |
+
+The diagram's **SRC 3** badge on a node means that the diagram links to three relevant *source-code locations*; it does not mean three clinical documents were processed. Likewise, a **Database** icon denotes saved data in this diagram: the snapshot and final output are files, while the local SQLite database is the search index.
+
 ## 0. Start with a Map of the Runtime
 
 The project can run from the command line or through a local question-answering web page. `bb-review` is the command-line entry point, and `bb-review-web` is the web entry point; both ultimately use the same code to read documents, calculate results, and answer questions. The entry-point names are specified in the project's script configuration. Python 3.11 or later is required; the model client uses `anthropic` or `openai`, field validation uses `pydantic`, and the web page additionally requires `gradio`. The database, file hashing, and date calculations mainly use Python's standard library.
