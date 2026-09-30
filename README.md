@@ -34,6 +34,8 @@ The questions file is a JSON array of strings or `{ "id": "...", "question": "..
 - `trace.jsonl`: extraction, reconciliation, model and tool calls with token usage.
 - `run.json`: model, runtime, source manifest and usage summary.
 
+In the reviewed DEV-01 sample Markdown report, the model generated the answer and its inline source citations. The separate **Evidence** section was assembled locally by reading the cited line numbers from the original documents and copying those lines into the report. Appending those original excerpts made no additional model call and used no additional model output tokens. The model-generated answer and citations do use output tokens. The standard Gradio download currently contains the question and answer with inline citations; it does not append the separate Evidence section.
+
 The original inputs are `documents/` and `questions.json`. The historical GLM run is stored separately in `artifacts/development/` and is never selected by the fresh-run command or the question page. Its answer limitations are listed below.
 
 For a new model, omit `--snapshot`: this forces extraction and reconciliation from the original documents. Model-stage cache reuse is disabled by default. After a successful offline run, later questions with the same model and unchanged documents may reuse its `abstraction.json` through `--snapshot`; the source hashes, model identity, and rejected-claim findings are checked before reuse. `--reuse-cache` is an explicit content-addressed stage option. Do not reuse output from a different model when establishing an independent result.
