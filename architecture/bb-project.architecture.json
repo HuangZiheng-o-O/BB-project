@@ -10,7 +10,7 @@
       "url": "https://github.com/HuangZiheng-o-O/BB-project.git",
       "provider": "github",
       "link_mode": "web",
-      "revision": "327755f865aa5e744f98cc1d00151635a3c18a2a"
+      "revision": "00db523a93fcf53107ee4176b020be2fbd2dd02b"
     }
   },
   "components": [
@@ -30,8 +30,8 @@
       "sources": [
         {
           "path": "bb/source.py",
-          "line": 55,
-          "end_line": 66
+          "line": 59,
+          "end_line": 75
         }
       ]
     },
@@ -51,13 +51,13 @@
       "sources": [
         {
           "path": "bb/source.py",
-          "line": 33,
-          "end_line": 53
+          "line": 42,
+          "end_line": 57
         },
         {
           "path": "bb/source.py",
-          "line": 73,
-          "end_line": 89
+          "line": 123,
+          "end_line": 152
         }
       ]
     },
@@ -77,18 +77,18 @@
       "sources": [
         {
           "path": "bb/cli.py",
-          "line": 70,
-          "end_line": 91
+          "line": 73,
+          "end_line": 101
         },
         {
           "path": "bb/extract.py",
-          "line": 117,
-          "end_line": 143
+          "line": 122,
+          "end_line": 162
         },
         {
           "path": "bb/reconcile.py",
-          "line": 153,
-          "end_line": 167
+          "line": 154,
+          "end_line": 186
         }
       ]
     },
@@ -108,13 +108,13 @@
       "sources": [
         {
           "path": "bb/cli.py",
-          "line": 86,
-          "end_line": 98
+          "line": 96,
+          "end_line": 110
         },
         {
           "path": "bb/models.py",
-          "line": 269,
-          "end_line": 296
+          "line": 316,
+          "end_line": 345
         }
       ]
     },
@@ -134,13 +134,13 @@
       "sources": [
         {
           "path": "bb/compute.py",
-          "line": 17,
-          "end_line": 81
+          "line": 18,
+          "end_line": 86
         },
         {
           "path": "bb/cli.py",
-          "line": 94,
-          "end_line": 98
+          "line": 104,
+          "end_line": 111
         }
       ]
     },
@@ -160,13 +160,13 @@
       "sources": [
         {
           "path": "bb/cli.py",
-          "line": 100,
-          "end_line": 109
+          "line": 112,
+          "end_line": 123
         },
         {
           "path": "bb/web.py",
-          "line": 111,
-          "end_line": 125
+          "line": 114,
+          "end_line": 130
         }
       ]
     },
@@ -186,13 +186,13 @@
       "sources": [
         {
           "path": "bb/cli.py",
-          "line": 107,
-          "end_line": 113
+          "line": 111,
+          "end_line": 136
         },
         {
           "path": "bb/web.py",
-          "line": 66,
-          "end_line": 77
+          "line": 68,
+          "end_line": 111
         }
       ]
     },
@@ -212,8 +212,8 @@
       "sources": [
         {
           "path": "bb/agent.py",
-          "line": 187,
-          "end_line": 257
+          "line": 205,
+          "end_line": 294
         }
       ]
     },
@@ -233,8 +233,8 @@
       "sources": [
         {
           "path": "bb/agent.py",
-          "line": 94,
-          "end_line": 157
+          "line": 96,
+          "end_line": 174
         }
       ]
     },
@@ -254,13 +254,13 @@
       "sources": [
         {
           "path": "bb/cli.py",
-          "line": 116,
-          "end_line": 137
+          "line": 129,
+          "end_line": 170
         },
         {
           "path": "bb/report.py",
-          "line": 39,
-          "end_line": 67
+          "line": 40,
+          "end_line": 68
         }
       ]
     }
