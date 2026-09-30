@@ -70,8 +70,7 @@ uv run --env-file .env bb-review \
   --documents data \
   --questions questions.json \
   --provider openai \
-  --model YOUR_MODEL \
-  --base-url YOUR_API_BASE_URL \
+  --model gpt-6-sol \
   --start 2026-01-05 --end 2026-01-30
 ```
 
@@ -94,28 +93,28 @@ When `--reuse-cache` is explicitly selected, validated extraction and reconcilia
 
 ## Local question page
 
-First let the new model process the original documents, with a separate output root. `--prepare-only` skips the five development answers so you can ask only the questions you want in the page. The command prints a unique run directory when finished:
+To prepare the original documents again, `--prepare-only` skips the five development answers so you can ask only the questions you want in the page. This command captures the unique run directory:
 
 ```bash
-uv run --env-file .env bb-review \
+PREP_RUN="$(uv run --env-file .env bb-review \
   --documents data --prepare-only \
-  --provider openai --model YOUR_MODEL \
-  --base-url YOUR_API_BASE_URL \
+  --provider openai --model gpt-6-sol \
   --output runs/new-model \
-  --start 2026-01-05 --end 2026-01-30
+  --start 2026-01-05 --end 2026-01-30)"
+printf 'Prepared run: %s\n' "$PREP_RUN"
 ```
 
-Install the optional Gradio interface and point it to **that new run directory**:
+Install the optional Gradio interface. This immediately runnable example uses the checked-in `gpt-6-sol` preparation bundle:
 
 ```bash
 uv sync --extra web
 uv run --env-file .env --extra web bb-review-web \
-  --run PATH_PRINTED_BY_BB_REVIEW \
-  --provider openai --model YOUR_MODEL \
-  --base-url YOUR_API_BASE_URL
+  --documents data \
+  --run artifacts/reviewed-development \
+  --provider openai --model gpt-6-sol
 ```
 
-Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The page shows the answer with source references. **Download Markdown** provides the question, answer, cited original lines, and online model call count. The page checks the model, source hashes, calculation, and validation findings before using a saved offline result. It reuses document processing across questions. Each answer and its model trace are saved under ignored `runs/web/`. To generate the original five answers, run `bb-review` separately with `--questions questions.json` and `--snapshot PATH_TO_ABSTRACTION` after the offline run.
+Open `http://127.0.0.1:7860`, enter a new question, and click **Ask**. The page shows the answer with source references. **Download Markdown** provides the question, answer, cited original lines, and online model call count. The page checks the model, source hashes, calculation, and validation findings before using a saved offline result. It reuses document processing across questions. Each answer and its model trace are saved under ignored `runs/web/`. To use your fresh offline result, substitute `--run "$PREP_RUN"`. To generate the original five answers, run `bb-review` with `--questions questions.json` and `--snapshot "$PREP_RUN/abstraction.json"`. For ready-to-copy commands, see the [runbook](doc/RUNBOOK.md).
 
 The page listens on the local computer at `127.0.0.1`. For another document set, pass its original source directory with `--documents` to both commands and use the run directory created from those documents.
 
