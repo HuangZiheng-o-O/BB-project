@@ -2,6 +2,8 @@
 
 This Python CLI creates a source-audited abstraction of text clinical records and answers related questions through a bounded, tool-using agent. It is a prototype for one review corpus at a time. Source records remain read-only; every run gets a new output directory.
 
+**Documentation:** [Runbook: every command and the Gradio page](doc/RUNBOOK.md) · [Submission guide: abstraction, logs, checks and measurements](doc/SUBMISSION.md) · [Implementation walkthrough and related questions](doc/IMPLEMENTATION_WALKTHROUGH.md).
+
 ## Architecture and reviewed answers
 
 **[Project homepage](https://huangziheng-o-o.github.io/BB-project/)** · **[Interactive architecture](https://huangziheng-o-o.github.io/BB-project/architecture.html)** · [View its source specification](architecture/bb-project.architecture.json) · [Browse all 27 reviewed question, answer, and evidence reports](validated-answers/README.md)
@@ -46,6 +48,8 @@ The diagram was generated and checked with [Archify](https://github.com/tt-a1i/a
 | 22 · January 30 ledger | 1 family therapy day, 30 patient psychotherapy minutes | [Read](validated-answers/INDEPENDENT-22.md) |
 
 The independent answer key was held outside the repository and was not part of the searchable corpus.
+
+The submitted five-question run used `gpt-6-sol` through the `openai` adapter with a validated reusable abstraction, the January 5–30 review window, and default limits of 12 tool calls and six model turns per question. Its online stage took 101.77 seconds and 17 model calls, recording 136,419 input and 6,288 output tokens; [run metadata and traces](artifacts/reviewed-development/README.md) preserve the details. The matching offline-source run took 214.49 seconds including one question, so that number is not an offline-only duration. Provider billing rates were unavailable, so no reliable dollar cost is reported. Current input support is UTF-8 `.txt`; a PDF/DOCX parser preserving source anchors is the next input-format investigation.
 
 ## Setup
 

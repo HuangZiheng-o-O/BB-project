@@ -1,0 +1,19 @@
+{"stage": "extract", "attempt": 1, "usage": {"input_tokens": 3587, "output_tokens": 2466}, "stop_reason": "completed", "validation_attempt": 1, "batch": 1}
+{"stage": "extract", "validation_attempt": 1, "errors": [], "batch": 1}
+{"stage": "extract", "attempt": 1, "usage": {"input_tokens": 3665, "output_tokens": 3251}, "stop_reason": "completed", "validation_attempt": 1, "batch": 2}
+{"stage": "extract", "validation_attempt": 1, "errors": [], "batch": 2}
+{"stage": "extract", "attempt": 1, "usage": {"input_tokens": 3760, "output_tokens": 5232}, "stop_reason": "completed", "validation_attempt": 1, "batch": 3}
+{"stage": "extract", "validation_attempt": 1, "errors": [], "batch": 3}
+{"stage": "extract", "attempt": 1, "usage": {"input_tokens": 3571, "output_tokens": 2740}, "stop_reason": "completed", "validation_attempt": 1, "batch": 4}
+{"stage": "extract", "validation_attempt": 1, "errors": [], "batch": 4}
+{"stage": "extract", "attempt": 1, "usage": {"input_tokens": 1514, "output_tokens": 897}, "stop_reason": "completed", "validation_attempt": 1, "batch": 5}
+{"stage": "extract", "validation_attempt": 1, "errors": [], "batch": 5}
+{"stage": "time_scope", "attempt": 1, "usage": {"input_tokens": 702, "output_tokens": 103}, "stop_reason": "completed", "validation_attempt": 1}
+{"stage": "time_scope", "validation_attempt": 1, "errors": []}
+{"stage": "time_scope_decisions", "decisions": [{"mention_id": "08ddb05be078638f", "patient_actual_supported": false, "reason": "The 10:00–11:30 span is the scheduled group time, and 10:40–10:55 is a group break. The note describes Rowan’s participation but gives no patient-specific arrival, departure, or timed contact intervals."}]}
+{"stage": "reconcile", "attempt": 1, "usage": {"input_tokens": 5165, "output_tokens": 1361}, "stop_reason": "completed", "validation_attempt": 1, "batch": 1}
+{"stage": "reconcile", "validation_attempt": 1, "errors": [], "batch": 1}
+{"stage": "reconcile", "attempt": 1, "usage": {"input_tokens": 5237, "output_tokens": 1400}, "stop_reason": "completed", "validation_attempt": 1, "batch": 2}
+{"stage": "reconcile", "validation_attempt": 1, "errors": [], "batch": 2}
+{"stage": "reconcile", "attempt": 1, "usage": {"input_tokens": 4163, "output_tokens": 1008}, "stop_reason": "completed", "validation_attempt": 1, "batch": 3}
+{"stage": "reconcile", "validation_attempt": 1, "errors": [], "batch": 3}
