@@ -222,7 +222,11 @@ def answer_question(
     answer = ""
     for turn_number in range(1, max_model_turns + 1):
         turn = model.generate(AGENT_SYSTEM, history, tools=TOOL_SPECS if remaining else None, max_tokens=6000)
-        trace.append({"stage": "answer", "turn": turn_number, "usage": turn.usage, "stop_reason": turn.stop_reason, "tool_names": [call.name for call in turn.tool_calls]})
+        trace.append({
+            "stage": "answer", "turn": turn_number, "usage": turn.usage,
+            "stop_reason": turn.stop_reason, "model_text": turn.text,
+            "tool_calls": [call.__dict__ for call in turn.tool_calls],
+        })
         if not turn.tool_calls:
             answer = turn.text
             break
@@ -245,13 +249,14 @@ def answer_question(
         history.append({"role": "user", "content": "Tool or turn budget is exhausted. Give a cautious final answer using the evidence already available."})
         turn = model.generate(AGENT_SYSTEM, history, max_tokens=6000)
         answer = turn.text
-        trace.append({"stage": "answer_final", "usage": turn.usage, "stop_reason": turn.stop_reason})
+        trace.append({"stage": "answer_final", "usage": turn.usage, "stop_reason": turn.stop_reason, "model_text": turn.text})
     citations, errors = _citations(answer, tools.corpus)
     if errors:
+        trace.append({"stage": "citation_audit", "errors": errors})
         history.append({"role": "assistant", "content": answer, "response_items": turn.response_items})
         history.append({"role": "user", "content": f"Citation audit failed: {errors}. Correct invalid/missing citations using only source IDs and line numbers already inspected. Return the full corrected answer."})
         revised = model.generate(AGENT_SYSTEM, history, max_tokens=6000)
-        trace.append({"stage": "citation_repair", "usage": revised.usage, "stop_reason": revised.stop_reason})
+        trace.append({"stage": "citation_repair", "usage": revised.usage, "stop_reason": revised.stop_reason, "model_text": revised.text})
         answer = revised.text
         citations, errors = _citations(answer, tools.corpus)
     return InvestigationResult(answer=answer, citations=citations, trace=trace, audit=errors)

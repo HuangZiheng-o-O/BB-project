@@ -8,3 +8,7 @@ runs/
 .DS_Store
 cn/ARCHITECTURE.md
 cn/ARCHITECTURE-full-research.md
+architecture/*.browser-check.json
+architecture/*.delivery.json
+architecture/*.finalize.json
+architecture/*.finalize-summary.json

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Clinical Evidence Review Agent",
+    "output": "architecture/clinical-evidence.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/HuangZiheng-o-O/BB-project-v2.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "464fcb90dc5e5cfa5eb185cb1ab6a7d3d5162fb4"
+    }
+  },
+  "components": [
+    { "id": "documents", "type": "external", "label": "Source documents", "sublabel": "Read-only text corpus", "pos": [40, 100], "size": [165, 68], "sources": [{"path": "bb/source.py", "line": 55, "end_line": 66}] },
+    { "id": "corpus", "type": "database", "label": "Corpus + search", "sublabel": "Line IDs, hashes, SQLite FTS5", "pos": [290, 100], "size": [195, 68], "sources": [{"path": "bb/source.py", "line": 33, "end_line": 53}, {"path": "bb/source.py", "line": 73, "end_line": 89}] },
+    { "id": "offline", "type": "backend", "label": "Offline abstraction", "sublabel": "Extract, audit, reconcile", "pos": [575, 100], "size": [195, 68], "sources": [{"path": "bb/cli.py", "line": 70, "end_line": 91}, {"path": "bb/extract.py", "line": 117, "end_line": 143}, {"path": "bb/reconcile.py", "line": 153, "end_line": 167}] },
+    { "id": "snapshot", "type": "database", "label": "Validated snapshot", "sublabel": "Claims, decisions, source hashes", "pos": [860, 100], "size": [200, 68], "sources": [{"path": "bb/cli.py", "line": 86, "end_line": 98}, {"path": "bb/models.py", "line": 269, "end_line": 296}] },
+    { "id": "calculator", "type": "backend", "label": "Deterministic totals", "sublabel": "Patient time, weeks, uncertainty", "pos": [860, 290], "size": [200, 68], "sources": [{"path": "bb/compute.py", "line": 17, "end_line": 81}, {"path": "bb/cli.py", "line": 94, "end_line": 98}] },
+    { "id": "question", "type": "external", "label": "New question", "sublabel": "CLI file or local web input", "pos": [40, 495], "size": [165, 68], "sources": [{"path": "bb/cli.py", "line": 100, "end_line": 109}, {"path": "bb/web.py", "line": 111, "end_line": 125}] },
+    { "id": "entry", "type": "frontend", "label": "CLI / Gradio page", "sublabel": "One question at a time", "pos": [290, 495], "size": [195, 68], "sources": [{"path": "bb/cli.py", "line": 107, "end_line": 113}, {"path": "bb/web.py", "line": 66, "end_line": 77}] },
+    { "id": "agent", "type": "backend", "label": "Investigation agent", "sublabel": "Chooses tools and cites lines", "pos": [575, 495], "size": [195, 68], "sources": [{"path": "bb/agent.py", "line": 187, "end_line": 257}] },
+    { "id": "tools", "type": "backend", "label": "Evidence tools", "sublabel": "Search, open, related, scan, calculate", "pos": [575, 290], "size": [195, 68], "sources": [{"path": "bb/agent.py", "line": 94, "end_line": 157}] },
+    { "id": "output", "type": "database", "label": "Answer + audit", "sublabel": "Markdown, citations, trace", "pos": [960, 495], "size": [200, 68], "sources": [{"path": "bb/cli.py", "line": 116, "end_line": 137}, {"path": "bb/report.py", "line": 39, "end_line": 67}] }
+  ],
+  "connections": [
+    {"id": "read-documents", "from": "documents", "to": "corpus", "label": "Read and index", "variant": "emphasis"},
+    {"id": "extract-evidence", "from": "corpus", "to": "offline", "label": "Source batches", "variant": "emphasis"},
+    {"id": "save-snapshot", "from": "offline", "to": "snapshot", "label": "Validated claims", "variant": "emphasis"},
+    {"id": "calculate-totals", "from": "snapshot", "to": "calculator", "label": "Reconciled events", "variant": "emphasis"},
+    {"id": "submit-question", "from": "question", "to": "entry", "label": "Submit", "variant": "emphasis"},
+    {"id": "start-investigation", "from": "entry", "to": "agent", "label": "Ask", "variant": "emphasis"},
+    {"id": "invoke-tools", "from": "agent", "to": "tools", "label": "Investigate", "variant": "emphasis"},
+    {"id": "computed-view", "from": "tools", "to": "calculator", "label": "Read totals"},
+    {"id": "write-report", "from": "agent", "to": "output", "label": "Cited answer", "variant": "emphasis"}
+  ],
+  "cards": [
+    {"dot": "cyan", "title": "Offline processing", "items": ["A reusable snapshot records source hashes, extracted claims, reconciled encounters, and audit findings.", "A changed source or model invalidates snapshot reuse."]},
+    {"dot": "violet", "title": "Online investigation", "items": ["The agent can search and open original lines, inspect related mentions, scan inventories, and read calculated views.", "The model chooses tools within a bounded call budget."]},
+    {"dot": "emerald", "title": "Review trail", "items": ["Markdown reports contain the question, answer, and cited original lines.", "Each run saves model usage, tool results, source hashes, and stage-specific call counts."]}
+  ]
+}
