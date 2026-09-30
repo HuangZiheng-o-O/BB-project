@@ -14,6 +14,7 @@ from bb.agent import EvidenceTools, answer_question
 from bb.compute import calculate_review
 from bb.model_provider import ModelPort, make_model
 from bb.models import ReviewSnapshot, validate_snapshot_reuse
+from bb.report import model_call_count, render_answer_markdown
 from bb.source import Corpus
 
 
@@ -74,10 +75,11 @@ class ReviewSession:
             max_tool_calls=self.max_tool_calls,
             max_model_turns=self.max_model_turns,
         )
-        markdown = f"# Question\n\n{clean_question}\n\n# Answer\n\n{result.answer.strip()}\n"
-        if result.audit:
-            markdown += "\n## Citation audit warnings\n\n"
-            markdown += "\n".join(f"- {issue}" for issue in result.audit) + "\n"
+        online_model_calls = model_call_count(result.trace)
+        markdown = render_answer_markdown(
+            clean_question, result.answer, result.citations, self.corpus,
+            online_model_calls, result.audit,
+        )
 
         answer_dir = _new_directory(self.directory / "answers")
         markdown_path = answer_dir / "answer.md"
@@ -95,6 +97,7 @@ class ReviewSession:
             "model": self.model.model_name,
             "citations": result.citations,
             "citation_audit": result.audit,
+            "online_model_calls": online_model_calls,
             "usage": usage,
             "runtime_seconds": round(time.monotonic() - started, 2),
             "source_hashes": self.snapshot.source_hashes,

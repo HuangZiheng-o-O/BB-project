@@ -17,6 +17,7 @@ from bb.extract import extract_corpus
 from bb.model_provider import make_model
 from bb.models import ReviewSnapshot, validate_snapshot_reuse
 from bb.reconcile import reconcile_events
+from bb.report import model_call_count, render_answer_markdown
 from bb.source import Corpus
 from bb.time_audit import audit_time_scope
 
@@ -98,13 +99,20 @@ def run(args: argparse.Namespace) -> Path:
     tools = EvidenceTools(corpus, snapshot, calculation)
     answers: list[dict[str, Any]] = []
     questions = [] if args.prepare_only else _read_questions(args.questions)
-    for item in questions:
+    reports = output / "reports"
+    if questions:
+        reports.mkdir(exist_ok=False)
+    offline_model_calls = model_call_count(trace)
+    online_model_calls = 0
+    for number, item in enumerate(questions, 1):
         progress(f"Investigating question {item['id']}")
         result = answer_question(
             item["question"], model, tools,
             max_tool_calls=args.max_tool_calls,
             max_model_turns=args.max_model_turns,
         )
+        question_calls = model_call_count(result.trace)
+        online_model_calls += question_calls
         answers.append(
             {
                 "id": item["id"],
@@ -112,8 +120,15 @@ def run(args: argparse.Namespace) -> Path:
                 "answer": result.answer,
                 "citations": result.citations,
                 "citation_audit": result.audit,
+                "online_model_calls": question_calls,
             }
         )
+        markdown = render_answer_markdown(
+            item["question"], result.answer, result.citations, corpus,
+            question_calls, result.audit,
+        )
+        with (reports / f"question-{number:03d}.md").open("x", encoding="utf-8") as stream:
+            stream.write(markdown)
         trace.extend({**entry, "question_id": item["id"]} for entry in result.trace)
         progress(f"Completed question {item['id']}")
     _write_json(output / "answers.json", answers)
@@ -132,7 +147,9 @@ def run(args: argparse.Namespace) -> Path:
             "extraction_model": snapshot.extraction_model,
             "documents": len(corpus.sources),
             "questions": len(answers),
-            "model_calls": sum(entry.get("usage") is not None for entry in trace),
+            "model_calls": online_model_calls,
+            "offline_model_calls": offline_model_calls,
+            "total_model_calls": offline_model_calls + online_model_calls,
             "usage": usage,
             "runtime_seconds": round(time.monotonic() - started, 2),
             "source_hashes": corpus.manifest(),
